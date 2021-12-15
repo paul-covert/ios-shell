@@ -1,4 +1,5 @@
 import datetime
+import logging
 import re
 
 
@@ -44,12 +45,15 @@ def format_string(fortrantype: str, width: int, decimals: int) -> str:
 
 
 def to_iso(value: str) -> datetime.datetime:
-    value_no_comment = value.split("!")[0]
+    value_no_comment = value.split("!")[0].strip()
     # TODO: handle time zone
     time_vals = value_no_comment.split(" ")
     if len(time_vals) == 3:
         # all values are present
         tz, date, time = time_vals
+        if time.startswith("24"):
+            logging.warning(f"Invalid time: {time}")
+            time = "00" + time[2:]
         return datetime.datetime.fromisoformat("T".join([date.replace("/", "-"), time]))
     elif len(time_vals) == 2:
         tz, date = time_vals
