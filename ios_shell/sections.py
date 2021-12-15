@@ -32,6 +32,11 @@ class Channel:
         self.no = int(no)
         self.name = name.strip()
         self.units = units.strip()
+        # FIXME: remove when no longer relevant
+        if minimum.strip().upper() == "O":
+            minimum = "0"
+        if maximum.strip().upper() == "O":
+            maximum = "0"
         self.minimum = numpy.nan if minimum.strip() in EMPTY else float(minimum)
         self.maximum = numpy.nan if maximum.strip() in EMPTY else float(maximum)
 
