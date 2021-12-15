@@ -4,9 +4,8 @@ import logging
 import re
 import typing
 
+from . import sections, utils
 from .keys import *
-from .sections import *
-from .utils import *
 
 def fallible(name):
     def decorator_fallible(fn: typing.Callable[[str], tuple[typing.Any, str]]):
@@ -33,11 +32,12 @@ def get_modified_date(contents: str) -> tuple[datetime.datetime, str]:
     else:
         raise ValueError("No modified date at start of string")
 
-def get_header_version(contents: str) -> tuple[str, str]:
+def get_header_version(contents: str) -> tuple[sections.Version, str]:
+    # TODO: capture all sections of version
     rest = contents.lstrip()
-    if (m := re.match(fr"\*IOS HEADER VERSION (\d+.\d+) {DATE_STR} {DATE_STR}", rest)):
+    if (m := re.match(fr"\*IOS HEADER VERSION (\d+.\d+) +({DATE_STR}) ({DATE_STR})( [a-zA-Z0-9]*)?", rest)):
         rest = rest[m.end():]
-        return (m.group(1), rest)
+        return (sections.Version(*m.groups("")), rest)
     else:
         raise ValueError("No header version in string")
 
@@ -88,18 +88,17 @@ def get_section(contents: str, section_name: str) -> tuple[dict[str, typing.Any]
             section_info[key.strip().lower()] = value.strip()
     return section_info, rest
 
-def get_file(contents: str) -> tuple[FileInfo, str]:
+def get_file(contents: str) -> tuple[sections.FileInfo, str]:
     file_dict, rest = get_section(contents, "file")
-    validate_keys(file_dict.keys(), FILE_KEYS, "file")
-    start_time = to_iso(file_dict[START_TIME]) if START_TIME in file_dict else datetime.datetime.fromtimestamp(0)
-    end_time = to_iso(file_dict[END_TIME]) if END_TIME in file_dict else datetime.datetime.fromtimestamp(0)
-    time_zero = to_iso(file_dict[TIME_ZERO]) if TIME_ZERO in file_dict else datetime.datetime.fromtimestamp(0)
+    start_time = utils.to_iso(file_dict[START_TIME]) if START_TIME in file_dict else datetime.datetime.fromtimestamp(0)
+    end_time = utils.to_iso(file_dict[END_TIME]) if END_TIME in file_dict else datetime.datetime.fromtimestamp(0)
+    time_zero = utils.to_iso(file_dict[TIME_ZERO]) if TIME_ZERO in file_dict else datetime.datetime.fromtimestamp(0)
     number_of_records = int(file_dict[NUMBER_OF_RECORDS])
     data_description = file_dict[DATA_DESCRIPTION] if DATA_DESCRIPTION in file_dict else ""
     file_type = file_dict[FILE_TYPE] if FILE_TYPE in file_dict else ""
     number_of_channels = int(file_dict[NUMBER_OF_CHANNELS])
-    channels = [Channel(**elem) for elem in file_dict[CHANNELS]] if CHANNELS in file_dict else []
-    channel_details = [ChannelDetail(**elem) for elem in file_dict[CHANNEL_DETAIL]] if CHANNEL_DETAIL in file_dict else []
+    channels = [sections.Channel(**elem) for elem in file_dict[CHANNELS]] if CHANNELS in file_dict else []
+    channel_details = [sections.ChannelDetail(**elem) for elem in file_dict[CHANNEL_DETAIL]] if CHANNEL_DETAIL in file_dict else []
     remarks = file_dict[REMARKS] if REMARKS in file_dict else ""
     data_type = file_dict[DATA_TYPE] if DATA_TYPE in file_dict else ""
     to_remove = " \n\t'"
@@ -108,87 +107,100 @@ def get_file(contents: str) -> tuple[FileInfo, str]:
         if CONTINUED in file_dict:
             format_str += file_dict[CONTINUED].strip(to_remove)
     else:
-        format_info = [format_string(detail.format, detail.width, detail.decimal_places) for detail in channel_details]
+        format_info = [utils.format_string(detail.format, detail.width, detail.decimal_places) for detail in channel_details]
         format_str = "({})".format(",".join(format_info))
-    file_info = FileInfo(
-        start_time,
-        end_time,
-        time_zero,
-        number_of_records,
-        data_description,
-        file_type,
-        format_str,
-        data_type,
-        number_of_channels,
-        channels,
-        channel_details,
-        remarks,
+    file_info = sections.FileInfo(
+        start_time=start_time,
+        end_time=end_time,
+        time_zero=time_zero,
+        number_of_records=number_of_records,
+        data_description=data_description,
+        file_type=file_type,
+        format=format_str,
+        data_type=data_type,
+        number_of_channels=number_of_channels,
+        channels=channels,
+        channel_details=channel_details,
+        remarks=remarks,
+        raw=file_dict,
     )
     return file_info, rest
 
-@fallible("administration")
-def get_administration(contents: str) -> tuple[Administration, str]:
+def get_administration(contents: str) -> tuple[sections.Administration, str]:
     admin_dict, rest = get_section(contents, "administration")
-    validate_keys(admin_dict.keys(), ADMINISTRATION_KEYS, "administration")
     mission = admin_dict[MISSION] if MISSION in admin_dict else ""
     agency = admin_dict[AGENCY] if AGENCY in admin_dict else ""
     country = admin_dict[COUNTRY] if COUNTRY in admin_dict else ""
     project = admin_dict[PROJECT] if PROJECT in admin_dict else ""
     scientist = admin_dict[SCIENTIST] if SCIENTIST in admin_dict else ""
     platform = admin_dict[PLATFORM] if PLATFORM in admin_dict else ""
-    admin_info = Administration(
-        mission,
-        agency,
-        country,
-        project,
-        scientist,
-        platform,
+    remarks = admin_dict[REMARKS] if REMARKS in admin_dict else ""
+    admin_info = sections.Administration(
+        mission=mission,
+        agency=agency,
+        country=country,
+        project=project,
+        scientist=scientist,
+        platform=platform,
+        remarks=remarks,
+        raw=admin_dict,
     )
     return admin_info, rest
 
-@fallible("location")
-def get_location(contents: str) -> tuple[Location, str]:
+def get_location(contents: str) -> tuple[sections.Location, str]:
     location_dict, rest = get_section(contents, "location")
-    validate_keys(location_dict.keys(), LOCATION_KEYS, "location")
     geographic_area = location_dict[GEOGRAPHIC_AREA] if GEOGRAPHIC_AREA in location_dict else ""
     station = location_dict[STATION] if STATION in location_dict else ""
     event_number = int(location_dict[EVENT_NUMBER]) if EVENT_NUMBER in location_dict else -1
-    latitude = get_latitude(location_dict[LATITUDE])
-    longitude = get_longitude(location_dict[LONGITUDE])
-    location_info = Location(
-        geographic_area,
-        station,
-        event_number,
-        latitude,
-        longitude,
+    latitude = utils.get_latitude(location_dict[LATITUDE])
+    longitude = utils.get_longitude(location_dict[LONGITUDE])
+    water_depth = int(location_dict[WATER_DEPTH]) if WATER_DEPTH in location_dict else -1
+    remarks = location_dict[REMARKS] if REMARKS in location_dict else ""
+    location_info = sections.Location(
+        geographic_area=geographic_area,
+        station=station,
+        event_number=event_number,
+        latitude=latitude,
+        longitude=longitude,
+        water_depth=water_depth,
+        remarks=remarks,
+        raw=location_dict,
     )
     return location_info, rest
 
-@fallible("instrument")
-def get_instrument(contents: str) -> tuple[Instrument, str]:
+def get_instrument(contents: str) -> tuple[sections.Instrument, str]:
     instrument_dict, rest = get_section(contents, "instrument")
-    validate_keys(instrument_dict.keys(), INSTRUMENT_KEYS, "instrument")
     kind = instrument_dict[TYPE] if TYPE in instrument_dict else ""
     model = instrument_dict[MODEL] if MODEL in instrument_dict else ""
-    instrument_info = Instrument(
-        kind,
-        model,
+    remarks = instrument_dict[REMARKS] if REMARKS in instrument_dict else ""
+    instrument_info = sections.Instrument(
+        type=kind,
+        model=model,
+        remarks=remarks,
+        raw=instrument_dict,
     )
     return instrument_info, rest
 
-@fallible("history")
-def get_history(contents: str) -> tuple[History, str]:
+def get_history(contents: str) -> tuple[sections.History, str]:
     history_dict, rest = get_section(contents, "history")
-    validate_keys(history_dict.keys(), HISTORY_KEYS, "history")
-    programs = [Program(*elem) for elem in history_dict[PROGRAMS]] if PROGRAMS in history_dict else []
+    programs = [sections.Program(*elem) for elem in history_dict[PROGRAMS]] if PROGRAMS in history_dict else []
     remarks = history_dict[REMARKS] if REMARKS in history_dict else ""
-    history_info = History(
-        programs,
-        remarks,
+    history_info = sections.History(
+        programs=programs,
+        remarks=remarks,
+        raw=history_dict,
     )
     return history_info, rest
 
-@fallible("comments")
+def get_calibration(contents: str) -> tuple[sections.Calibration, str]:
+    calibration_dict, rest = get_section(contents, "calibration")
+    corrected_channels = calibration_dict[CORRECTED_CHANNELS] if CORRECTED_CHANNELS in calibration_dict else []
+    calibration_info = sections.Calibration(
+        corrected_channels=corrected_channels,
+        raw=calibration_dict,
+    )
+    return calibration_info, rest
+
 def get_comments(contents: str) -> tuple[str, str]:
     rest = contents.lstrip()
     if (m := re.match(r"\*COMMENTS", rest)):

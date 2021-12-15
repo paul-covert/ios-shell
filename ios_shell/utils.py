@@ -37,16 +37,19 @@ def format_string(fortrantype: str, width: int, decimals: int) -> str:
     else:
         return fortrantype
 
-def validate_keys(keys: list[str], expected_keys: list[str], section: str):
-    bad_keys = [key for key in keys if key not in expected_keys]
-    if len(bad_keys) > 0:
-        raise ValueError(f"Unknown keys in {section.upper()} section: {bad_keys}")
-
 def to_iso(value: str) -> datetime.datetime:
     value_no_comment = value.split("!")[0]
     # TODO: handle time zone
-    tz, date, time = value_no_comment.split(" ")
-    return datetime.datetime.fromisoformat("T".join([date.replace("/", "-"), time]))
+    time_vals = value_no_comment.split(" ")
+    if len(time_vals) == 3:
+        # all values are present
+        tz, date, time = time_vals
+        return datetime.datetime.fromisoformat("T".join([date.replace("/", "-"), time]))
+    elif len(time_vals) == 2:
+        tz, date = time_vals
+        return datetime.datetime.fromisoformat(date.replace("/", "-"))
+    else:
+        raise ValueError(f"Unsure how to handle {value_no_comment}")
 
 def _get_coord(raw_coord: str, positive_marker: str, negative_marker: str) -> float:
     coord = raw_coord.split("!")[0]

@@ -1,5 +1,14 @@
 from dataclasses import dataclass
 import datetime
+import numpy
+import typing
+
+@dataclass
+class Version:
+    version_no: str
+    date1: str
+    date2: str
+    tag: str = ""
 
 class Channel:
     no: int # acts as an identifier
@@ -17,10 +26,11 @@ class Channel:
         maximum="",
     ):
         self.no = int(no)
-        self.name = name
-        self.units = units
-        self.minimum = float(minimum)
-        self.maximum = float(maximum)
+        self.name = name.strip()
+        self.units = units.strip()
+        empty = ["' '", "n/a"]
+        self.minimum = numpy.nan if minimum.strip() in empty else float(minimum)
+        self.maximum = numpy.nan if maximum.strip() in empty else float(maximum)
 
 class ChannelDetail:
     no: int # acts as an identifier
@@ -63,6 +73,7 @@ class FileInfo:
     channels: list[Channel]
     channel_details: list[ChannelDetail]
     remarks: str
+    raw: dict[str, typing.Any]
 
 @dataclass
 class Administration:
@@ -72,6 +83,8 @@ class Administration:
     project: str
     scientist: str
     platform: str
+    remarks: str
+    raw: dict[str, typing.Any]
 
 @dataclass
 class Location:
@@ -80,11 +93,16 @@ class Location:
     event_number: int
     latitude: float
     longitude: float
+    water_depth: int
+    remarks: str
+    raw: dict[str, typing.Any]
 
 @dataclass
 class Instrument:
     type: str
     model: str
+    remarks: str
+    raw: dict[str, typing.Any]
 
 @dataclass
 class Program:
@@ -96,8 +114,18 @@ class Program:
     records_out: int
 
 @dataclass
+class Raw:
+    channels: list[list[str]]
+    remarks: str
+    raw: dict[str, typing.Any]
+
+@dataclass
 class History:
     programs: list[Program]
     remarks: str
+    raw: dict[str, typing.Any]
 
-
+@dataclass
+class Calibration:
+    corrected_channels: list[dict[str, str]]
+    raw: dict[str, typing.Any]
