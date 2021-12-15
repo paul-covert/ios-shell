@@ -1,0 +1,116 @@
+*2014/03/03 10:14:39.43
+*IOS HEADER VERSION 1.10 2011/10/26 2011/10/26
+
+*FILE
+    START TIME          : PST 1954/09/09 14:55:00.000
+    NUMBER OF RECORDS   : 7
+    DATA DESCRIPTION    : Bottle:Wire
+    NUMBER OF CHANNELS  : 4
+
+    $TABLE: CHANNELS
+    ! No Name                    Units    Minimum        Maximum
+    !--- ----------------------- -------- -------------- --------------
+       1 Depth                   metres   0              18.3
+       2 Temperature:Reversing   'deg C'  9.92           17.3
+       3 Salinity:Bottle         ppt      10.43          31.43
+       4 Oxygen:Dissolved        mL/L     2.702          6.167
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad     Start  Width  Format  Type  Decimal_Places
+    !---  ------  -----  -----  ------  ----  --------------
+       1  -99.9   ' '        6  F       ' '     0
+       2  -99.99  ' '        7  F       ' '     2
+       3  -99.99  ' '        7  F       ' '     2
+       4  -99.99  ' '        7  F       ' '     2
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1954-10
+    AGENCY              : PBS, POG
+    PROJECT             : Pollution Studies & Monitoring
+    SCIENTIST           : M. Waldichuk
+    PLATFORM            : C.N.A.V. EHKOLI
+
+*LOCATION
+    GEOGRAPHIC AREA     : Alberni Inlet
+    STATION             : 2
+    EVENT NUMBER        : 2
+    LATITUDE            :  49  13.97000 N  ! (deg min)
+    LONGITUDE           : 124  48.98000 W  ! (deg min)
+    WATER DEPTH         : 18.9
+    CLOUD TYPE          : Cs                                    ! custom item
+    CLOUD AMOUNT        : 7 tenths                              ! custom item
+    AIR TEMP. DRY       : 79 F                                  ! custom item
+    AIR TEMP. WET       : na F                                  ! custom item
+    WIND DIR. (FROM)    : 0 True                                ! custom item
+    WIND SPEED          : 0 mph                                 ! custom item
+    BAROMETER           : 1014 mbar                             ! custom item
+    SEA                 : 0                                     ! custom item
+    SWELL               : 0                                     ! custom item
+    SECCHI DEPTH        : 19 ft                                 ! custom item
+    SECCHI COLOUR       : gn-br                                 ! custom item
+
+*INSTRUMENT
+    $REMARKS
+        Water samples were taken mostly with Fjarle bottles, except for the
+        surface sample which was collected with a bucket.
+        Temperatures were obtained, when possible, with paired reversing
+        thermometers (accuracy �0.01   C).  Surface temperatures were measured
+        in a bucket with a standard surface thermometer(accuracy �0.1   C).
+        Salinity was determined on a salinometer at the base laboratory.
+        The salinity data have an accuracy of �0.01 PPT.
+        Dissolved oxygen determinations were conducted by the modified
+        Winkler Method according to the procedures described by
+        Strickland and Parsons (1965).
+        Reference:
+        Waldichuk, M. , J. H. Meikle and W.F. Hyslop  1968.
+        Alberni Inlet and Harbour Physical and Chemical Oceanographic Data,1954-1967
+        FRB, MRS No. 937.
+    $END
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name               Vers   Date       Time     Recs In   Recs Out
+    !   ------------------ ------ ---------- -------- --------- ---------
+        CLEAN              2.8.2  2000/02/28 13:32:47         7         7
+        CALIB              11.0   2003/05/26 19:57:34         7         7
+        HDREDIT2           1.6    2003/05/26 19:58:32 ?         ?
+        CHANGE_MISSION_IDs 1.0    2014/03/03 10:14:39         7         7
+    $END
+    $REMARKS
+        CLEAN functions:
+         - Reset #RECS, MIN & MAX values in header.
+         - Customise the Data Column Headings at the end of the header.
+        -The following CALIB parameters were used:
+         Calibration type = Correct
+         Mode: ONLY - calibration specs from Cal File only.
+         Calibration file = H:\New_Archive\Work\CALIB\oxygen.CCF
+         Calibrations applied:
+         Ch Name                          Units    Fmla Coefficents
+         -- ----------------------------- --------- --- -----------------------------
+          4 Dissolved_Oxygen:vol          mL/L       10  0.0000000E+00  0.7000000E+00
+    $END
+
+*CALIBRATION
+
+    $TABLE: CORRECTED CHANNELS
+    !   Name                   Units  Fmla Pad    Coefficients
+    !   ---------------------- ------ ---- ------ ------------
+        Dissolved_Oxygen:vol   mL/L     10 -99.99 () (0 0.7)
+    $END
+!--1-- --2--- --3--- --4---
+!Depth Temper Salini Oxygen
+!      ature: ty:    :     
+!      Revers Bottle Dissol
+!      ing           ved   
+!----- ------ ------ ------
+*END OF HEADER
+    0.  17.30  10.43   5.96
+    2.  16.19  16.02   6.17
+    5.  12.80  27.44   4.75
+    7.  11.04  30.86   4.55
+    9.  10.50  31.13   3.56
+   14.  10.00  31.38   2.70
+   18.   9.92  31.43   2.90

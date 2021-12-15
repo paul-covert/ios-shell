@@ -154,7 +154,7 @@ def get_location(contents: str) -> tuple[sections.Location, str]:
     event_number = int(location_dict[EVENT_NUMBER]) if EVENT_NUMBER in location_dict else -1
     latitude = utils.get_latitude(location_dict[LATITUDE])
     longitude = utils.get_longitude(location_dict[LONGITUDE])
-    water_depth = int(location_dict[WATER_DEPTH]) if WATER_DEPTH in location_dict and location_dict[WATER_DEPTH] not in [""] else -1
+    water_depth = float(location_dict[WATER_DEPTH]) if WATER_DEPTH in location_dict and location_dict[WATER_DEPTH] not in [""] else -1
     remarks = location_dict[REMARKS] if REMARKS in location_dict else ""
     location_info = sections.Location(
         geographic_area=geographic_area,

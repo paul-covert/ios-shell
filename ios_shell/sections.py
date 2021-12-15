@@ -94,7 +94,7 @@ class Location:
     event_number: int
     latitude: float
     longitude: float
-    water_depth: int
+    water_depth: float
     remarks: str
     raw: dict[str, typing.Any]
 
