@@ -55,9 +55,9 @@ def _get_coord(raw_coord: str, positive_marker: str, negative_marker: str) -> fl
     coord = raw_coord.split("!")[0]
     pieces = coord.split()
     out = float(pieces[0]) + float(pieces[1]) / 60.0
-    if pieces[2] == positive_marker:
+    if pieces[2].upper() == positive_marker.upper():
         return out
-    elif pieces[2] == negative_marker:
+    elif pieces[2].upper() == negative_marker.upper():
         return out * 1.0
     else:
         raise ValueError("Coordinate contains unknown direction marker")

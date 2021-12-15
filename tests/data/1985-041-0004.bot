@@ -1,0 +1,109 @@
+*2012/06/29 17:39:04.93
+*IOS HEADER VERSION 1.10 2011/10/26 2011/10/26
+
+*FILE
+    START TIME          : UTC 1985/06/11 09:12:00.000
+    NUMBER OF RECORDS   : 1
+    FILE TYPE           : ASCII
+    NUMBER OF CHANNELS  : 3
+
+    $TABLE: CHANNELS
+    ! No Name               Units    Minimum        Maximum
+    !--- ------------------ -------- -------------- --------------
+       1 Depth              metres   148            148
+       2 Oxygen:Dissolved   mL/L     2.439          2.439
+       3 Salinity:Bottle    PSS-78   33.943         33.943
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  -99   ' '        6  F       ' '     0
+       2  -99   ' '        8  F       R4      3
+       3  -99   ' '        8  F       R4      3
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1985-41
+    AGENCY              : IOS, Tides & Currents, Sidney, B.C.
+    PROJECT             : Laperouse
+    SCIENTIST           : Crawford W.
+    PLATFORM            : Vector
+
+*LOCATION
+    GEOGRAPHIC AREA     : NE PACIFIC
+    STATION             : M1
+    EVENT NUMBER        : 4
+    LATITUDE            :  48  16.39800 N  ! (deg min)
+    LONGITUDE           : 125  40.00200 w  ! (deg min)
+
+*INSTRUMENT
+    TYPE                : Bottle
+    MODEL               : Niskin (1.7 litre)
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name     Vers   Date       Time     Recs In   Recs Out
+    !   -------- ------ ---------- -------- --------- ---------
+        SPRD2IS  4.9    2012/06/29 14:53:51         1         1
+        HDREDIT2 2.5.1  2012/06/29 15:14:10 ?         ?
+        HDREDIT2 2.5.1  2012/06/29 17:39:04 ?         ?
+    $END
+    $REMARKS
+        -HEADER EDITS: 2012/06/29 15:14:10
+         Applied edit header: P:\Cruise_Data_Processing\1985\DOC\1985-41-missing-bot.txt
+         Channel  3: Salinity:Bottle [PSS-78]
+           Units: ==> PSS-78
+         Channel  2: Oxygen:Dissolved [mL/L]
+           Units: ==> mL/L
+         Channel  1: Depth [metres]
+           Units: ==> metres
+           Format: I4 ==> F6.0
+        -HEADER EDITS: 2012/06/29 17:39:04
+         Applied edit header: P:\Cruise_Data_Processing\1985\1985-41\DOC\1985-41-missing-bot2.txt
+    $END
+
+*COMMENTS
+    Many bottle files for this cruise were created in 2003, but some samples
+     were missed.
+
+    This file was created in June 2012 by Germaine Gatien based on the Daily Log
+     of the Ocean Physics Group and salinity and dissolved oxygen analysis logs.
+     Estimates for the sampling depth were made based on the maximum sampling of
+     the CTD plus log notes that many samples came from 2 or 3m above the bottom.
+     The depths are estimates.
+
+    The samples were taken at the bottom of the CTD cast with the same name.
+
+    Collection methods:
+    -------------------
+      Salinity:
+      - Collected in bottles.
+      Dissolved Oxygen:
+      - Collected in bottles.
+
+    Analyzes methods:
+    -------------------------
+      Salinity determinations were made at sea with a Guildline model 8400 lab
+      salinometer.
+
+      The dissolved oxygen analyses were done in the shipboard laboratory by a
+      modified Winkler method (Carpenter, 1965).
+    --------------------------------------------------------------------------
+      Some of the bottle samples from this cruise were originally archived
+       as coming from cruise 1985-21, but they were actually collected during
+       cruise 1985-41. Many of the dissolved oxygen samples were missing
+       from the 1985-41 files, so the 2 sets were combined. In the course of the
+       revision it was found that other bottle samples were missing from both
+       sets, so those data were added which involved creating some new BOT files.
+       For details on the revisions see file 1985-41-processing-revisions.doc.
+      June 29, 2012
+    --------------------------------------------------------------------------
+!--1-- ---2--- ---3---
+!Depth Oxygen: Salinit
+!      Dissolv y:     
+!      ed      Bottle 
+!----- ------- -------
+*END OF HEADER
+  148.   2.439  33.943
