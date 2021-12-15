@@ -42,7 +42,7 @@ def get_header_version(contents: str) -> tuple[sections.Version, str]:
     # TODO: capture all sections of version
     rest = contents.lstrip()
     if m := re.match(
-        fr"\*IOS HEADER VERSION (\d+.\d+) +({DATE_STR}) ({DATE_STR})( [a-zA-Z0-9]*)?",
+        fr"\*IOS HEADER VERSION +(\d+.\d+) +({DATE_STR}) +({DATE_STR})( +[a-zA-Z0-9.]+)?",
         rest,
     ):
         rest = rest[m.end() :]

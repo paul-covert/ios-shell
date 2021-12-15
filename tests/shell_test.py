@@ -106,6 +106,7 @@ def test_shell_get_section():
         "1996-038-0077.che",
         "2005-010-0016.che",
         "2008-010-0001.che",
+        "2008-026-0089.che",
     ],
 )
 def test_shell_read_file(file_name):
