@@ -70,13 +70,18 @@ def get_section(contents: str, section_name: str) -> tuple[dict[str, typing.Any]
         elif m := re.match(r"\$TABLE: ([^\n]+)\n", rest):
             # handle table
             table_name = m.group(1).lower()
-            rest = rest[m.end() :].lstrip()
+            rest = rest[m.end() :]
             # table column names
             line, rest = rest.split("\n", 1)
-            column_names = [name.lower() for name in line.lstrip()[1:].split()]
+            column_names_line = line
             # table column mask
             line, rest = rest.split("\n", 1)
             mask = [c == "-" for c in line]
+            # apply column mask in case names contain spaces
+            column_names = [
+                name.lower().strip().replace(" ", "_")
+                for name in utils.apply_column_mask(column_names_line, mask)
+            ]
             # values
             section_info[table_name] = []
             while not rest.lstrip().startswith("$END"):

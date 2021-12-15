@@ -84,6 +84,7 @@ def test_shell_get_section():
 @pytest.mark.parametrize(
     "file_name",
     [
+        "00200001.med",
         "01100124.bot",
         "1930-031-0001.bot",
         "1930-031-0010.bot",
