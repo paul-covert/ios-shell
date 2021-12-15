@@ -23,7 +23,7 @@ def fallible(name):
     return decorator_fallible
 
 
-DATE_STR = r"\d{4}/\d{2}/\d{2}"
+DATE_STR = r"\d{4}[/-]\d{2}[/-]\d{2}"
 TIME_STR = r"\d{2}:\d{2}:\d{2}(.\d*)?"
 
 
