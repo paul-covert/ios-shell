@@ -1,0 +1,189 @@
+*2013/12/16 17:21:07.86
+*IOS HEADER VERSION 1.10 2011/10/26 2011/10/26
+
+*FILE
+    START TIME          : GMT 1959/11/17 22:24:00.000
+    NUMBER OF RECORDS   : 7
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    DATA TYPE           : REAL*4
+    NUMBER OF CHANNELS  : 4
+    Q_DATE_TIME         : 1                                     ! custom item
+    Q_RECORD            : 1                                     ! custom item
+    QC_VERSION          : OCN0                                  ! custom item
+
+    $TABLE: CHANNELS
+    ! No Name                    Units     Minimum        Maximum
+    !--- ----------------------- --------- -------------- --------------
+       1 Depth                   metres    0              180
+       2 Temperature:Reversing   'deg C'   7.6            10.18
+       3 Salinity:Bottle         ppt       28.28          31.24
+       4 Oxygen:Dissolved        umol/kg   13.4           269.7
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  -99   ' '        7  F       ' '     1
+       2  -99   ' '        7  F       ' '     2
+       3  -99   ' '        7  F       ' '     2
+       4  -99   ' '        6  F       ' '     1
+    $END
+    $REMARKS
+         This file was created by MEDS
+         MEDS File name : 180259740_0013
+         Data quality is expressed with the following flags
+            0 = not checked
+            1 = appears to be good
+            2 = inconsistent with climatology
+            3 = appears to be doubtful
+            4 = appears to be wrong
+            5 = value was changed, see the history record
+         Q_DATE_TIME is the quality of the date/time
+         Q_RECORD is the worst quality flag for the entire station expressed
+             as 1,2,3,5,4,0 from best to worst
+         QC_VERSION is the version of quality control software used
+
+        Parameter               DUP_FLAG   DIGIT_CODE   STANDARD
+        --------------------    --------    --------    --------
+        Temperature                    0           0           1
+        Salinity: Pre-1978             0           0           S
+        Oxygen                         0           0           5
+
+        DUP_FLAG indicates if another profile exists in MEDS that is of
+             higher quality (0=N= no duplicate)
+        DIGIT_CODE indicates the type of digitization used
+        STANDARD indicates the precision of the observation
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1959-40
+    AGENCY              : PACIFIC OCEANOGRAPHIC GROUP
+    COUNTRY             : Canada
+    PROJECT             : Coastal Seaways
+    SCIENTIST           : Herlinveaux R.H.
+    PLATFORM            : Oshawa
+
+*LOCATION
+    GEOGRAPHIC AREA     : B.C. Coast
+    STATION             : J-9
+    EVENT NUMBER        : 13
+    LATITUDE            :  48  42.76000 N  ! (deg min)
+    LONGITUDE           : 123  27.00000 W  ! (deg min)
+    Q_POS               : 1                                     ! custom item
+    DEPTH               : 186.000                               ! custom item
+    WDIR                : 290.000                               ! custom item
+    WSPD                : 6.000                                 ! custom item
+    DRYT                : 3.300                                 ! custom item
+    CLCM                : 8                                     ! custom item
+    WWCD                : 63                                    ! custom item
+    QCP$                : 0001FFDE                              ! custom item
+    QCF$                : 00000000                              ! custom item
+    $REMARKS
+        Q_POS is the quality of the position
+        Other custom items are defined by GF3 or MEDS codes
+    $END
+
+*INSTRUMENT
+    TYPE                : Bottle
+
+*COMMENTS
+       MEDS processing history records
+         IDENT PRC_CODE  VERSION PRC_DATE ACT_CODE ACT_PARM     AUX_ID    O_VALUE
+      -------- -------- -------- -------- ---------------- ---------- ----------
+      -------- -------- -------- -------- ---------------- ---------- ----------
+      -------- -------- -------- -------- ---------------- ---------- ----------
+      -------- -------- -------- -------- ---------------- ---------- ----------
+
+      IDENT is a code idicating the agency writing this history record
+      PRC_CODE is the identifier of the software writing this history record
+      VERSION is the version of the software used
+      PRC_DATE is the date as YYYYMMDD this record was written
+      ACT_CODE tells what action was taken against the data
+      ACT_PARM = idicates whhich parameter was acted on
+      AUX-ID helps to further quality the parameter affected
+      O_VALUE was the original value of the parameter if an action changed it
+
+      The data in this file were collected from MEDS and reformatted or
+        transcribed from the publication:
+           Oceanographic Data Record
+           Coastal Seaways Project
+           November 16 to December 11, 1959
+           Pacific Oceanographic Group, 1959
+           Canadian Committee on Oceanography
+
+      Quality flags had been added to the MEDS files but the entries were
+        inappropriate in many cases, so the flag channels were removed.
+      Quality checks were made and a few corrections were applied.
+      -----------------------------------------------------------------------------------------
+
+    **********************************************************************************************
+    NOTE: The speed check showed unreasonably high speed between casts #13 and 14; this is because
+      two vessels were used for this cruise, and those casts were on different vessels.
+    **********************************************************************************************
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name     Vers   Date       Time     Recs In   Recs Out
+    !   -------- ------ ---------- -------- --------- ---------
+        HDREDIT2 2.5.1  2008/12/13 07:29:24 ?         ?
+        HDREDIT2 2.5.1  2010/03/29 17:23:08 ?         ?
+        REMOVECH 8.1.1  2013/06/11 16:02:47         7         7
+        CLEAN    5.1    2013/06/11 16:03:27         7         7
+        HDREDIT2 2.6    2013/06/12 16:03:21 ?         ?
+        CLEAN    5.1    2013/12/16 17:21:07         7         7
+    $END
+$REMARKS
+    -HEADER EDITS: 2008/12/13 07:29:24
+     Applied edit header: J:\DATA\edit_header.txt
+     Channel  3: Quality_Flag:Temperature [IGOSS_flags]
+       Name:   Quality_Flag:Temp ==> Quality_Flag:Temperature
+     Channel  5: Quality_Flag:Salinity [IGOSS_flags]
+       Name:   Quality_Flag:Sali ==> Quality_Flag:Salinity
+     Channel  6: Dissolved_Oxygen [mmol/m**3]
+       Name:   Oxygen ==> Dissolved_Oxygen
+     Channel  7: Quality_Flag:Oxygen [IGOSS_flags]
+       Name:   Quality_Flag:Oxyg ==> Quality_Flag:Oxygen
+    -HEADER EDITS: 2010/03/29 17:23:08
+     Channel  4: Salinity:Bottle [PPT]
+       Name:   Salinity: Pre-1978 ==> Salinity:Bottle
+    -REMOVECH 2013/06/11 16:02:47
+     The following CHANNEL(S) were removed:
+      Quality_Flag:Temperature [IGOSS_flags]
+      Quality_Flag:Salinity [IGOSS_flags]
+      Quality_Flag:Oxygen [IGOSS_flags]
+    -CLEAN functions: 2013/06/11 16:03:27 20
+     Reset #RECS, MIN & MAX values in header.
+     Change Pad Value to -99 in All Channels.
+     Set event to last  4 characters of file name
+    -HEADER EDITS: 2013/06/12 16:03:21
+     Applied edit header: P:\Cruise_Data_Processing\Data Recovery Project\1959\5940\recovery-hdr.txt
+     Channel  1: Depth [metres]
+       Units:  Metres ==> metres
+     Channel  3: Salinity:Bottle [ppt]
+       Units:  PPT ==> ppt
+     Channel  2: Temperature:Reversing [deg C]
+       Name:   Temperature ==> Temperature:Reversing
+       Units:  Degrees_C ==> deg C
+     Channel  4: Oxygen:Dissolved [umol/kg]
+       Name:   Dissolved_Oxygen ==> Oxygen:Dissolved
+       Units:  mmol/m**3 ==> umol/kg
+    -CLEAN functions: 2013/12/16 17:21:07
+     Reset #RECS, MIN & MAX values in header.
+     Delete Empty Channels:     0 deleted.
+$END
+!--1--- --2--- --3--- --4--
+!Depth  Temper Salini Oxyge
+!       ature: ty:    n:   
+!       Revers Bottle Disso
+!       ing           lved 
+!------ ------ ------ -----
+*END OF HEADER
+    0.0   7.60  28.28 269.7
+   10.0   8.38  28.65 255.0
+   30.0  10.18  29.68 143.8
+   50.0   9.30  30.04 156.3
+  100.0   9.22  31.07  13.4
+  150.0   9.12  31.21 -99.0
+  180.0   9.18  31.24 -99.0

@@ -204,9 +204,9 @@ def get_calibration(contents: str) -> tuple[sections.Calibration, str]:
 def get_comments(contents: str) -> tuple[str, str]:
     rest = contents.lstrip()
     if (m := re.match(r"\*COMMENTS", rest)):
-        rest = rest[m.end():]
+        rest = rest[m.end():].lstrip()
         lines = []
-        while not rest.lstrip().startswith("*"):
+        while not rest.startswith("*"):
             line, rest = rest.split("\n", 1)
             lines.append(line)
         return "\n".join(lines), rest
