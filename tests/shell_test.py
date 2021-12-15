@@ -81,6 +81,7 @@ def test_shell_get_section():
         "1933-001-0001.bot",
         "1933-001-0004.bot",
         "1938-019-0001.bot",
+        "1950-001-0033.bot",
     ])
 def test_shell_read_file(file_name):
     full_file_name = os.path.join(os.path.dirname(__file__), "data", file_name)

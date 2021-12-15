@@ -51,13 +51,14 @@ class ChannelDetail:
         type="",
         decimal_places="",
     ):
+        empty = ["", "' '"]
         self.no = int(no)
-        self.pad = float(pad)
+        self.pad = float(pad) if pad.strip() not in empty else numpy.nan
         self.start = start
-        self.width = int(width) if width not in ["", "' '"] else 0
+        self.width = int(width) if width.strip() not in empty else 0
         self.format = format
         self.type = type
-        self.decimal_places = int(decimal_places) if decimal_places not in ["", "' '"] else 0
+        self.decimal_places = int(decimal_places) if decimal_places.strip() not in empty else 0
 
 @dataclass
 class FileInfo:
