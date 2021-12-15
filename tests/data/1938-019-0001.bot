@@ -1,0 +1,208 @@
+*2013/08/21 11:22:38.91
+*IOS HEADER VERSION 1.10 2011/10/26 2011/10/26
+
+*FILE
+    START TIME          : GMT 1938/04/26 13:12:00.000
+    NUMBER OF RECORDS   : 5
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    DATA TYPE           : REAL*4
+    NUMBER OF CHANNELS  : 4
+    Q_DATE_TIME         : 1                                     ! custom item
+    Q_RECORD            : 1                                     ! custom item
+    QC_VERSION          : OCN0                                  ! custom item
+
+    $TABLE: CHANNELS
+    ! No Name                    Units    Minimum        Maximum
+    !--- ----------------------- -------- -------------- --------------
+       1 Depth                   metres   0              75
+       2 Temperature:Reversing   'deg C'  8.43           9.44
+       3 Salinity:Bottle         ppt      27.45          32.07
+       4 Oxygen:Dissolved        mL/L     5.06           7.74
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  -99   ' '        7  F       ' '     1
+       2  -99   ' '        7  F       ' '     2
+       3  -99   ' '        7  F       ' '     2
+       4  -99   ' '        7  F       R4      2
+    $END
+    $REMARKS
+         This file was created by MEDS
+         MEDS File name : 180238619_0001
+         Data quality is expressed with the following flags
+            0 = not checked
+            1 = appears to be good
+            2 = inconsistent with climatology
+            3 = appears to be doubtful
+            4 = appears to be wrong
+            5 = value was changed, see the history record
+         Q_DATE_TIME is the quality of the date/time
+         Q_RECORD is the worst quality flag for the entire station expressed
+             as 1,2,3,5,4,0 from best to worst
+         QC_VERSION is the version of quality control software used
+
+        Parameter               DUP_FLAG   DIGIT_CODE   STANDARD
+        --------------------    --------    --------    --------
+        Temperature                    0           0           1
+        Salinity: Pre-1978             0           0           S
+        Oxygen                         0           0           5
+
+        DUP_FLAG indicates if another profile exists in MEDS that is of
+             higher quality (0=N= no duplicate)
+        DIGIT_CODE indicates the type of digitization used
+        STANDARD indicates the precision of the observation
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1938-19
+    AGENCY              : Pacific Oceanographic Group
+    COUNTRY             : Canada
+    PROJECT             : Approaches to Juan de Fuca Strait
+    SCIENTIST           : Tully J.P.
+    PLATFORM            : H.M.C.S. Armentieres
+
+*LOCATION
+    STATION             : 30-1
+    EVENT NUMBER        : 1
+    LATITUDE            :  48  31.50000 N  ! (deg min)
+    LONGITUDE           : 124  30.50000 W  ! (deg min)
+    Q_POS               : 1                                     ! custom item
+    DEPTH               : 80.000                                ! custom item
+    WDIR                : 250.000                               ! custom item
+    WSPD                : 4.000                                 ! custom item
+    ATMS                : 1019.300                              ! custom item
+    DRYT                : 9.900                                 ! custom item
+    WWCD                : 03                                    ! custom item
+    QCP$                : 0001FFCE                              ! custom item
+    QCF$                : 00000000                              ! custom item
+    $REMARKS
+        Q_POS is the quality of the position
+        Other custom items are defined by GF3 or MEDS codes
+    $END
+
+*INSTRUMENT
+    TYPE                : Bottle
+
+*COMMENTS
+     MEDS processing history records
+       IDENT PRC_CODE  VERSION PRC_DATE ACT_CODE ACT_PARM     AUX_ID    O_VALUE
+    -------- -------- -------- -------- ---------------- ---------- ----------
+    -------- -------- -------- -------- ---------------- ---------- ----------
+    -------- -------- -------- -------- ---------------- ---------- ----------
+    -------- -------- -------- -------- ---------------- ---------- ----------
+
+    IDENT is a code idicating the agency writing this history record
+    PRC_CODE is the identifier of the software writing this history record
+    VERSION is the version of the software used
+    PRC_DATE is the date as YYYYMMDD this record was written
+    ACT_CODE tells what action was taken against the data
+    ACT_PARM = idicates whhich parameter was acted on
+    AUX-ID helps to further quality the parameter affected
+    O_VALUE was the original value of the parameter if an action changed it
+             Data quality is expressed with the following flags
+                0 = not checked
+                1 = appears to be good
+                2 = inconsistent with climatology
+                3 = appears to be doubtful
+                4 = appears to be wrong
+                5 = value was changed, see the history record
+    ----------------------------------------------------------------------------------------
+    This file was created based on data recovered by B. Minkley. In some cases files existed
+    but were missing channels or significant digits. The data were found or verified using
+    original cruise file records stored at the Institute of Ocean Sciences.
+    ----------------------------------------------------------------------------------------
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name     Vers   Date       Time     Recs In   Recs Out
+    !   -------- ------ ---------- -------- --------- ---------
+        HDREDIT2 2.5.1  2008/11/25 13:21:50 ?         ?
+        CALIB    11.7   2010/03/29 11:38:05         5         5
+        HDREDIT2 2.5.1  2010/03/29 11:39:23 ?         ?
+        CLEAN    5.0.4  2012/07/26 14:08:10         5         5
+        HDREDIT2 2.5.1  2012/07/26 14:26:31 ?         ?
+        HDREDIT2 2.6    2013/06/07 13:19:23 ?         ?
+        REMOVECH 8.1.1  2013/08/21 11:22:38         5         5
+    $END
+$REMARKS
+    -HEADER EDITS: 2008/11/25 13:21:50
+     Applied edit header: f:\data\edit_header.txt
+     Channel  4: Salinity: Pre-1978 [ppt]
+       Units:  PPT ==> ppt
+     Channel  5: Quality_Flag:Salinity [IGOSS_flags]
+       Name:   Quality_Flag:Sali ==> Quality_Flag:Salinity
+     Channel  6: Dissolved_Oxygen [mmol/m**3]
+       Name:   Oxygen ==> Dissolved_Oxygen
+    -CALIB parameters: 2010/03/29 11:38:05
+     Calibration type = Correct
+     Mode: UNION - calibration specs from Header and Cal File.
+     Calibration file = G:\oxy.ccf
+     Calibrations applied:
+     Ch Name                          Units    Fmla Coefficents
+     -- ----------------------------- --------- --- -----------------------------
+      6 Dissolved_Oxygen              ml/l       10  0.0000000E+00  0.2239140E-01
+    -HEADER EDITS: 2010/03/29 11:39:23
+     Channel  2: Temperature:Reversing [Degrees C]
+       Name:   Temperature ==> Temperature:Reversing
+       Units:  Degrees_C ==> Degrees C
+     Channel  4: Salinity:Bottle [PPT]
+       Name:   Salinity: Pre-1978 ==> Salinity:Bottle
+       Units:  ppt ==> PPT
+     Channel  6: Oxygen:Dissolved [ml/l]
+       Name:   Dissolved_Oxygen ==> Oxygen:Dissolved
+    -CLEAN functions: 2012/07/26 14:08:10
+     Reset #RECS, MIN & MAX values in header.
+     Change Pad Value to -99 in All Channels.
+    -HEADER EDITS: 2012/07/26 14:26:31
+     Applied edit header: P:\Cruise_Data_Processing\Data Recovery Project\1938\3819\recovery-hdr.txt
+     Channel  1: Depth [metres]
+       Units:  Metres ==> metres
+     Channel  2: Temperature:Reversing [deg C]
+       Units:  Degrees C ==> deg C
+     Channel  3: Flag:Temperature:Reversing [n/a]
+       Name:   Quality_Flag:Temp ==> Flag:Temperature:Reversing
+       Units:  IGOSS_flags ==> n/a
+       Format: F3.0 ==> I3
+     Channel  4: Salinity:Bottle [ppt]
+       Units:  PPT ==> ppt
+     Channel  7: Flag:Oxygen:Dissolved [n/a]
+       Name:   Quality_Flag:Oxyg ==> Flag:Oxygen:Dissolved
+       Units:  IGOSS_flags ==> n/a
+       Format: F3.0 ==> I3
+     Channel  5: Flag:Salinity:Bottle [n/a]
+       Name:   Quality_Flag:Salinity ==> Flag:Salinity:Bottle
+       Units:  IGOSS_flags ==> n/a
+       Format: F3.0 ==> I3
+    -HEADER EDITS: 2013/06/07 13:19:23
+     Channel  6: Oxygen:Dissolved [mL/L]
+       Units:  ml/l ==> mL/L
+    -REMOVECH 2013/08/21 11:22:38
+     The following CHANNEL(S) were removed:
+      Flag:Temperature:Reversing
+      Flag:Salinity:Bottle
+      Flag:Oxygen:Dissolved
+$END
+
+*CALIBRATION
+
+    $TABLE: CORRECTED CHANNELS
+    !   Name               Units  Fmla Pad    Coefficients
+    !   ------------------ ------ ---- ------ ------------
+        Dissolved_Oxygen   ml/l     10 -99    () (0 0.223914E-01)
+    $END
+!--1--- --2--- --3--- --4---
+!Depth  Temper Salini Oxygen
+!       ature: ty:    :     
+!       Revers Bottle Dissol
+!       ing           ved   
+!------ ------ ------ ------
+*END OF HEADER
+    0.0   9.44  27.45   7.74
+   10.0   8.91  31.24   6.33
+   25.0   8.49  31.53   5.75
+   50.0   8.43  31.76   5.30
+   75.0   8.71  32.07   5.06

@@ -1,0 +1,98 @@
+*2014/02/28 14:22:34.80
+*IOS HEADER VERSION 1.10 2011/10/26 2011/10/26
+
+*FILE
+    START TIME          : PST 1930/12/29 19:45:00.000
+    NUMBER OF RECORDS   : 12
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    DATA TYPE           : REAL*4
+    NUMBER OF CHANNELS  : 4
+
+    $TABLE: CHANNELS
+    ! No Name                    Units    Minimum        Maximum
+    !--- ----------------------- -------- -------------- --------------
+       1 Depth                   metres   ' '            ' '
+       2 Temperature:Reversing   'deg C'  ' '            ' '
+       3 Salinity:Bottle         ppt      ' '            ' '
+       4 Oxygen:Dissolved        mL/L     ' '            ' '
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad     Start  Width  Format  Type  Decimal_Places
+    !---  ------  -----  -----  ------  ----  --------------
+       1  -99.99  ' '        6  F       ' '     0
+       2  -99.99  ' '        7  F       ' '     2
+       3  -99.99  ' '        7  F       ' '     2
+       4  -99.99  ' '        7  F       ' '     2
+    $END
+    $REMARKS
+        The BASIC program 30-31.BAS V1.0 Written by D. Stucchi produced this file.
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1930-31
+    AGENCY              : PBS
+    PROJECT             : Saanich Inlet Study
+    SCIENTIST           : Neal M. Carter
+    PLATFORM            : A. P. KNIGHT
+
+*LOCATION
+    GEOGRAPHIC AREA     : Saanich Inlet
+    STATION             : 73
+    EVENT NUMBER        : 1
+    LATITUDE            :  48  32.90000 N  ! (deg min)
+    LONGITUDE           : 123  32.70000 W  ! (deg min)
+
+*INSTRUMENT
+    $REMARKS
+        These data were collected by Neal M. Carter of the Pacific Oceanographic
+        Group located the Pacific Biological Station in Nanaimo.
+        For more details see text file, 30-31.txt, for this cruise.
+        Water samples were taken with Pettersen-Nansen bottles.
+        Temperatures were obtained with reversing thermometers at each depth.
+            Accuracy of the temperature taken with reversing thermometers
+            is +- 0.02 C but reported to nearest 0.01 C.
+        Salinity was computed from chlorinty determinations which were carried
+        out using Mohr's Method
+            Accuracy of the salinity determinations is estimated at +- 0.05PSU.
+        Dissolved oxygen determinations are presumed to have been carried out
+        using a Winkler method according to the procedures described by
+        H. J. Hollister in the Manual of Oceanographic Methods written by
+        Canadian Joint Committe for Oceanography 1950.
+
+        These data were converted to IOS header format by D. Stucchi (IOS).
+    $END
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name     Vers   Date       Time     Recs In   Recs Out
+    !   -------- ------ ---------- -------- --------- ---------
+        HDREDIT2 1.1    2000/01/14 16:32:50 ?         ?
+        HDREDIT2 1.6    2003/05/25 16:49:13 ?         ?
+        HDREDIT2 2.6    2014/02/28 14:22:34 ?         ?
+    $END
+    $REMARKS
+        -HEADER EDITS: 2014/02/28 14:22:34
+         Applied edit header: O:\Data Processing\Header Comments\Work\MISSION.TXT
+    $END
+!--1-- --2--- --3--- --4---
+!Depth Temper Salini Oxygen
+!      ature: ty:    :     
+!      Revers Bottle Dissol
+!      ing           ved   
+!----- ------ ------ ------
+*END OF HEADER
+    0.   5.00  27.90   9.34
+    1.   5.03  28.04   9.24
+    2.   6.76  28.80   8.11
+    4.   7.28  28.93   7.77
+    6.   8.40  30.03   6.24
+    9.   9.03  30.46   5.29
+   18.   9.00  30.59   5.29
+   27.   9.16  30.72   4.73
+   46.   8.98  30.84   4.08
+   91.   8.77  30.97   3.35
+  183.   8.27  31.26   1.60
+  215.   8.40  31.27   0.55

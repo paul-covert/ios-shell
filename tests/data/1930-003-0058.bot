@@ -1,0 +1,258 @@
+*2017/07/27 09:14:41.31
+*IOS HEADER VERSION 2.0      2016/04/28 2016/06/13 IVF16
+
+*FILE
+    START TIME          : GMT 1932/08/10 14:06:00.000
+    NUMBER OF RECORDS   : 7
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    DATA TYPE           : REAL*4
+    NUMBER OF CHANNELS  : 8
+    Q_DATE_TIME         : 1                                     ! custom item
+    Q_RECORD            : 2                                     ! custom item
+    QC_VERSION          : OCN0                                  ! custom item
+
+    $TABLE: CHANNELS
+    ! No Name                    Units     Minimum        Maximum
+    !--- ----------------------- --------- -------------- --------------
+       1 Depth                   metres    0              20
+       2 Temperature:Reversing   'deg C'   9.7            16
+       3 Salinity:Bottle         ppt       24.13          28.93
+       4 Oxygen:Dissolved        umol/kg   213            276.9
+       5 Phosphate               umol/L    0.68           1.45
+       6 Silicate                umol/L    16             50
+       7 Nitrate                 umol/L    2.3            13.5
+       8 pH                      n/a       8              8.4
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  -99   ' '        7  F       ' '     1
+       2  -99   ' '        7  F       ' '     2
+       3  -99   ' '        7  F       ' '     2
+       4  -99   ' '        6  F       ' '     1
+       5  -99   ' '        6  F       ' '     2
+       6  -99   ' '        6  F       ' '     1
+       7  -99   ' '        6  F       ' '     1
+       8  -99   ' '        6  F       ' '     1
+    $END
+    $REMARKS
+         This file was created by MEDS
+         MEDS File name : 180232603_0058
+         Data quality is expressed with the following flags
+            0 = not checked
+            1 = appears to be good
+            2 = inconsistent with climatology
+            3 = appears to be doubtful
+            4 = appears to be wrong
+            5 = value was changed, see the history record
+         Q_DATE_TIME is the quality of the date/time
+         Q_RECORD is the worst quality flag for the entire station expressed
+             as 1,2,3,5,4,0 from best to worst
+         QC_VERSION is the version of quality control software used
+
+        Parameter               DUP_FLAG   DIGIT_CODE   STANDARD
+        --------------------    --------    --------    --------
+        Temperature                    0           0           1
+        Salinity: Pre-1978             0           0           S
+        Oxygen                         0           0           5
+        Phosphate                      0           0           4
+        Silicate                       0           0           4
+        Nitrate                        0           0           4
+        pH                             0           0           4
+        Time of Obs.                   0           0           4
+
+        DUP_FLAG indicates if another profile exists in MEDS that is of
+             higher quality (0=N= no duplicate)
+        DIGIT_CODE indicates the type of digitization used
+        STANDARD indicates the precision of the observation
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1932-03
+    AGENCY              : Pacific Oceanographic Group
+    COUNTRY             : Canada
+    PROJECT             : Strait of Georgia
+    SCIENTIST           : Tully J.P.
+    PLATFORM            : C.G.M.S  A.P. Knight
+
+*LOCATION
+    STATION             : L
+    EVENT NUMBER        : 58
+    LATITUDE            :  50   6.00000 N  ! (deg min)
+    LONGITUDE           : 124  54.00000 W  ! (deg min)
+    Q_POS               : 1                                     ! custom item
+    WDIR                : 320.000                               ! custom item
+    WSPD                : 2.000                                 ! custom item
+    ATMS                : 1015.900                              ! custom item
+    DRYT                : 12.900                                ! custom item
+    CLCM                : 0                                     ! custom item
+    WWCD                : 00                                    ! custom item
+    QCP$                : 0001FFDE                              ! custom item
+    QCF$                : 00010000                              ! custom item
+    $REMARKS
+        Q_POS is the quality of the position
+        Other custom items are defined by GF3 or MEDS codes
+    $END
+
+*INSTRUMENT
+    TYPE                : Bottle
+
+*COMMENTS
+        MEDS processing history records
+          IDENT PRC_CODE  VERSION PRC_DATE ACT_CODE ACT_PARM     AUX_ID    O_VALUE
+       -------- -------- -------- -------- ---------------- ---------- ----------
+       -------- -------- -------- -------- ---------------- ---------- ----------
+       -------- -------- -------- -------- ---------------- ---------- ----------
+       -------- -------- -------- -------- ---------------- ---------- ----------
+
+       IDENT is a code idicating the agency writing this history record
+       PRC_CODE is the identifier of the software writing this history record
+       VERSION is the version of the software used
+       PRC_DATE is the date as YYYYMMDD this record was written
+       ACT_CODE tells what action was taken against the data
+       ACT_PARM = idicates whhich parameter was acted on
+       AUX-ID helps to further quality the parameter affected
+       O_VALUE was the original value of the parameter if an action changed it.
+
+    30m salinity of 30.66 too high, data removed.
+    ------------------------------------------------------------------------------------
+    This file was recovered from MEDS records and reformatted by B. Minkley.
+    Where possible, original records were checked to confirm or add data to the files.
+    Further checks of data were performed by G. Gatien, quality flags were adjusted as
+    necessary and further reformatting was applied.
+    ------------------------------------------------------------------------------------
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name     Vers   Date       Time     Recs In   Recs Out
+    !   -------- ------ ---------- -------- --------- ---------
+        CLEAN    5.0.2  2008/11/20 09:05:27        11        11
+        HDREDIT2 2.5.1  2008/11/26 11:16:44 ?         ?
+        REMOVECH 8.1.1  2012/07/24 08:52:35        11        11
+        CLEAN    5.0.4  2012/07/24 09:06:52        11        11
+        HDREDIT2 2.5.1  2012/07/24 09:11:23 ?         ?
+        HDREDIT2 2.5.1  2012/07/26 10:53:46 ?         ?
+        REMOVECH 8.1.1  2013/08/20 14:36:50        11        11
+        CLEAN    5.2.2  2017/07/27 09:14:41         7         7
+    $END
+$REMARKS
+    -CLEAN functions: 2008/11/20 09:05:24 20
+     Reset #RECS, MIN & MAX values in header.
+    -HEADER EDITS: 2008/11/26 11:16:44
+     Applied edit header: f:\data\edit_header.txt
+     Channel  1: Depth [Metres]
+       Format: F8.2 ==> F7.1
+     Channel  2: Temperature [Degrees_C]
+       Format: F10.3 ==> F7.2
+     Channel  4: Salinity: Pre-1978 [ppt]
+       Units:  PPT ==> ppt
+       Format: F10.3 ==> F7.2
+     Channel  5: Quality_Flag:Salinity [IGOSS_flags]
+       Name:   Quality_Flag:Sali ==> Quality_Flag:Salinity
+     Channel  6: Dissolved_Oxygen [mmol/m**3]
+       Name:   Oxygen ==> Dissolved_Oxygen
+       Format: F10.3 ==> F6.1
+     Channel  7: Quality_Flag:pH [IGOSS_flags]
+       Name:   Quality_Flag:Oxyg ==> Quality_Flag:pH
+     Channel  8: Phosphate [mmol/m**3]
+       Format: F10.3 ==> F6.2
+     Channel 10: Silicate [mmol/m**3]
+       Format: F10.3 ==> F6.1
+     Channel 11: Quality_Flag:Silicate [IGOSS_flags]
+       Name:   Quality_Flag:Sili ==> Quality_Flag:Silicate
+     Channel 14: pH []
+       Format: F10.3 ==> F6.1
+     Channel  7: Quality_Flag:pH [IGOSS_flags]
+       Name:   Quality_Flag:Oxyg ==> Quality_Flag:pH
+     Channel 16: Time of Obs. [Hour, Minute]
+       Format: F10.3 ==> F6.0
+    -REMOVECH 2012/07/24 08:52:35
+     The following CHANNEL(S) were removed:
+      Time of Obs. [Hour, Minute]
+      Quality_Flag:Time [IGOSS_flags]
+    -CLEAN functions: 2012/07/24 09:06:51 20
+     Reset #RECS, MIN & MAX values in header.
+     Change Pad Value to -99 in All Channels.
+    -HEADER EDITS: 2012/07/24 09:11:23
+     Applied edit header: P:\Cruise_Data_Processing\Data Recovery Project\1932\3203\recovery-hdr.txt
+     Channel  1: Depth [metres]
+       Units:  Metres ==> metres
+       Format: F7.1 ==> F6.0
+     Channel  2: Temperature [deg C]
+       Units:  Degrees_C ==> deg C
+     Channel  3: Flag:Temperature [n/a]
+       Name:   Quality_Flag:Temp ==> Flag:Temperature
+       Units:  IGOSS_flags ==> n/a
+       Format: F3.0 ==> I3
+     Channel  5: Flag:Salinity:Bottle [n/a]
+       Name:   Quality_Flag:Salinity ==> Flag:Salinity:Bottle
+       Units:  IGOSS_flags ==> n/a
+       Format: F3.0 ==> I3
+     Channel  6: Oxygen:Dissolved [umol/kg]
+       Name:   Dissolved_Oxygen ==> Oxygen:Dissolved
+       Units:  mmol/m**3 ==> umol/kg
+     Channel  7: Flag:Oxygen:Dissolved [n/a]
+       Name:   Quality_Flag:pH ==> Flag:Oxygen:Dissolved
+       Units:  IGOSS_flags ==> n/a
+       Format: F3.0 ==> I3
+     Channel  8: Phosphate [umol/L]
+       Units:  mmol/m**3 ==> umol/L
+     Channel  9: Flag:Phosphate [n/a]
+       Name:   Quality_Flag:Phos ==> Flag:Phosphate
+       Units:  IGOSS_flags ==> n/a
+       Format: F3.0 ==> I3
+     Channel 10: Silicate [umol/L]
+       Units:  mmol/m**3 ==> umol/L
+     Channel 11: Flag:Silicate [n/a]
+       Name:   Quality_Flag:Silicate ==> Flag:Silicate
+       Units:  IGOSS_flags ==> n/a
+       Format: F3.0 ==> I3
+     Channel 12: Nitrate [umol/L]
+       Units:  mmol/m**3 ==> umol/L
+       Format: F10.3 ==> F6.1
+     Channel 13: Flag:Nitrate [n/a]
+       Name:   Quality_Flag:Nitr ==> Flag:Nitrate
+       Units:  IGOSS_flags ==> n/a
+       Format: F3.0 ==> I3
+     Channel 14: pH [n/a]
+       Units: ==> n/a
+     Channel 15: Flag:pH [n/a]
+       Name:   Quality_Flag:pH ==> Flag:pH
+       Units:  IGOSS_flags ==> n/a
+       Format: F3.0 ==> I3
+    -HEADER EDITS: 2012/07/26 10:53:46
+     Channel  1: Depth [metres]
+       Format: F6.0 ==> F7.1
+     Channel  2: Temperature:Reversing [deg C]
+       Name:   Temperature ==> Temperature:Reversing
+     Channel  3: Flag:Temperature:Reversing [n/a]
+       Name:   Flag:Temperature ==> Flag:Temperature:Reversing
+    -REMOVECH 2013/08/20 14:36:50
+     The following CHANNEL(S) were removed:
+      Flag:Temperature:Reversing
+      Flag:Salinity:Bottle
+      Flag:Oxygen:Dissolved
+      Flag:Phosphate
+      Flag:Silicate
+      Flag:Nitrate
+      Flag:pH
+    -CLEAN functions: 2017/07/27 09:14:41
+     Reset #RECS, MIN & MAX values in header.
+$END
+!--1--- --2--- --3--- --4-- --5-- --6-- --7-- --8--
+!Depth  Temper Salini Oxyge Phosp Silic Nitra  pH  
+!       ature: ty:    n:    hate  ate   te         
+!       Revers Bottle Disso                        
+!       ing           lved                         
+!------ ------ ------ ----- ----- ----- ----- -----
+*END OF HEADER
+    0.0  16.00  24.13 274.2  0.77  16.0   2.3   8.4
+    1.0  15.50  25.17 273.8  0.68  20.0   2.7   8.4
+    2.0  15.50  25.37 274.7  0.85  20.0   2.7   8.4
+    4.0  15.50  25.46 273.3  0.81  20.0   2.7   8.4
+    6.0  15.50  25.50 276.9  0.68  20.0   3.2   8.4
+   10.0  14.70  26.17 266.2  0.81  21.0   5.3   8.4
+   20.0   9.70  28.93 213.0  1.45  50.0  13.5   8.0

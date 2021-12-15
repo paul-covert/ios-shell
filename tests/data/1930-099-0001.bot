@@ -1,0 +1,218 @@
+*2013/08/20 13:51:03.10
+*IOS HEADER VERSION 1.10 2011/10/26 2011/10/26
+
+*FILE
+    START TIME          : GMT 1930/11/07 18:06:00.000
+    NUMBER OF RECORDS   : 11
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    DATA TYPE           : REAL*4
+    NUMBER OF CHANNELS  : 6
+    Q_DATE_TIME         : 1                                     ! custom item
+    Q_RECORD            : 3                                     ! custom item
+    QC_VERSION          : OCN0                                  ! custom item
+
+    $TABLE: CHANNELS
+    ! No Name                    Units     Minimum        Maximum
+    !--- ----------------------- --------- -------------- --------------
+       1 Depth                   metres    0              165
+       2 Temperature:Reversing   'deg C'   6.6            9.85
+       3 Salinity:Bottle         ppt       28.33          31.02
+       4 Oxygen:Dissolved        umol/kg   234.463        444.363
+       5 Silicate                umol/L    24             53
+       6 pH                      n/a       7.8            8.3
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  -99   ' '        7  F       ' '     1
+       2  -99   ' '        7  F       ' '     2
+       3  -99   ' '        7  F       ' '     2
+       4  -99   ' '        7  F       ' '     2
+       5  -99   ' '        6  F       ' '     1
+       6  -99   ' '        6  F       ' '     2
+    $END
+    $REMARKS
+         This file was created by MEDS
+         MEDS File name : 180230600_0001
+         Data quality is expressed with the following flags
+            0 = not checked
+            1 = appears to be good
+            2 = inconsistent with climatology
+            3 = appears to be doubtful
+            4 = appears to be wrong
+            5 = value was changed, see the history record
+         Q_DATE_TIME is the quality of the date/time
+         Q_RECORD is the worst quality flag for the entire station expressed
+             as 1,2,3,5,4,0 from best to worst
+         QC_VERSION is the version of quality control software used
+
+        Parameter               DUP_FLAG   DIGIT_CODE   STANDARD
+        --------------------    --------    --------    --------
+        Temperature                    0           0           1
+        Salinity: Pre-1978             0           0           S
+        Oxygen                         0           0           5
+        Silicate                       0           0           4
+        pH                             0           0           4
+        Time of Obs.                   0           0           4
+
+        DUP_FLAG indicates if another profile exists in MEDS that is of
+             higher quality (0=N= no duplicate)
+        DIGIT_CODE indicates the type of digitization used
+        STANDARD indicates the precision of the observation
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1931-99
+    AGENCY              : POG, Nanaimo, BC
+    COUNTRY             : Canada
+    PROJECT             : Nanoose
+
+*LOCATION
+    EVENT NUMBER        : 1
+    LATITUDE            :  49  15.00000 N  ! (deg min)
+    LONGITUDE           : 123  46.00000 W  ! (deg min)
+    Q_POS               : 1                                     ! custom item
+    OID$                : 001                                   ! custom item
+    QCP$                : 0001FFCE                              ! custom item
+    QCF$                : 00008000                              ! custom item
+    $REMARKS
+        Q_POS is the quality of the position
+        Other custom items are defined by GF3 or MEDS codes
+    $END
+
+*INSTRUMENT
+    TYPE                : Bottle
+
+*COMMENTS
+     MEDS processing history records
+       IDENT PRC_CODE  VERSION PRC_DATE ACT_CODE ACT_PARM     AUX_ID    O_VALUE
+    -------- -------- -------- -------- ---------------- ---------- ----------
+    -------- -------- -------- -------- ---------------- ---------- ----------
+    -------- -------- -------- -------- ---------------- ---------- ----------
+    -------- -------- -------- -------- ---------------- ---------- ----------
+
+    IDENT is a code idicating the agency writing this history record
+    PRC_CODE is the identifier of the software writing this history record
+    VERSION is the version of the software used
+    PRC_DATE is the date as YYYYMMDD this record was written
+    ACT_CODE tells what action was taken against the data
+    ACT_PARM = idicates whhich parameter was acted on
+    AUX-ID helps to further quality the parameter affected
+    O_VALUE was the original value of the parameter if an action changed it
+    ---------------------------------------------------------------------------------------
+    This file was created based on data recovered by B. Minkley from original cruise files
+    stored at the Institute of Ocean Sciences, Department of Fisheries and Oceans.
+    ---------------------------------------------------------------------------------------
+    -------------------------------------------------------------------------------------
+    This file was created based on data recovered by B. Minkley. The original data could
+    not be found for verification.
+    Tests were done to check for errors in data, quality flags and positions and some
+     quality flags were changed.
+    --------------------------------------------------------------------------------------
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name     Vers   Date       Time     Recs In   Recs Out
+    !   -------- ------ ---------- -------- --------- ---------
+        REMOVECH 8.1.1  2012/07/23 09:16:50        11        11
+        CLEAN    5.0.4  2012/07/23 09:26:11 ?         ?
+        HDREDIT2 2.5.1  2012/07/23 11:37:33 ?         ?
+        CLEAN    5.1    2013/06/07 12:31:19        11        11
+        HDREDIT2 2.6    2013/06/07 12:52:01 ?         ?
+        REMOVECH 8.1.1  2013/08/20 13:51:03        11        11
+    $END
+$REMARKS
+ -REMOVECH 2012/07/23 09:16:50
+  The following CHANNEL(S) were removed:
+   Time of Obs. [Hour, Minute]
+   Quality_Flag:Time [IGOSS_flags]
+ -CLEAN functions: 2012/07/23 09:26:11
+  Change Pad Value to -99 in All Channels.
+ -HEADER EDITS: 2012/07/23 11:37:33
+  Applied edit header: P:\Cruise_Data_Processing\Data Recovery Project\1930\Working\recovery-hdr.txt
+  Channel  1: Depth:Nominal [metres]
+    Name:   Depth ==> Depth:Nominal
+    Units:  Metres ==> metres
+    Format: E15.7 ==> F7.1
+  Channel  2: Temperature:Reversing [deg C]
+    Name:   Temperature ==> Temperature:Reversing
+    Units:  Degrees_C ==> deg C
+    Format: E15.7 ==> F7.2
+  Channel  3: Flag:Temperature [n/a]
+    Name:   Quality_Flag:Temp ==> Flag:Temperature
+    Units:  IGOSS_flags ==> n/a
+    Format: E15.7 ==> I3
+  Channel  4: Salinity:Bottle [ppt]
+    Name:   Salinity: Pre-1978 ==> Salinity:Bottle
+    Units:  PPT ==> ppt
+    Format: E15.7 ==> F8.3
+  Channel  5: Flag:Salinity [n/a]
+    Name:   Quality_Flag:Sali ==> Flag:Salinity
+    Units:  IGOSS_flags ==> n/a
+    Format: E15.7 ==> I3
+  Channel  6: Oxygen:Dissolved [umol/L]
+    Name:   Oxygen ==> Oxygen:Dissolved
+    Units:  mmol/m**3 ==> umol/L
+    Format: E15.7 ==> F8.3
+  Channel  7: Flag:Oxygen:Dissolved [n/a]
+    Name:   Quality_Flag:Oxyg ==> Flag:Oxygen:Dissolved
+    Units:  IGOSS_flags ==> n/a
+    Format: E15.7 ==> I3
+  Channel  8: Silicate [umol/L]
+    Units:  mmol/m**3 ==> umol/L
+    Format: E15.7 ==> F6.1
+  Channel  9: Flag:Silicate [IGOSS_flags]
+    Name:   Quality_Flag:Sili ==> Flag:Silicate
+    Format: E15.7 ==> I3
+  Channel 10: pH [n/a]
+    Units: ==> n/a
+    Format: E15.7 ==> F6.2
+  Channel 11: Flag:pH [n/a]
+    Name:   Quality_Flag:pH ==> Flag:pH
+    Units:  IGOSS_flags ==> n/a
+    Format: E15.7 ==> I5
+ -CLEAN functions: 2013/06/07 12:31:19
+  Reset #RECS, MIN & MAX values in header.
+  Set event to last  4 characters of file name
+ -HEADER EDITS: 2013/06/07 12:52:01
+  Applied edit header: P:\Cruise_Data_Processing\Data Recovery Project\1931\1931-99\recovery-hdr.txt
+  Channel  1: Depth [metres]
+    Name:   Depth:Nominal ==> Depth
+  Channel  3: Flag:Temperature:Reversing [n/a]
+    Name:   Flag:Temperature ==> Flag:Temperature:Reversing
+  Channel  4: Salinity:Bottle [ppt]
+    Format: F8.3 ==> F7.2
+  Channel  5: Flag:Salinity:Bottle [n/a]
+    Name:   Flag:Salinity ==> Flag:Salinity:Bottle
+  Channel  6: Oxygen:Dissolved [umol/kg]
+    Units:  umol/L ==> umol/kg
+    Format: F8.3 ==> F7.2
+ -REMOVECH 2013/08/20 13:51:03
+  The following CHANNEL(S) were removed:
+   Flag:Temperature:Reversing
+   Flag:Salinity:Bottle
+   Flag:Oxygen:Dissolved
+   Flag:Silicate [IGOSS_flags]
+   Flag:pH
+$END
+!--1--- --2--- --3--- --4--- --5-- --6--
+!Depth  Temper Salini Oxygen Silic  pH  
+!       ature: ty:    :      ate        
+!       Revers Bottle Dissol            
+!       ing           ved               
+!------ ------ ------ ------ ----- -----
+*END OF HEADER
+    0.0   9.85  28.33 425.61  53.0  8.30
+    1.0   9.60  28.51 444.36  29.0  8.30
+    2.0   9.60  28.42 428.29  53.0  8.30
+    4.0   9.60  28.48 428.73  24.0  8.10
+    6.0   9.55  29.25 338.07  26.0  8.05
+    9.0   9.35  29.54 320.21  47.0  7.90
+   18.0   9.20  29.69 307.70  28.0  7.80
+   27.0   9.20  29.76 255.90  39.0  7.90
+   46.0   9.00  30.25 260.81  47.0  8.00
+   91.0   9.30  30.81 234.46  39.0  7.90
+  165.0   6.60  31.02 257.69  43.0  7.90

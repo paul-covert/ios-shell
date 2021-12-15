@@ -1,0 +1,107 @@
+*2014/03/03 10:13:19.03
+*IOS HEADER VERSION 1.10 2011/10/26 2011/10/26
+
+*FILE
+    START TIME          : PST 1933/07/25 08:45:00.000
+    NUMBER OF RECORDS   : 9
+    DATA DESCRIPTION    : Bottle:Wire
+    NUMBER OF CHANNELS  : 6
+
+    $TABLE: CHANNELS
+    ! No Name                    Units    Minimum        Maximum
+    !--- ----------------------- -------- -------------- --------------
+       1 Depth                   metres   1              100
+       2 Temperature:Reversing   'deg C'  7.75           14.7
+       3 Salinity:Bottle         ppt      27.07          32.95
+       4 Oxygen:Dissolved        mL/L     2.793          7.63
+       5 Silicate                umol/L   5.3            38.4
+       6 Phosphate               umol/L   0.69           2.85
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad     Start  Width  Format  Type  Decimal_Places
+    !---  ------  -----  -----  ------  ----  --------------
+       1  -99.9   ' '        6  F       ' '     0
+       2  -99.99  ' '        7  F       ' '     2
+       3  -99.99  ' '        7  F       ' '     2
+       4  -99.99  ' '        7  F       ' '     2
+       5  -99.99  ' '        6  F       ' '     1
+       6  -99.99  ' '        7  F       ' '     2
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1933-01
+    AGENCY              : PBS
+    PROJECT             : Nootka Sound Study
+    SCIENTIST           : J. P. Tully
+    PLATFORM            : CGS Wm. J. Stewart
+
+*LOCATION
+    GEOGRAPHIC AREA     : Nootka Sound
+    STATION             : 2231-D
+    EVENT NUMBER        : 1
+    LATITUDE            :  49  35.40000 N  ! (deg min)
+    LONGITUDE           : 126  35.50000 W  ! (deg min)
+
+*INSTRUMENT
+    $REMARKS
+        Water samples were taken  with an unnamed type of sample bottles.
+        Temperatures were presumably obtained with  reversing thermometers but the
+        paper makes no mention of reversing thermometers.
+        The paper reports chlorinity (presumbably determined by titration) and it ha
+        been converted to salinity.
+        Dissolved oxygen, silicate and phosphate were reported in the paper but
+        once again no methods were described.
+        Time is presumed to be PST.
+        Reference:
+        Tully, John P., 1937
+        Oceanography of Nootka Sound.  J. Biol.Bd. Can., 3(1) 1937.
+    $END
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name               Vers   Date       Time     Recs In   Recs Out
+    !   ------------------ ------ ---------- -------- --------- ---------
+        CLEAN              2.8.2  2000/04/06 10:54:56         9         9
+        CALIB              11.0   2003/05/26 13:44:49         9         9
+        HDREDIT2           1.6    2003/05/26 13:45:24 ?         ?
+        CHANGE_MISSION_IDs 1.0    2014/03/03 10:13:19         9         9
+    $END
+    $REMARKS
+        CLEAN functions:
+         - Reset #RECS, MIN & MAX values in header.
+         - Customise the Data Column Headings at the end of the header.
+        -The following CALIB parameters were used:
+         Calibration type = Correct
+         Mode: ONLY - calibration specs from Cal File only.
+         Calibration file = H:\New_Archive\Work\CALIB\oxygen.CCF
+         Calibrations applied:
+         Ch Name                          Units    Fmla Coefficents
+         -- ----------------------------- --------- --- -----------------------------
+          4 Dissolved_Oxygen:vol          mL/L       10  0.0000000E+00  0.7000000E+00
+    $END
+
+*CALIBRATION
+
+    $TABLE: CORRECTED CHANNELS
+    !   Name                   Units  Fmla Pad    Coefficients
+    !   ---------------------- ------ ---- ------ ------------
+        Dissolved_Oxygen:vol   mL/L     10 -99.99 () (0 0.7)
+    $END
+!--1-- --2--- --3--- --4--- --5-- --6---
+!Depth Temper Salini Oxygen Silic Phosph
+!      ature: ty:    :      ate   ate   
+!      Revers Bottle Dissol             
+!      ing           ved                
+!----- ------ ------ ------ ----- ------
+*END OF HEADER
+    1.  14.70  27.07   6.96   5.3   0.69
+    2.  14.20  27.43   6.93   5.3   0.73
+    4.  10.40  31.47   7.63   9.2   1.07
+    6.   9.70  31.98   7.08  13.7   1.17
+   10.   9.05  32.12   5.04  17.2   2.02
+   20.   8.50  32.38   3.93  28.4   2.38
+   30.   8.40  32.39   3.45  37.3   2.73
+   50.   8.00  32.77   3.37  38.4   2.65
+  100.   7.75  32.95   2.79  38.4   2.85
