@@ -43,7 +43,7 @@ def get_header_version(contents: str) -> tuple[sections.Version, str]:
 
 def get_section(contents: str, section_name: str) -> tuple[dict[str, typing.Any], str]:
     rest = contents.lstrip()
-    prefix = f"*{section_name.upper()}"
+    prefix = f"*{section_name.upper()}\n"
     section_info = {}
     if not rest.startswith(prefix):
         first_line = rest.split("\n", 1)[0]
@@ -203,8 +203,8 @@ def get_calibration(contents: str) -> tuple[sections.Calibration, str]:
 
 def get_comments(contents: str) -> tuple[str, str]:
     rest = contents.lstrip()
-    if (m := re.match(r"\*COMMENTS", rest)):
-        rest = rest[m.end():].lstrip()
+    if (m := re.match(r"\*COMMENTS\n", rest)):
+        rest = rest[m.end():]
         lines = []
         while not rest.startswith("*"):
             line, rest = rest.split("\n", 1)
@@ -217,7 +217,7 @@ def get_data(contents: str, format: str, records: int) -> tuple[list[typing.Any]
     # TODO: do formatted read of the data
     # TODO: read given number of records
     rest = contents.lstrip()
-    if (m := re.match(r"\*END OF HEADER", rest)):
+    if (m := re.match(r"\*END OF HEADER\n", rest)):
         rest = rest[m.end():]
         lines = rest.split("\n")
         while "" in lines:
