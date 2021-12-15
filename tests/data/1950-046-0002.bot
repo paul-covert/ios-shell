@@ -1,0 +1,158 @@
+*2017/09/19 14:31:06.26
+*IOS HEADER VERSION 2.0      2016/04/28 2016/06/13 IVF16
+
+*FILE
+    START TIME          : GMT 1950/06/15 17:18:00.000
+    NUMBER OF RECORDS   : 11
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    DATA TYPE           : REAL*4
+    NUMBER OF CHANNELS  : 2
+    Q_DATE_TIME         : 1                                     ! custom item
+    Q_RECORD            : 3                                     ! custom item
+    QC_VERSION          : OCN0                                  ! custom item
+
+    $TABLE: CHANNELS
+    ! No Name              Units    Minimum        Maximum
+    !--- ----------------- -------- -------------- --------------
+       1 Depth             metres   0              45
+       2 Salinity:Bottle   ppt      2.18           29.72
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  -99   ' '        6  F       ' '     1
+       2  -99   ' '       10  F       ' '     3
+    $END
+    $REMARKS
+         This file was created by MEDS
+         MEDS File name : 180250646_0002
+         Data quality is expressed with the following flags
+            0 = not checked
+            1 = appears to be good
+            2 = inconsistent with climatology
+            3 = appears to be doubtful
+            4 = appears to be wrong
+            5 = value was changed, see the history record
+         Q_DATE_TIME is the quality of the date/time
+         Q_RECORD is the worst quality flag for the entire station expressed
+             as 1,2,3,5,4,0 from best to worst
+         QC_VERSION is the version of quality control software used
+
+        Parameter               DUP_FLAG   DIGIT_CODE   STANDARD
+        --------------------    --------    --------    --------
+        Salinity: Pre-1978             0           0           S
+
+        DUP_FLAG indicates if another profile exists in MEDS that is of
+             higher quality (0=N= no duplicate)
+        DIGIT_CODE indicates the type of digitization used
+        STANDARD indicates the precision of the observation
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1950-46
+    AGENCY              : Pacific Oceanographic Group
+
+*LOCATION
+    GEOGRAPHIC AREA     : Strait of Georgia / Vancouver Harbour
+    STATION             : 003
+    EVENT NUMBER        : 2
+    LATITUDE            :  49  15.00000 N  ! (deg min)
+    LONGITUDE           : 123  17.00000 W  ! (deg min)
+    Q_POS               : 1                                     ! custom item
+    DEPTH               : 62.000                                ! custom item
+    WDIR                : 230.000                               ! custom item
+    WSPD                : 2.000                                 ! custom item
+    DRYT                : 17.700                                ! custom item
+    WWCD                : 03                                    ! custom item
+    QCP$                : 00017FCE                              ! custom item
+    QCF$                : 00005000                              ! custom item
+    $REMARKS
+        Q_POS is the quality of the position
+        Other custom items are defined by GF3 or MEDS codes
+    $END
+
+*INSTRUMENT
+    TYPE                : Bottle
+
+*COMMENTS
+     MEDS processing history records
+       IDENT PRC_CODE  VERSION PRC_DATE ACT_CODE ACT_PARM     AUX_ID    O_VALUE
+    -------- -------- -------- -------- ---------------- ---------- ----------
+    -------- -------- -------- -------- ---------------- ---------- ----------
+    -------- -------- -------- -------- ---------------- ---------- ----------
+    -------- -------- -------- -------- ---------------- ---------- ----------
+
+    IDENT is a code idicating the agency writing this history record
+    PRC_CODE is the identifier of the software writing this history record
+    VERSION is the version of the software used
+    PRC_DATE is the date as YYYYMMDD this record was written
+    ACT_CODE tells what action was taken against the data
+    ACT_PARM = idicates whhich parameter was acted on
+    AUX-ID helps to further quality the parameter affected
+    O_VALUE was the original value of the parameter if an action changed it
+
+    ---------------------------------------------------------------------------------------
+    This file was recovered from MEDS records and reformatted by B. Minkley.
+    Where possible, original records were checked to confirm or add data to the files.
+    Further checks of data were performed by G. Gatien, quality flags were adjusted as
+    necessary and further reformatting was applied.
+    ---------------------------------------------------------------------------------------
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name     Vers   Date       Time     Recs In   Recs Out
+    !   -------- ------ ---------- -------- --------- ---------
+        CALIB    11.7   2012/09/07 15:23:44        11        11
+        CLEAN    5.0.4  2012/09/07 15:36:06        11        11
+        HDREDIT2 2.5.1  2012/09/07 15:53:37 ?         ?
+        REMOVECH 8.1.1  2013/08/21 16:17:02        11        11
+        HDREDIT2 3.1.1  2017/09/19 14:31:06 ?         ?
+    $END
+$REMARKS
+-CALIB parameters: 2012/09/07 15:23:44
+ Calibration type = Correct
+ Mode: ONLY - calibration specs from Cal File only.
+ Calibration file = P:\Cruise_Data_Processing\Data Recovery Project\1950\5046-X\1950-46-recal.ccf
+ WARNING: No calibration done on file P:\Cruise_Data_Processing\Data Recovery Project\1950\5046-X\19
+-CLEAN functions: 2012/09/07 15:36:06 20
+ Reset #RECS, MIN & MAX values in header.
+ Change Pad Value to -99 in All Channels.
+-HEADER EDITS: 2012/09/07 15:53:37
+ Applied edit header: P:\Cruise_Data_Processing\Data Recovery Project\1950\5045\recovery-hdr.txt
+ Channel  1: Depth [metres]
+   Units:  Metres ==> metres
+   Format: F8.2 ==> F6.1
+ Channel  2: Salinity:Bottle [ppt]
+   Name:   Salinity: Pre-1978 ==> Salinity:Bottle
+   Units:  PPT ==> ppt
+ Channel  3: Flag:Salinity:Bottle [n/a]
+   Name:   Quality_Flag:Sali ==> Flag:Salinity:Bottle
+   Units:  IGOSS_flags ==> n/a
+   Format: F3.0 ==> I3
+-REMOVECH 2013/08/21 16:17:02
+ The following CHANNEL(S) were removed:
+  Flag:Salinity:Bottle
+-HEADER EDITS: 2017/09/19 14:31:06
+ Applied edit header: D:\HourstonR_2\Data\iosshell\1950-46.hdr
+$END
+
+*CALIBRATION
+!--1-- ----2----
+!Depth Salinity:
+!      Bottle   
+!----- ---------
+*END OF HEADER
+   0.0     2.180
+   1.0     2.270
+   3.0    10.590
+   5.0    25.190
+   7.0    27.540
+   9.0    22.830
+  13.0    27.860
+  18.0    28.820
+  27.0    29.470
+  36.0    29.720
+  45.0    29.540

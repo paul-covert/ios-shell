@@ -48,7 +48,7 @@ def get_section(contents: str, section_name: str) -> tuple[dict[str, typing.Any]
     if not rest.startswith(prefix):
         first_line = rest.split("\n", 1)[0]
         raise ValueError(f"{section_name.upper()} section not present, found {first_line} instead")
-    rest = rest[len(prefix)+1:]
+    rest = rest[len(prefix):]
     while not rest.lstrip().startswith("*"):
         rest = rest.lstrip()
         if rest.startswith("!"):
