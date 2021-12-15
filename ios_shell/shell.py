@@ -60,3 +60,17 @@ class ShellFile:
             comments,
             data,
         )
+
+    def get_location(self) -> dict[str, float]:
+        return {
+            "longitude": self.location.longitude,
+            "latitude": self.location.latitude,
+        }
+
+    def get_time(self) -> datetime.datetime:
+        if self.file.start_time != datetime.datetime.fromtimestamp(0):
+            return self.file.start_time
+        elif self.file.end_time != datetime.datetime.fromtimestamp(0):
+            return self.file.end_time
+        else:
+            raise ValueError("No valid time found")
