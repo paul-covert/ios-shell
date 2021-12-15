@@ -1,4 +1,5 @@
 import datetime
+import re
 
 
 def apply_column_mask(data: str, mask: list[bool]) -> list[str]:
@@ -78,5 +79,4 @@ def get_longitude(coord: str) -> float:
 
 
 def is_section_heading(s: str) -> bool:
-    next_line = s.split("\n", 1)[0]
-    return next_line.startswith("*") and next_line.upper() == next_line
+    return re.match(r"\*[A-Z ]+\n", s) is not None
