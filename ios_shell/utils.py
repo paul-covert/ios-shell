@@ -75,3 +75,8 @@ def get_latitude(coord: str) -> float:
 
 def get_longitude(coord: str) -> float:
     return _get_coord(coord, "E", "W")
+
+
+def is_section_heading(s: str) -> bool:
+    next_line = s.split("\n", 1)[0]
+    return next_line.startswith("*") and next_line.upper() == next_line

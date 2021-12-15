@@ -1,0 +1,523 @@
+*2021/11/23 15:09:43.89
+*IOS HEADER VERSION 2.0      2016/04/28 2016/06/13 IVF16
+
+*FILE
+    START TIME          : UTC 2005/04/05 12:45:55.000
+    TIME INCREMENT      : 0 0 0 0.416667E-01 0  ! (day hr min sec ms)
+    NUMBER OF RECORDS   : 14
+    DATA DESCRIPTION    : Bottle:Rosette:Up:Stop + CTD:Up
+    FILE TYPE           : ASCII
+    NUMBER OF CHANNELS  : 47
+
+    $TABLE: CHANNELS
+    ! No Name                         Units           Minimum        Maximum
+    !--- ---------------------------- --------------- -------------- --------------
+       1 Sample_Number                n/a             48             61
+       2 Bottle_Number                n/a             1              14
+       3 Pressure                     decibar         1.5            205
+       4 Temperature:Primary          'deg C (ITS90)' 8.5849         8.6618
+       5 Transmissivity               %/metre         39.1           42.3
+       6 Fluorescence:URU:Seapoint    mg/m^3          0.606          1.996
+       7 PAR                          uE/m^2/sec      0.5            0.9
+       8 PAR:Reference                uE/m^2/sec      24.9           24.9
+       9 Salinity:T0:C0               PSS-78          30.0624        30.7767
+      10 Oxygen:Dissolved:SBE         mL/L            5.34           5.49
+      11 Oxygen:Dissolved:SBE         umol/kg         232.8          239.5
+      12 Number_of_bin_records        n/a             121            121
+      13 Salinity:Bottle              PSS-78          30.387         30.7783
+      14 Flag:Salinity:Bottle         n/a
+      15 Oxygen:Dissolved             mL/L            5.294          5.523
+      16 Flag:Oxygen:Dissolved        n/a
+      17 Nitrate_plus_Nitrite         umol/L          22.7           23.9
+      18 Flag:Nitrate_plus_Nitrite    n/a
+      19 Silicate                     umol/L          37.4           41.2
+      20 Flag:Silicate                n/a
+      21 Phosphate                    umol/L          2.08           3.07
+      22 Flag:Phosphate               n/a
+      23 Chlorophyll:Extracted        mg/m^3          0.99           1.99
+      24 Flag:Chlorophyll:Extracted   n/a
+      25 HPLC:Chl-c3                  mg/m^3          0              0.34E-01
+      26 HPLC:Chlide-a                mg/m^3          0              0
+      27 HPLC:Chl-c2                  mg/m^3          0.124          0.194
+      28 HPLC:Peri                    mg/m^3          0              0
+      29 HPLC:Pheide-a                mg/m^3          0              0
+      30 HPLC:But-fuco                mg/m^3          0              0
+      31 HPLC:Fuco                    mg/m^3          0.561          0.782
+      32 HPLC:Neo                     mg/m^3          0              0
+      33 HPLC:Pras                    mg/m^3          0              0
+      34 HPLC:Viola                   mg/m^3          0              0
+      35 HPLC:Hex-fuco                mg/m^3          0              0
+      36 HPLC:Diadino                 mg/m^3          0.39E-01       0.47E-01
+      37 HPLC:Allo                    mg/m^3          0              0
+      38 HPLC:Diato                   mg/m^3          0              0
+      39 HPLC:Zea                     mg/m^3          0              0
+      40 HPLC:Lut                     mg/m^3          0              0
+      41 HPLC:Chl-b                   mg/m^3          0              0
+      42 HPLC:DVChl-a                 mg/m^3          -99            -99
+      43 HPLC:Chl-a                   mg/m^3          1.23           1.813
+      44 HPLC:Phe                     mg/m^3          0              0
+      45 HPLC:B-Car                   mg/m^3          0.31E-01       0.35E-01
+      46 HPLC:TChl-a                  mg/m^3          1.23           1.813
+      47 Flag:HPLC                    ' '
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  -99   ' '        5  I       I       0
+       2  -99   ' '        5  I       I       0
+       3  -99   ' '        7  F       ' '     1
+       4  -99   ' '        9  F       ' '     4
+       5  -99   ' '        6  F       ' '     1
+       6  -99   ' '        8  F       ' '     3
+       7  -99   ' '        7  F       ' '     1
+       8  -99   ' '        7  F       ' '     1
+       9  -99   ' '        9  F       ' '     4
+      10  -99   ' '        7  F       ' '     2
+      11  -99   ' '        6  F       ' '     1
+      12  -99   ' '        5  I       I       0
+      13  -99   ' '        9  F       R4      4
+      14  -99   ' '        3  NQ      C     ' '
+      15  -99   ' '        8  F       ' '     3
+      16  -99   ' '        3  NQ      C     ' '
+      17  -99   ' '        6  F       R4      1
+      18  -99   ' '        3  NQ      C     ' '
+      19  -99   ' '        6  F       R4      1
+      20  -99   ' '        3  NQ      C     ' '
+      21  -99   ' '        7  F       R4      2
+      22  -99   ' '        3  NQ      C     ' '
+      23  -99   ' '        7  F       R4      2
+      24  -99   ' '        3  NQ      C     ' '
+      25  -99   ' '        8  F       R4      3
+      26  -99   ' '        8  F       R4      3
+      27  -99   ' '        8  F       R4      3
+      28  -99   ' '        8  F       R4      3
+      29  -99   ' '        8  F       R4      3
+      30  -99   ' '        8  F       R4      3
+      31  -99   ' '        8  F       R4      3
+      32  -99   ' '        8  F       R4      3
+      33  -99   ' '        8  F       R4      3
+      34  -99   ' '        8  F       R4      3
+      35  -99   ' '        8  F       R4      3
+      36  -99   ' '        8  F       R4      3
+      37  -99   ' '        8  F       R4      3
+      38  -99   ' '        8  F       R4      3
+      39  -99   ' '        8  F       R4      3
+      40  -99   ' '        8  F       R4      3
+      41  -99   ' '        8  F       R4      3
+      42  -99   ' '        8  F       R4      3
+      43  -99   ' '        8  F       R4      3
+      44  -99   ' '        8  F       R4      3
+      45  -99   ' '        8  F       R4      3
+      46  -99   ' '        8  F       R4      3
+      47  -99   ' '        3  NQ      C     ' '
+    $END
+    $REMARKS
+        Flag channels initialized with zeros. Non-zero values have the following significance:
+        --------------------------------------------------------------------------------------
+        1 = Sample for this measurement was drawn from water bottle but not analyzed
+            (not normally used).
+        2 = Acceptable measurement (not normally used).
+        3 = Questionable measurement (no problem observed in sampling or analysis,
+            but value is not trusted, nonetheless; includes outlyers).
+        4 = Bad measurement (known problem with sampling or analysis, but not
+            serious enough to completely discard the value).
+        5 = Not reported (lost sample; unredeemably bad measurement).
+        6 = Mean of replicate measurements.
+        7 = Manual chromatographic peak measurement.
+        8 = Irregular digital chromatographic peak integration.
+        9 = Sample not drawn for this measurement from this bottle (not normally used).
+        --------------------------------------------------------------------------------------
+    $END
+
+*ADMINISTRATION
+    MISSION             : 2005-10
+    AGENCY              : IOS, Ocean Sciences Division, Sidney, B.C.
+    COUNTRY             : Canada
+    PROJECT             : SoG-JdeF
+    SCIENTIST           : Masson D.
+    PLATFORM            : Vector
+
+*LOCATION
+    GEOGRAPHIC AREA     : SoG-JdeF
+    STATION             : 56
+    EVENT NUMBER        : 16
+    LATITUDE            :  48  46.37000 N  ! (deg min)
+    LONGITUDE           : 123   1.62000 W  ! (deg min)
+    ALTIMETER (M)       : 8.72                                  ! custom item
+    $REMARKS
+        Altimeter value is distance from bottom and is calculated as the
+        median of the deepest 2 metres of data.
+    $END
+
+*INSTRUMENT
+    TYPE                : Sea-Bird CTD
+    MODEL               : SBE-911plus
+    SERIAL NUMBER       : 0443
+
+    $TABLE: SENSORS
+    !   Name                       Abs Depth       Serial No
+    !   -------------------------  --------------  ----------
+        temperature:primary        ' '             2449
+        conductivity:primary       ' '             2102
+        pressure                   ' '             63507
+        temperature:secondary      ' '             2968
+        conductivity:secondary     ' '             1729
+        Fluorometer                ' '             Seapoint
+        transmissometer:primary    ' '             333DR
+        Oxygen:SBE                 ' '             0766
+        altimeter:                 ' '             ' '
+        irradiance:primary         ' '             4656
+        surface                    ' '             'degrees = 0.0'
+    $END
+    $REMARKS
+        SOFTWARE VERSION SEASAVE WIN32 V 5.32
+
+        Comments from secondary file:
+        Q:\Cruise_Data\2005-10\ctd\hydro\2005-10-0016.add
+        -------------------------------------------------
+        Dissolved oxygen concentration determined using an automated
+        titration system consisting of a Brinkman dosimat (model 665)
+        and a PC 900 Colorimeter.
+    $END
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name                     Vers   Date       Time     Recs In   Recs Out
+    !   ------------------------ ------ ---------- -------- --------- ---------
+        SBE_IOS                  2.9    2005/10/29 16:33:05      1694      1694
+        CLEAN                    4.8    2005/10/29 16:34:15 ?         ?
+        ADDSAMP                  3.4    2005/11/01 08:16:22      1694      1694
+        BINAVE                   4.1    2005/11/01 08:17:04      1694        14
+        MERGE                    3.3    2005/11/01 11:16:28        14        14
+        MERGE                    3.3    2005/11/01 11:20:05        14        14
+        MERGE                    3.3    2005/11/01 11:25:57        14        14
+        MERGE                    3.3    2005/11/01 11:29:03        14        14
+        CALIB                    11.6   2005/11/05 11:47:03        14        14
+        CLEAN                    4.8.1  2005/11/05 13:41:45 ?         ?
+        SORT                     3.5    2005/11/05 13:42:10        14        14
+        REMOVECH                 7.0    2005/11/05 13:42:40        14        14
+        CHGUNITS                 2.1    2005/11/05 13:43:56        14        14
+        REORDER                  1.2.1  2005/11/05 14:15:46 ?         ?
+        HDREDIT2                 2.5.1  2005/11/05 14:18:05 ?         ?
+        HDREDIT2                 2.5.1  2006/06/06 15:48:14 ?         ?
+        CHANGE_FLAGS             1.0    2013/07/16 11:48:03        14        14
+        CHANGE_CTD_CHANNEL_NAMES 1.0    2013/12/16 15:32:03        14        14
+        CHANGE_FLAGS             2.0    2014/11/20 09:54:44        14        14
+        SORT                     3.6    2021/01/19 11:46:57        14        14
+        REORDER                  1.3.1  2021/11/23 15:08:39 ?         ?
+        MERGE                    3.5.1  2021/11/23 15:08:48        14        14
+        SORT                     3.6    2021/11/23 15:08:56        14        14
+        CLEAN                    5.2.4  2021/11/23 15:09:04        14        14
+        HDREDIT2                 3.2    2021/11/23 15:09:27 ?         ?
+        HDREDIT2                 3.2    2021/11/23 15:09:43 ?         ?
+    $END
+$REMARKS
+-CLEAN functions: 2005/10/29 16:34:10 20
+ Set event to last  4 characters of file name
+-The following ADDSAMP parameters were used:
+ Sample Number Lookup File: Q:\Cruise_Data\2005-10\CTD\hydro\addsamp.csv
+ Bottle Channel Name: Bottle_Number
+-The following BINAVE parameters were used:
+ Bin channel = Bottle_Number
+ Averaging interval =    1.00
+ Minimum bin value =       0.000
+ Average value was used
+ Interpolated values were NOT used for empty bins
+ Channel 'NUMBER_OF_BIN_RECORDS' was added to file.
+-The following MERGE parameters were used: 2005/11/01 11:16:28 2005/11/01 11:16:28 2005/11/01 11:16:
+ Merge Channel: Sample_number
+ Merge Scheme Used: Interweave Records from Both Files
+ Overlap Scheme Used: Keep Primary
+ Primary Channels to Include: ALL
+ Secondary Channels to Include:
+   Salinity:Bottle,
+   Flag:Salinity:Bottle
+ Primary file  : Q:\Cruise_Data\2005-10\CTD\hydro\2005-10-0016.samavg
+ Secondary file: Q:\Cruise_Data\2005-10\CTD\hydro\2005-10-0016.sal
+-The following MERGE parameters were used: 2005/11/01 11:20:05 2005/11/01 11:20:05 2005/11/01 11:20:
+ Merge Channel: Sample_Number
+ Merge Scheme Used: Add Secondary to Primary
+ Overlap Scheme Used: Keep Primary
+ Primary Channels to Include: ALL
+ Secondary Channels to Include:
+   Chlorophyll:Extracted,
+   Flag:Chlorophyll:Extracted
+ Primary file  : Q:\Cruise_Data\2005-10\CTD\hydro\2005-10-0016.mrg1
+ Secondary file: Q:\Cruise_Data\2005-10\CTD\hydro\2005-10-0016.chl
+-The following MERGE parameters were used: 2005/11/01 11:25:57 2005/11/01 11:25:57 2005/11/01 11:25:
+ Merge Channel: Sample_Number
+ Merge Scheme Used: Add Secondary to Primary
+ Overlap Scheme Used: Keep Primary
+ Primary Channels to Include: ALL
+ Secondary Channels to Include:
+   Oxygen:Dissolved,
+   Flag:Oxygen:Dissolved
+ Primary file  : Q:\Cruise_Data\2005-10\ctd\hydro\2005-10-0016.mrg2
+ Secondary file: Q:\Cruise_Data\2005-10\ctd\hydro\2005-10-0016.add
+
+Comments from secondary file:
+Q:\Cruise_Data\2005-10\ctd\hydro\2005-10-0016.add
+-------------------------------------------------
+C.H. Culbertson's paper on Dissolved Oxygen in the 'Woce
+Hydrographic Program Operations and Methods - July 1991'
+-The following MERGE parameters were used: 2005/11/01 11:29:02 2005/11/01 11:29:02 2005/11/01 11:29:
+ Merge Channel: Sample_Number
+ Merge Scheme Used: Add Secondary to Primary
+ Overlap Scheme Used: Keep Primary
+ Primary Channels to Include: ALL
+ Secondary Channels to Include:
+   Nitrate,
+   Flag:Nitrate,
+   Silicate,
+   Flag:Silicate,
+   Phosphate,
+   Flag:Phosphate
+ Primary file  : Q:\Cruise_Data\2005-10\CTD\hydro\2005-10-0016.mrg3
+ Secondary file: Q:\Cruise_Data\2005-10\CTD\hydro\2005-10-0016.nuts
+-CALIB parameters: 2005/11/05 11:47:03
+ Calibration type = Correct
+ Mode: ONLY - calibration specs from Cal File only.
+ Calibration file = Q:\Cruise_Data\2005-10\CTD\doc\2005-10-recal1.ccf
+ Calibrations applied:
+ Ch Name                          Units    Fmla Coefficents
+ -- ----------------------------- --------- --- -----------------------------
+ 12 Oxygen:Dissolved:SBE          mL/L       10  0.4900000E-01  0.1370500E+01
+-CLEAN functions: 2005/11/05 13:41:45 20
+ Remove Sea-Bird comments from the header.
+-SORT parameters: 2005/11/05 13:42:10
+ Sorted in ascending order of channel Pressure
+-REMOVECH 2005/11/05 13:42:40
+ The following CHANNEL(S) were removed:
+  Scan_Number
+  Temperature:Secondary [deg C (ITS90)]
+  Conductivity:Primary [S/m]
+  Conductivity:Secondary [S/m]
+  Altimeter [metres]
+  Oxygen:Voltage:SBE [volts]
+  Status:Pump
+  Descent_Rate [m/s]
+  Salinity:T1:C1 [PSS-78]
+  Flag
+-CHANGE units:
+ 'Oxygen:Dissolved:SBE' changed from mL/L    to umol/kg
+-HEADER EDITS: 2005/11/05 14:18:05
+ Applied edit header: Q:\Cruise_Data\2005-10\CTD\doc\2005-10-bot-hdr.txt
+ Channel  2: Pressure [decibar]
+   Units:  dbars ==> decibar
+   Format: F10.3 ==> F7.1
+ Channel  6: Oxygen:Dissolved:SBE [mL/L]
+   Format: F8.3 ==> F7.2
+ Channel  5: Fluorescence:URU:Seapoint [mg/m^3]
+   Name:   Fluorescence:Seapoint ==> Fluorescence:URU:Seapoint
+ Channel 15: Chlorophyll:Extracted [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 17: Oxygen:Dissolved [mL/L]
+   Pad:    -99.99 ==> -99
+ Channel  9: PAR [uE/m^2/sec]
+   Format: F11.3 ==> F7.1
+ Channel 10: PAR:Reference [uE/m^2/sec]
+   Format: F11.3 ==> F7.1
+-HEADER EDITS: 2006/06/06 15:48:14
+ Channel 19: Nitrate_plus_Nitrite [umol/L]
+   Name:   Nitrate ==> Nitrate_plus_Nitrite
+ Channel 20: Flag:Nitrate_plus_Nitrite []
+   Name:   Flag:Nitrate ==> Flag:Nitrate_plus_Nitrite
+-SORT parameters: 2021/01/19 11:46:57
+ Sorted in ascending order of channel Sample_Number [n/a]
+-The following MERGE parameters were used: 2021/11/23 15:08:48
+ Merge Channel: sample_number
+ Merge Scheme Used: Add Secondary to Primary
+ Overlap Scheme Used: Keep Primary
+ Primary Channels to Include: ALL
+ Secondary Channels to Include:
+   HPLC:Chl-c3 [ ],
+   HPLC:Chlide-a [ ],
+   HPLC:MgDVP [ ],
+   HPLC:Chl-c2 [ ],
+   HPLC:Chl-c1 [ ],
+   HPLC:Me-chlide [ ],
+   HPLC:Peri [ ],
+   HPLC:Pheide-a [ ],
+   HPLC:But-fuco [ ],
+   HPLC:Fuco [ ],
+   HPLC:Neo [ ],
+   HPLC:Pras [ ],
+   HPLC:Viola [ ],
+   HPLC:Hex-fuco [ ],
+   HPLC:Diadino [ ],
+   HPLC:Allo [ ],
+   HPLC:Diato [ ],
+   HPLC:Zea [ ],
+   HPLC:Lut [ ],
+   HPLC:Chl-b [ ],
+   HPLC:C2mgdg,
+   HPLC:DVChl-a [ ],
+   HPLC:Chl-a [ ],
+   HPLC:Phe [ ],
+   HPLC:B-Car [ ],
+   HPLC:TChl-a [ ],
+   Flag:HPLC [ ]
+ Primary file  : C:\Users\Samantha\OneDrive\Documents\SH ios\HPLC\2005\2005-010_Nov2021\Processing\
+IOS\2005-010-0016.che2
+ Secondary file: C:\Users\Samantha\OneDrive\Documents\SH ios\HPLC\2005\2005-010_Nov2021\Processing\
+IOS\2005-010-0016.hplc
+-SORT parameters: 2021/11/23 15:08:56
+ Sorted in ascending order of channel Pressure [decibar]
+-CLEAN functions: 2021/11/23 15:09:04 20
+ Reset #RECS, MIN & MAX values in header.
+ Change Pad Value to -99 in All Channels.
+ Change character data from " " to "0" in channels Flag:*
+-HEADER EDITS: 2021/11/23 15:09:27
+ Applied edit header: C:\Users\Samantha\OneDrive\Documents\SH ios\HPLC\2005\2005-010\Processing\Doc\
+2005-010-bot-hdr1.txt
+ Channel  2: Bottle_Number [n/a]
+   Format: I3 ==> I5
+ Channel 25: HPLC:Chl-c3 [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 26: HPLC:Chlide-a [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 27: HPLC:Chl-c2 [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 28: HPLC:Peri [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 29: HPLC:Pheide-a [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 30: HPLC:But-fuco [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 31: HPLC:Fuco [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 32: HPLC:Neo [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 33: HPLC:Pras [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 34: HPLC:Viola [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 35: HPLC:Hex-fuco [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 36: HPLC:Diadino [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 37: HPLC:Allo [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 38: HPLC:Diato [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 39: HPLC:Zea [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 40: HPLC:Lut [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 41: HPLC:Chl-b [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 42: HPLC:DVChl-a [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 43: HPLC:Chl-a [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 44: HPLC:Phe [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 45: HPLC:B-Car [mg/m^3]
+   Units: ==> mg/m^3
+ Channel 46: HPLC:TChl-a [mg/m^3]
+   Units: ==> mg/m^3
+-HEADER EDITS: 2021/11/23 15:09:43
+ Applied edit header: C:\Users\Samantha\OneDrive\Documents\SH ios\HPLC\2005\2005-010\Processing\Doc\
+2005-010-bot-hdr2.txt
+$END
+
+*COMMENTS
+
+Comments from secondary file:
+Q:\Cruise_Data\2005-10\CTD\hydro\2005-10-0016.chl
+-------------------------------------------------
+Average of two samples is reported.
+
+Comments from secondary file:
+Q:\Cruise_Data\2005-10\ctd\hydro\2005-10-0016.add
+-------------------------------------------------
+*Oxygen sample number 49 has a poorly dfined endpoint.  Colorimeter
+*problem.
+
+Comments from secondary file:
+Q:\Cruise_Data\2005-10\CTD\hydro\2005-10-0016.nuts
+--------------------------------------------------
+Sample_Number   54: copepod in plastic tube - high PO4
+
+Analysis methods:
+-----------------
+
+  Salinity samples are collected in glass bottles and analyzed on a Guildline
+  Autosal 8400 Salinometer which was standardized with IAPSO standard
+  seawater.
+
+  Oxygen samples are analyzed on an automated Winkler titration system
+  following the procedures of Carpenter (1965). A Brinkmann model 665 Dosimat
+  and model PC910 Colorimeter is controlled by Visual-Basic program to
+  titrate the oxygen samples.
+
+  Nutrient samples are analyzed frozen using a Technicon AAII autoanalyzer
+  following methods described in Barwell-Clarke and Whitney (1996).
+
+  Chlorophyll samples are collected in duplicate in calibrated polycarbonate
+  bottles (~330ml), then filtered onto 25mm MFS GF/75 filters at <70mmHg
+  vacuum. The filters are placed in glass scintillation vials and immediately
+  frozen at -20ºC until analysis. The chlorophyll is extracted in 10 ml of 90%
+  acetone for 24h at -20ºC, then brought to room temperature and the extract
+  is decanted and measured using a Turner Designs 10-AU-005-CE fluorometer,
+  which has been calibrated with solutions of commercially prepared
+  chlorophyll.
+
+  HPLC samples were filtered onto 25mm GF/F filters and stored at -80C prior to
+  analysis.
+  Samples were extracted in 95% methanol at -20C for 1-2 hours or for 24 hours in the lab
+  and analyzed on a WATERS 2695 HPLC separations system as detailed in Nemcek and Pena, 2014.
+  Analysis was performed ~25-35 months after collection.
+  The average of two samples is reported.
+  Variability is assessed as the %CV (std dev/mean*100) for duplicate pairs.
+  All pigments below the limit of detection (LOD) are assigned a zero value.
+  TChl-a is the sum of Chl-a and DVchl-a, and Chlide-a.
+  For further information see file QF 2005-010_HPLC*.xlsx.
+
+  References:
+  1. Carpenter, J.H. 1965. The Chesapeake Bay Institute Technique for the
+  Winkler Dissolved Oxygen Method. Limmnol. & Oceanogr., 10: 141-143.
+  2. J. Barwell-Clarke and F. Whitney. 1996. Institute of Ocean Sciences
+  Nutrient Methods and Analysis. Canadian Technical Report of Hydrography
+  and Ocean Sciences, No. 182, 43 pp.
+  3. Nemcek, N. and Peña, M.A. 2014. Institute of Ocean Sciences Protocols for
+  Phytoplankton Pigment Analysis by HPLC. Can. Tech. Rep. Fish. Aquat. Sci.
+  3117: x + 80 p.
+
+Comments from secondary file:
+C:\Users\Samantha\OneDrive\Documents\SH ios\HPLC\2005\2005-010_Nov2021\Processing\IOS\2005-010-0016.
+hplc
+---------------------------------------------------------------------------
+Sample_Number   59: HPLC: only one rep received
+
+*CALIBRATION
+
+    $TABLE: CORRECTED CHANNELS
+    !   Name                   Units  Fmla Pad    Coefficients
+    !   ---------------------- ------ ---- ------ ------------
+        Oxygen:Dissolved:SBE   mL/L     10 -99    () (0.49E-01 1.3705)
+    $END
+!-1-- -2-- --3--- ---4---- --5-- ---6--- --7--- --8--- ---9---- --10-- --11- -12- ---13--- 14 ---15-- 16 --17- 18 --19- 20 --21-- 22 --23-- 24 ---25-- ---26-- ---27-- ---28-- ---29-- ---30-- ---31-- ---32-- ---33-- ---34-- ---35-- ---36-- ---37-- ---38-- ---39-- ---40-- ---41-- ---42-- ---43-- ---44-- ---45-- ---46-- 47
+!Samp Bott Pressu Temperat Trans Fluores  PAR   PAR:   Salinity Oxygen Oxyge Numb Salinity Fl Oxygen: Fl Nitra Fl Silic Fl Phosph Fl Chloro Fl HPLC:   HPLC:   HPLC:   HPLC:   HPLC:   HPLC:   HPLC:   HPLC:   HPLC:   HPLC:   HPLC:   HPLC:   HPLC:   HPLC:   HPLC:   HPLC:   HPLC:   HPLC:   HPLC:   HPLC:   HPLC:B- HPLC:   Fl
+!le_  le_  re     ure:     missi cence:         Refere :T0:C0   :      n:    er_o :Bottle  ag Dissolv ag te_   ag ate   ag ate    ag phyll: ag Chl-c3  Chlide- Chl-c2  Peri    Pheide- But-    Fuco    Neo     Pras    Viola   Hex-    Diadino Allo    Diato   Zea     Lut     Chl-b   DVChl-a Chl-a   Phe     Car     TChl-a  ag
+!Numb Numb        Primary  vity  URU:           nce             Dissol Disso ~bin          ~o ed      ~o plus_ ~t       ~i        ~p Extrac ~a         a                       a       fuco                                    fuco                                                                                            : 
+!er   er                         Seapoin                        ved:   lved: _rec          tt         lv Nitri ri       ca        ha ted    ct                                                                                                                                                                                 HP
+!                                t                              SBE    SBE   ords          le         ed te    te       te        te        ed                                                                                                                                                                                 LC
+!---- ---- ------ -------- ----- ------- ------ ------ -------- ------ ----- ---- -------- -- ------- -- ----- -- ----- -- ------ -- ------ -- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- --
+*END OF HEADER
+   61   14    1.5   8.5948  39.1   1.996    0.9   24.9  30.0624   5.35 233.2  121 -99.0000 0    5.335 0   23.9 0   38.3 0    2.18 0    1.99 0  -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 0
+   60   13    5.4   8.5849  40.6   1.943    0.5   24.9  30.0958   5.34 232.8  121 -99.0000 0    5.294 0   23.8 0   38.0 0    2.17 0    1.99 0    0.000   0.000   0.189   0.000   0.000   0.000   0.782   0.000   0.000   0.000   0.000   0.047   0.000   0.000   0.000   0.000   0.000 -99.000   1.813   0.000   0.032   1.813 6
+   59   12   10.2   8.5946  40.5   1.713    0.5   24.9  30.1749   5.38 234.7  121 -99.0000 0    5.360 0   23.6 0   37.8 0    2.17 0    1.97 0    0.034   0.000   0.194   0.000   0.000   0.000   0.738   0.000   0.000   0.000   0.000   0.043   0.000   0.000   0.000   0.000   0.000 -99.000   1.717   0.000   0.035   1.717 2
+   58   11   19.9   8.6106  41.3   1.234    0.5   24.9  30.3635   5.44 237.1  121 -99.0000 0    5.436 0   23.9 0   40.7 0    2.08 0    1.17 0    0.015   0.000   0.124   0.000   0.000   0.000   0.561   0.000   0.000   0.000   0.000   0.039   0.000   0.000   0.000   0.000   0.000 -99.000   1.230   0.000   0.031   1.230 6
+   57   10   30.0   8.6135  42.2   0.979    0.5   24.9  30.3973   5.46 238.0  121  30.3870 0    5.486 0   23.4 0   37.5 0    2.11 0    1.02 0  -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 0
+   56    9   40.0   8.6145  41.7   0.982    0.5   24.9  30.3831   5.45 237.8  121 -99.0000 0    5.466 0   23.4 0   39.0 0    2.09 0    0.99 0  -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 0
+   55    8   49.9   8.6134  41.7   1.091    0.5   24.9  30.3767   5.45 237.8  121 -99.0000 0    5.461 0   23.7 0   38.7 0    2.09 0  -99.00 0  -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 0
+   54    7   75.0   8.6089  42.3   0.688    0.5   24.9  30.4809   5.47 238.6  121 -99.0000 0    5.468 0   23.3 0   38.2 0    3.07 3  -99.00 0  -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 0
+   53    6  100.0   8.6477  40.8   0.686    0.5   24.9  30.7014   5.49 239.5  121 -99.0000 0    5.513 0   22.7 0   39.3 0    2.09 0  -99.00 0  -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 0
+   52    5  124.9   8.6494  40.0   0.665    0.5   24.9  30.7097   5.49 239.3  121 -99.0000 0    5.480 0   23.1 6   39.6 6    2.09 6  -99.00 0  -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 0
+   51    4  150.0   8.6532  39.5   0.609    0.5   24.9  30.7471   5.49 239.2  121 -99.0000 0    5.483 0   23.0 0   39.4 0    2.08 0  -99.00 0  -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 0
+   50    3  174.9   8.6565  39.8   0.606    0.5   24.9  30.7521   5.49 239.4  121 -99.0000 0    5.474 0   23.5 0   41.2 0    2.08 0  -99.00 0  -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 0
+   49    2  200.3   8.6614  39.1   0.613    0.5   24.9  30.7765   5.49 239.4  121  30.7783 0    5.479 4   23.5 0   39.9 0    2.09 0  -99.00 0  -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 0
+   48    1  205.0   8.6618  39.5   0.616    0.5   24.9  30.7767   5.49 239.4  121 -99.0000 0    5.523 0   22.8 0   37.4 0    2.08 0  -99.00 0  -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 -99.000 0

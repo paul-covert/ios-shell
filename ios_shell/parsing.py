@@ -61,7 +61,7 @@ def get_section(contents: str, section_name: str) -> tuple[dict[str, typing.Any]
             f"{section_name.upper()} section not present, found {first_line} instead"
         )
     rest = rest[len(prefix) :]
-    while not rest.lstrip().startswith("*"):
+    while not utils.is_section_heading(rest.lstrip()):
         rest = rest.lstrip()
         if rest.startswith("!"):
             # skip comments
@@ -282,7 +282,7 @@ def get_comments(contents: str) -> tuple[str, str]:
     if m := re.match(r"\*COMMENTS\n", rest):
         rest = rest[m.end() :]
         lines = []
-        while not rest.startswith("*"):
+        while not utils.is_section_heading(rest):
             line, rest = rest.split("\n", 1)
             lines.append(line)
         return "\n".join(lines), rest

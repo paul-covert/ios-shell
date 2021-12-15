@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ios-shell"
-version = "0.1.14"
+version = "0.1.15"
 description = ""
 authors = ["James Hannah <jhannah@protonmail.com>"]
 
