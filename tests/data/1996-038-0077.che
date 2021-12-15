@@ -1,0 +1,130 @@
+*2013/12/16 15:11:16.04
+*IOS HEADER VERSION 1.10 2011/10/26 2011/10/26
+
+*COMMENTS
+    Nov 11, 1998 - corrected latiitude from 48 to 49 degrees. J.L.
+
+    Analysis methods:
+    -----------------
+
+      Salinity samples are collected in glass bottles and analyzed on Guildline
+      model 8410 Portasal Salinometers which are standardized with IAPSO standard
+      seawater.
+
+      Oxygen samples are analyzed on an automated Winkler titration system
+      following the procedures of Carpenter (1965). A Brinkmann model 665 Dosimat
+      and model PC910 Colorimeter is controlled by Visual-Basic program to
+      titrate the oxygen samples.
+
+      Nutrient samples were measured using an Autoanalyzer II, following the
+      procedures outlined in Barwell-Clarke and Whitney (1997). Nitrate/silicate
+      samples were defrosted about 24 h before analysis. Phosphate samples were
+      rapidly defrosted in moving room temperature air or warm water. Lab
+      temperature was noted periodically, and may be found on the original data
+      sheets; it was generally around 26C.
+
+*FILE
+    START TIME          : UTC 1996/10/08 11:07:00.000
+    NUMBER OF RECORDS   : 6
+    DATA DESCRIPTION    : Bottle:Rosette:Up:Stop
+    FILE TYPE           : ASCII
+    DATA TYPE           : REAL*4
+    NUMBER OF CHANNELS  : 3
+
+    $TABLE: CHANNELS
+    ! No Name               Units     Minimum        Maximum
+    !--- ------------------ --------- -------------- --------------
+       1 Bottle_Number      n/a       348            354
+       2 Pressure           decibar   0.8            93.1
+       3 Oxygen:Dissolved   mL/L      2.054          6.391
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  -99   ' '        5  I       I       0
+       2  -99   ' '        7  F       ' '     1
+       3  -99   ' '        8  F       ' '     3
+    $END
+    $REMARKS
+        Raw data in file 96380077
+        VI03  = 10.03       ! Volume of iodate standard (cm**3)
+        NI03  = .01013679   ! Normalitity of iodate standard
+        VREG  = 2.0         ! Volume of sample displaced by reagents (cm**3)
+        DOREG = 0.0017      ! Absolute amount of O2 added with reagents (ml)
+        UFLAG = -1          ! 0|-1, -1 indicates DO_mass is valid
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1996-38
+    AGENCY              : IOS, Ocean Science and Productivity, Sidney, B.C.
+    COUNTRY             : Canada
+    PROJECT             : Laperouse, JGOFS, CRD
+    SCIENTIST           : Denman K., Juhasz T.
+    PLATFORM            : John P. Tully
+
+*LOCATION
+    STATION             : LG02
+    EVENT NUMBER        : 77
+    LATITUDE            :  49  18.84000 N  ! (deg min)
+    LONGITUDE           : 126  38.70000 W  ! (deg min)
+    WATER DEPTH         : 102
+
+*INSTRUMENT
+    TYPE                : Bottle
+    MODEL               : Niskin 10 litre
+    $REMARKS
+        Dissolved oxygen concentration determined using an automated
+        titration system consisting of a Brinkman Dosimat (model 665)
+        and a PC 900 Colorimeter.
+    $END
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name                     Vers   Date       Time     Recs In   Recs Out
+    !   ------------------------ ------ ---------- -------- --------- ---------
+        AutoOxy.bas              1.9    1996/10/08 09:05:54 ' '               6
+        CLEAN                    2.0    1996/10/10 17:01:16         6         6
+        REMOVECH                 3.2    2000/01/10 16:37:10         6         6
+        HDREDIT2                 1.8    2003/10/15 15:42:39 ?         ?
+        CLEAN                    4.5    2003/10/15 15:43:38         6         6
+        SORT                     3.4.1  2004/04/13 16:34:49         6         6
+        CHANGE_CTD_CHANNEL_NAMES 1.0    2013/12/16 15:11:16         6         6
+    $END
+    $REMARKS
+        C.H. Culbertson's paper on Dissolved Oxygen in the 'Woce
+        Hydrographic Program Operations and Methods - July 1991'
+        -The following CLEAN parameters were used.
+         Reset #RECS, MIN & MAX values in header.
+        -The following CHANNEL(S) were removed from file.
+         Temperature:Sample
+         Dissolved_oxygen:mass
+         Thiosulfate_titer
+         Flask_Number
+         Flask_Volume
+         Blank
+         Standard
+         Salinity:CTD
+        CLEAN functions:
+         - Reset #RECS, MIN & MAX values in header.
+         - Change Pad Value to -99 in All Channels.
+         - Delete Empty Channels:   0 deleted.
+         - Set channel name post-colon letters to upper case.
+        -The following SORT parameters were used.
+         Sorted by channel: Pressure
+         Pressure channel sorted according to values in sort channel
+    $END
+!-1-- --2--- ---3---
+!Bott Pressu Oxygen:
+!le_  re     Dissolv
+!Numb        ed     
+!er                 
+!---- ------ -------
+*END OF HEADER
+  354    0.8   6.391
+  352   19.3   5.233
+  351   29.7   4.656
+  350   50.6   4.171
+  349   74.0   3.001
+  348   93.1   2.054
