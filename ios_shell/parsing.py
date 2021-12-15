@@ -272,7 +272,7 @@ def get_raw(contents: str) -> tuple[sections.Raw, str]:
     raw_info = sections.Raw(
         channels=channels,
         remarks=remarks,
-        raw=raw_dict
+        raw=raw_dict,
     )
     return raw_info, rest
 

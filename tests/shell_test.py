@@ -3,16 +3,19 @@ import os
 import ios_shell.shell as shell
 import ios_shell.parsing as parsing
 
+
 @pytest.mark.parametrize(
     "contents,expected",
     [
         ("*IOS HEADER VERSION 1.10 2011/10/26 2011/10/26", "1.10"),
         ("*IOS HEADER VERSION 2.0      2016/04/28 2016/06/13 IVF16", "2.0"),
-    ])
+    ],
+)
 def test_header_version(contents, expected):
     version, rest = parsing.get_header_version(contents)
     assert version.version_no == expected
     assert len(rest) == 0
+
 
 def test_header_version_fails_with_no_version():
     try:
@@ -20,6 +23,7 @@ def test_header_version_fails_with_no_version():
         assert False
     except:
         pass
+
 
 @pytest.mark.parametrize(
     "contents",
@@ -31,13 +35,16 @@ def test_header_version_fails_with_no_version():
 
 *END OF HEADER
         """,
-    ])
+    ],
+)
 def test_get_location(contents):
     _, rest = parsing.get_location(contents)
     assert rest.strip() == "*END OF HEADER"
 
+
 def test_shell_get_section():
-    section, rest = parsing.get_section("""
+    section, rest = parsing.get_section(
+        """
 *FILE
     START TIME          : PST 1933/07/25 15:35:00.000
     NUMBER OF RECORDS   : 10
@@ -67,9 +74,12 @@ def test_shell_get_section():
     $END
 
 *END OF HEADER
-    """, "file")
+    """,
+        "file",
+    )
     assert rest.strip() == "*END OF HEADER"
     assert "channels" in section
+
 
 @pytest.mark.parametrize(
     "file_name",
@@ -93,7 +103,8 @@ def test_shell_get_section():
         "1986-033-0003.bot",
         "1992-016-0001.bot",
         "1996-036-0005.che",
-    ])
+    ],
+)
 def test_shell_read_file(file_name):
     full_file_name = os.path.join(os.path.dirname(__file__), "data", file_name)
     info = shell.ShellFile.fromfile(full_file_name)
