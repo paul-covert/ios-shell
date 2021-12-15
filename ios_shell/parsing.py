@@ -45,35 +45,48 @@ def get_section(contents: str, section_name: str) -> tuple[dict[str, typing.Any]
     rest = contents.lstrip()
     prefix = f"*{section_name.upper()}"
     section_info = {}
-    if rest.startswith(prefix):
-        rest = rest[len(prefix)+1:]
-        while not rest.lstrip().startswith("*"):
-            rest = rest.lstrip()
-            if (m := re.match(r"\$TABLE: ([^\n]+)\n", rest)):
-                # handle table
-                table_name = m.group(1).lower()
-                rest = rest[m.end():].lstrip()
-                # table column names
+    if not rest.startswith(prefix):
+        first_line = rest.split("\n", 1)[0]
+        raise ValueError(f"{section_name.upper()} section not present, found {first_line} instead")
+    rest = rest[len(prefix)+1:]
+    while not rest.lstrip().startswith("*"):
+        rest = rest.lstrip()
+        if rest.startswith("!"):
+            # skip comments
+            rest = rest.split("\n", 1)[1]
+            continue
+        elif (m := re.match(r"\$TABLE: ([^\n]+)\n", rest)):
+            # handle table
+            table_name = m.group(1).lower()
+            rest = rest[m.end():].lstrip()
+            # table column names
+            line, rest = rest.split("\n", 1)
+            column_names = [name.lower() for name in line.lstrip()[1:].split()]
+            # table column mask
+            line, rest = rest.split("\n", 1)
+            mask = [c == "-" for c in line]
+            # values
+            section_info[table_name] = []
+            while not rest.lstrip().startswith("$END"):
                 line, rest = rest.split("\n", 1)
-                column_names = [name.lower() for name in line.lstrip()[1:].split()]
-                # table column mask
+                section_info[table_name].append(
+                    {column_names[i]: v for i, v in enumerate(utils.apply_column_mask(line, mask))})
+            _, rest = rest.lstrip().split("\n", 1)
+        elif (m := re.match(r"\$REMARKS", rest)):
+            # handle remarks
+            rest = rest[m.end():]
+            remarks = []
+            while not rest.lstrip().startswith("$END"):
                 line, rest = rest.split("\n", 1)
-                mask = [c == "-" for c in line]
-                # values
-                section_info[table_name] = []
-                while not rest.lstrip().startswith("$END"):
-                    line, rest = rest.split("\n", 1)
-                    section_info[table_name].append(
-                        {column_names[i]: v for i, v in enumerate(apply_column_mask(line, mask))})
-                _, rest = rest.lstrip().split("\n", 1)
-            else:
-                # handle single entry
-                line, rest = rest.split("\n", 1)
-                key, value = line.split(":", 1)
-                section_info[key.strip().lower()] = value.strip()
-        return section_info, rest
-    else:
-        raise ValueError(f"Section {section_name.upper()} not present")
+                remarks.append(line)
+            section_info[REMARKS] = "\n".join(remarks)
+            _, rest = rest.lstrip().split("\n", 1)
+        else:
+            # handle single entry
+            line, rest = rest.split("\n", 1)
+            key, value = line.split(":", 1)
+            section_info[key.strip().lower()] = value.strip()
+    return section_info, rest
 
 def get_file(contents: str) -> tuple[FileInfo, str]:
     file_dict, rest = get_section(contents, "file")
