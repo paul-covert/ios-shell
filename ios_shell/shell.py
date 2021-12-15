@@ -31,7 +31,7 @@ class ShellFile:
 
     @classmethod
     def fromfile(cls, filename):
-        with open(filename) as f:
+        with open(filename, "r", encoding="ASCII", errors="ignore") as f:
             contents = f.read()
         return ShellFile.fromcontents(contents, filename=filename)
 
