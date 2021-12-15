@@ -5,6 +5,7 @@ import typing
 
 EMPTY = ["", "' '", "n/a"]
 
+
 @dataclass
 class Version:
     version_no: str
@@ -12,8 +13,9 @@ class Version:
     date2: str
     tag: str = ""
 
+
 class Channel:
-    no: int # acts as an identifier
+    no: int  # acts as an identifier
     name: str
     units: str
     minimum: float
@@ -33,8 +35,9 @@ class Channel:
         self.minimum = numpy.nan if minimum.strip() in EMPTY else float(minimum)
         self.maximum = numpy.nan if maximum.strip() in EMPTY else float(maximum)
 
+
 class ChannelDetail:
-    no: int # acts as an identifier
+    no: int  # acts as an identifier
     pad: float
     start: str
     width: int
@@ -58,7 +61,10 @@ class ChannelDetail:
         self.width = int(width) if width.strip() not in EMPTY else 0
         self.format = format
         self.type = type
-        self.decimal_places = int(decimal_places) if decimal_places.strip() not in EMPTY else 0
+        self.decimal_places = (
+            int(decimal_places) if decimal_places.strip() not in EMPTY else 0
+        )
+
 
 @dataclass
 class FileInfo:
@@ -76,6 +82,7 @@ class FileInfo:
     remarks: str
     raw: dict[str, typing.Any]
 
+
 @dataclass
 class Administration:
     mission: str
@@ -86,6 +93,7 @@ class Administration:
     platform: str
     remarks: str
     raw: dict[str, typing.Any]
+
 
 @dataclass
 class Location:
@@ -98,12 +106,14 @@ class Location:
     remarks: str
     raw: dict[str, typing.Any]
 
+
 @dataclass
 class Instrument:
     type: str
     model: str
     remarks: str
     raw: dict[str, typing.Any]
+
 
 @dataclass
 class Program:
@@ -114,17 +124,20 @@ class Program:
     records_in: int
     records_out: int
 
+
 @dataclass
 class Raw:
     channels: list[list[str]]
     remarks: str
     raw: dict[str, typing.Any]
 
+
 @dataclass
 class History:
     programs: list[Program]
     remarks: str
     raw: dict[str, typing.Any]
+
 
 @dataclass
 class Calibration:

@@ -2,6 +2,7 @@ import datetime
 
 from . import parsing, sections
 
+
 class ShellFile:
     def __init__(
         self,
@@ -42,7 +43,14 @@ class ShellFile:
         # begin named sections
         file_info, rest = parsing.get_file(rest)
         # sections that may appear out of order
-        administration, location, instrument, history, calibration, comments = None, None, None, None, None, None
+        administration, location, instrument, history, calibration, comments = (
+            None,
+            None,
+            None,
+            None,
+            None,
+            None,
+        )
         while not rest.lstrip().startswith("*END OF HEADER"):
             first = rest.lstrip().split("\n", 1)[0]
             if first.startswith("*ADMINISTRATION"):
@@ -72,7 +80,9 @@ class ShellFile:
             else:
                 raise ValueError(f"Unknown section: {first}")
         # end named sections
-        data, rest = parsing.get_data(rest, file_info.format, file_info.number_of_records)
+        data, rest = parsing.get_data(
+            rest, file_info.format, file_info.number_of_records
+        )
         return ShellFile(
             filename=filename,
             modified_date=modified_date,

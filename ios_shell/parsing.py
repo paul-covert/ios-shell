@@ -7,6 +7,7 @@ import typing
 from . import sections, utils
 from .keys import *
 
+
 def fallible(name):
     def decorator_fallible(fn: typing.Callable[[str], tuple[typing.Any, str]]):
         @functools.wraps(fn)
@@ -16,30 +17,39 @@ def fallible(name):
             except Exception as e:
                 logging.warning(f"Could not find valid {name.upper()} section: {e}")
                 return None, contents
+
         return wrapper
+
     return decorator_fallible
+
 
 DATE_STR = r"\d{4}/\d{2}/\d{2}"
 TIME_STR = r"\d{2}:\d{2}:\d{2}(.\d*)?"
 
+
 def get_modified_date(contents: str) -> tuple[datetime.datetime, str]:
     rest = contents.lstrip()
-    if (m := re.match(fr"\*({DATE_STR} {TIME_STR})", rest)):
-        rest = rest[m.end():]
+    if m := re.match(fr"\*({DATE_STR} {TIME_STR})", rest):
+        rest = rest[m.end() :]
         # trim sub-second information to make parsing using datetime easier
         raw_datetime = m.group(1).replace("/", "-").split(".")[0]
         return (datetime.datetime.fromisoformat(raw_datetime), rest)
     else:
         raise ValueError("No modified date at start of string")
 
+
 def get_header_version(contents: str) -> tuple[sections.Version, str]:
     # TODO: capture all sections of version
     rest = contents.lstrip()
-    if (m := re.match(fr"\*IOS HEADER VERSION (\d+.\d+) +({DATE_STR}) ({DATE_STR})( [a-zA-Z0-9]*)?", rest)):
-        rest = rest[m.end():]
+    if m := re.match(
+        fr"\*IOS HEADER VERSION (\d+.\d+) +({DATE_STR}) ({DATE_STR})( [a-zA-Z0-9]*)?",
+        rest,
+    ):
+        rest = rest[m.end() :]
         return (sections.Version(*m.groups("")), rest)
     else:
         raise ValueError("No header version in string")
+
 
 def get_section(contents: str, section_name: str) -> tuple[dict[str, typing.Any], str]:
     rest = contents.lstrip()
@@ -47,18 +57,20 @@ def get_section(contents: str, section_name: str) -> tuple[dict[str, typing.Any]
     section_info = {}
     if not rest.startswith(prefix):
         first_line = rest.split("\n", 1)[0]
-        raise ValueError(f"{section_name.upper()} section not present, found {first_line} instead")
-    rest = rest[len(prefix):]
+        raise ValueError(
+            f"{section_name.upper()} section not present, found {first_line} instead"
+        )
+    rest = rest[len(prefix) :]
     while not rest.lstrip().startswith("*"):
         rest = rest.lstrip()
         if rest.startswith("!"):
             # skip comments
             rest = rest.split("\n", 1)[1]
             continue
-        elif (m := re.match(r"\$TABLE: ([^\n]+)\n", rest)):
+        elif m := re.match(r"\$TABLE: ([^\n]+)\n", rest):
             # handle table
             table_name = m.group(1).lower()
-            rest = rest[m.end():].lstrip()
+            rest = rest[m.end() :].lstrip()
             # table column names
             line, rest = rest.split("\n", 1)
             column_names = [name.lower() for name in line.lstrip()[1:].split()]
@@ -70,11 +82,15 @@ def get_section(contents: str, section_name: str) -> tuple[dict[str, typing.Any]
             while not rest.lstrip().startswith("$END"):
                 line, rest = rest.split("\n", 1)
                 section_info[table_name].append(
-                    {column_names[i]: v for i, v in enumerate(utils.apply_column_mask(line, mask))})
+                    {
+                        column_names[i]: v
+                        for i, v in enumerate(utils.apply_column_mask(line, mask))
+                    }
+                )
             _, rest = rest.lstrip().split("\n", 1)
-        elif (m := re.match(r"\$REMARKS", rest)):
+        elif m := re.match(r"\$REMARKS", rest):
             # handle remarks
-            rest = rest[m.end():]
+            rest = rest[m.end() :]
             remarks = []
             while not rest.lstrip().startswith("$END"):
                 line, rest = rest.split("\n", 1)
@@ -88,17 +104,40 @@ def get_section(contents: str, section_name: str) -> tuple[dict[str, typing.Any]
             section_info[key.strip().lower()] = value.strip()
     return section_info, rest
 
+
 def get_file(contents: str) -> tuple[sections.FileInfo, str]:
     file_dict, rest = get_section(contents, "file")
-    start_time = utils.to_iso(file_dict[START_TIME]) if START_TIME in file_dict else datetime.datetime.fromtimestamp(0)
-    end_time = utils.to_iso(file_dict[END_TIME]) if END_TIME in file_dict else datetime.datetime.fromtimestamp(0)
-    time_zero = utils.to_iso(file_dict[TIME_ZERO]) if TIME_ZERO in file_dict else datetime.datetime.fromtimestamp(0)
+    start_time = (
+        utils.to_iso(file_dict[START_TIME])
+        if START_TIME in file_dict
+        else datetime.datetime.fromtimestamp(0)
+    )
+    end_time = (
+        utils.to_iso(file_dict[END_TIME])
+        if END_TIME in file_dict
+        else datetime.datetime.fromtimestamp(0)
+    )
+    time_zero = (
+        utils.to_iso(file_dict[TIME_ZERO])
+        if TIME_ZERO in file_dict
+        else datetime.datetime.fromtimestamp(0)
+    )
     number_of_records = int(file_dict[NUMBER_OF_RECORDS])
-    data_description = file_dict[DATA_DESCRIPTION] if DATA_DESCRIPTION in file_dict else ""
+    data_description = (
+        file_dict[DATA_DESCRIPTION] if DATA_DESCRIPTION in file_dict else ""
+    )
     file_type = file_dict[FILE_TYPE] if FILE_TYPE in file_dict else ""
     number_of_channels = int(file_dict[NUMBER_OF_CHANNELS])
-    channels = [sections.Channel(**elem) for elem in file_dict[CHANNELS]] if CHANNELS in file_dict else []
-    channel_details = [sections.ChannelDetail(**elem) for elem in file_dict[CHANNEL_DETAIL]] if CHANNEL_DETAIL in file_dict else []
+    channels = (
+        [sections.Channel(**elem) for elem in file_dict[CHANNELS]]
+        if CHANNELS in file_dict
+        else []
+    )
+    channel_details = (
+        [sections.ChannelDetail(**elem) for elem in file_dict[CHANNEL_DETAIL]]
+        if CHANNEL_DETAIL in file_dict
+        else []
+    )
     remarks = file_dict[REMARKS] if REMARKS in file_dict else ""
     data_type = file_dict[DATA_TYPE] if DATA_TYPE in file_dict else ""
     to_remove = " \n\t'"
@@ -107,7 +146,10 @@ def get_file(contents: str) -> tuple[sections.FileInfo, str]:
         if CONTINUED in file_dict:
             format_str += file_dict[CONTINUED].strip(to_remove)
     else:
-        format_info = [utils.format_string(detail.format, detail.width, detail.decimal_places) for detail in channel_details]
+        format_info = [
+            utils.format_string(detail.format, detail.width, detail.decimal_places)
+            for detail in channel_details
+        ]
         format_str = "({})".format(",".join(format_info))
     file_info = sections.FileInfo(
         start_time=start_time,
@@ -125,6 +167,7 @@ def get_file(contents: str) -> tuple[sections.FileInfo, str]:
         raw=file_dict,
     )
     return file_info, rest
+
 
 def get_administration(contents: str) -> tuple[sections.Administration, str]:
     admin_dict, rest = get_section(contents, "administration")
@@ -147,14 +190,23 @@ def get_administration(contents: str) -> tuple[sections.Administration, str]:
     )
     return admin_info, rest
 
+
 def get_location(contents: str) -> tuple[sections.Location, str]:
     location_dict, rest = get_section(contents, "location")
-    geographic_area = location_dict[GEOGRAPHIC_AREA] if GEOGRAPHIC_AREA in location_dict else ""
+    geographic_area = (
+        location_dict[GEOGRAPHIC_AREA] if GEOGRAPHIC_AREA in location_dict else ""
+    )
     station = location_dict[STATION] if STATION in location_dict else ""
-    event_number = int(location_dict[EVENT_NUMBER]) if EVENT_NUMBER in location_dict else -1
+    event_number = (
+        int(location_dict[EVENT_NUMBER]) if EVENT_NUMBER in location_dict else -1
+    )
     latitude = utils.get_latitude(location_dict[LATITUDE])
     longitude = utils.get_longitude(location_dict[LONGITUDE])
-    water_depth = float(location_dict[WATER_DEPTH]) if WATER_DEPTH in location_dict and location_dict[WATER_DEPTH] not in [""] else -1
+    water_depth = (
+        float(location_dict[WATER_DEPTH])
+        if WATER_DEPTH in location_dict and location_dict[WATER_DEPTH] not in [""]
+        else -1
+    )
     remarks = location_dict[REMARKS] if REMARKS in location_dict else ""
     location_info = sections.Location(
         geographic_area=geographic_area,
@@ -167,6 +219,7 @@ def get_location(contents: str) -> tuple[sections.Location, str]:
         raw=location_dict,
     )
     return location_info, rest
+
 
 def get_instrument(contents: str) -> tuple[sections.Instrument, str]:
     instrument_dict, rest = get_section(contents, "instrument")
@@ -181,9 +234,14 @@ def get_instrument(contents: str) -> tuple[sections.Instrument, str]:
     )
     return instrument_info, rest
 
+
 def get_history(contents: str) -> tuple[sections.History, str]:
     history_dict, rest = get_section(contents, "history")
-    programs = [sections.Program(*elem) for elem in history_dict[PROGRAMS]] if PROGRAMS in history_dict else []
+    programs = (
+        [sections.Program(*elem) for elem in history_dict[PROGRAMS]]
+        if PROGRAMS in history_dict
+        else []
+    )
     remarks = history_dict[REMARKS] if REMARKS in history_dict else ""
     history_info = sections.History(
         programs=programs,
@@ -192,19 +250,25 @@ def get_history(contents: str) -> tuple[sections.History, str]:
     )
     return history_info, rest
 
+
 def get_calibration(contents: str) -> tuple[sections.Calibration, str]:
     calibration_dict, rest = get_section(contents, "calibration")
-    corrected_channels = calibration_dict[CORRECTED_CHANNELS] if CORRECTED_CHANNELS in calibration_dict else []
+    corrected_channels = (
+        calibration_dict[CORRECTED_CHANNELS]
+        if CORRECTED_CHANNELS in calibration_dict
+        else []
+    )
     calibration_info = sections.Calibration(
         corrected_channels=corrected_channels,
         raw=calibration_dict,
     )
     return calibration_info, rest
 
+
 def get_comments(contents: str) -> tuple[str, str]:
     rest = contents.lstrip()
-    if (m := re.match(r"\*COMMENTS\n", rest)):
-        rest = rest[m.end():]
+    if m := re.match(r"\*COMMENTS\n", rest):
+        rest = rest[m.end() :]
         lines = []
         while not rest.startswith("*"):
             line, rest = rest.split("\n", 1)
@@ -213,12 +277,13 @@ def get_comments(contents: str) -> tuple[str, str]:
     else:
         raise ValueError("No COMMENTS section found")
 
+
 def get_data(contents: str, format: str, records: int) -> tuple[list[typing.Any], str]:
     # TODO: do formatted read of the data
     # TODO: read given number of records
     rest = contents.lstrip()
-    if (m := re.match(r"\*END OF HEADER\n", rest)):
-        rest = rest[m.end():]
+    if m := re.match(r"\*END OF HEADER\n", rest):
+        rest = rest[m.end() :]
         lines = rest.split("\n")
         while "" in lines:
             lines.remove("")
