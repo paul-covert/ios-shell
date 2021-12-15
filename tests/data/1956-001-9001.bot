@@ -1,0 +1,91 @@
+*2002/02/18 09:02:34.83
+*IOS HEADER VERSION 1.3  1999/04/13 1999/12/09
+
+*FILE
+    START TIME          : GMT 1956/08/26 18:30:00.000
+    NUMBER OF RECORDS   : 12
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    NUMBER OF CHANNELS  : 2
+
+    $TABLE: CHANNELS
+    ! No Name              Units    Minimum        Maximum
+    ! -- ----------------- -------- -------------- --------------
+       1 Depth             metres   0              251
+       2 Salinity:Bottle   ppt      32.79          33.93
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    ! --  ----  -----  -----  ------  ----  --------------
+       1  -99   ' '        6  F       R4      0
+       2  -99   ' '        7  F       R4      2
+    $END
+
+*LOCATION
+    GEOGRAPHIC AREA     : Ocean Station P
+    STATION             : P26
+    EVENT NUMBER        : 9001
+    LATITUDE            :  50   0.00000 N  ! (deg min)
+    LONGITUDE           : 145   0.00000 W  ! (deg min)
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name     Vers   Date       Time     Recs In   Recs Out
+    !   -------- ------ ---------- -------- --------- ---------
+        SPRD2IS  3.4.4  2001/03/07 10:13:21        12        12
+        REMOVECH 5.0    2001/03/22 12:40:22        12        12
+        HDREDIT2 1.1    2001/03/22 15:05:30 ?         ?
+        HDREDIT2 1.3    2002/01/23 14:24:01 ?         ?
+        CLEAN    3.3    2002/01/23 14:25:03        12        12
+        HDREDIT2 1.3    2002/01/25 14:08:32 ?         ?
+        HDREDIT2 1.3    2002/01/25 16:41:40 ?         ?
+        HDREDIT2 1.3    2002/01/28 13:09:43 ?         ?
+        HDREDIT2 1.3    2002/02/18 09:02:34 ?         ?
+    $END
+    $REMARKS
+        -The following CHANNEL(S) were removed from file.
+         PO4
+        CLEAN functions:
+         - Reset #RECS, MIN & MAX values in header.
+         - Delete Empty Channels:   0 deleted.
+         - Set channel name post-colon letters to upper case.
+    $END
+
+*COMMENTS
+
+    These data were obtained from:
+
+    Fisheries Research Board of Canada, Pacific Oceanographic Group. 1957
+    Data Record 1956.  Ocean weather station "PAPA" (50:00'N, 145:00'W).
+    MS report, Joint Committee on Oceanography
+
+*ADMINISTRATION
+    MISSION             : 1956-01
+    AGENCY              : POG, Nanaimo, B.C.
+    PROJECT             : Line P
+    SCIENTIST           : Bennett E.B.
+    PLATFORM            : St. Catharines
+
+*INSTRUMENT
+    TYPE                : Bottle
+    MODEL               : Multiple Sea Sampler
+!--1-- --2---
+!Depth Salini
+!      ty:   
+!      Bottle
+!----- ------
+*END OF HEADER
+    0.  32.95
+   22.  32.79
+   81.  32.83
+   96.  32.97
+  105.  33.17
+  120.  33.49
+  131.  33.69
+  141.  33.78
+  171.  33.82
+  185.  33.86
+  220.  33.93
+  251. -99.00

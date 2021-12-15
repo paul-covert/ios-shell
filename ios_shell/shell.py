@@ -41,13 +41,19 @@ class ShellFile:
         header_version, rest = parsing.get_header_version(rest)
         # begin named sections
         file_info, rest = parsing.get_file(rest)
-        administration, rest = parsing.get_administration(rest)
-        location, rest = parsing.get_location(rest)
         # sections that may appear out of order
-        instrument, history, calibration, comments = None, None, None, None
+        administration, location, instrument, history, calibration, comments = None, None, None, None, None, None
         while not rest.lstrip().startswith("*END OF HEADER"):
             first = rest.lstrip().split("\n", 1)[0]
-            if first.startswith("*INSTRUMENT"):
+            if first.startswith("*ADMINISTRATION"):
+                if administration is not None:
+                    raise ValueError("There should only be one administration section")
+                administration, rest = parsing.get_administration(rest)
+            elif first.startswith("*LOCATION"):
+                if location is not None:
+                    raise ValueError("There should only be one location section")
+                location, rest = parsing.get_location(rest)
+            elif first.startswith("*INSTRUMENT"):
                 if instrument is not None:
                     raise ValueError("There should only be one instrument section")
                 instrument, rest = parsing.get_instrument(rest)
