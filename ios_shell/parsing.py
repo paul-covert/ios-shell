@@ -265,6 +265,18 @@ def get_calibration(contents: str) -> tuple[sections.Calibration, str]:
     return calibration_info, rest
 
 
+def get_raw(contents: str) -> tuple[sections.Raw, str]:
+    raw_dict, rest = get_section(contents, "raw")
+    channels = raw_dict[CHANNELS] if CHANNELS in raw_dict else []
+    remarks = raw_dict[REMARKS] if REMARKS in raw_dict else ""
+    raw_info = sections.Raw(
+        channels=channels,
+        remarks=remarks,
+        raw=raw_dict
+    )
+    return raw_info, rest
+
+
 def get_comments(contents: str) -> tuple[str, str]:
     rest = contents.lstrip()
     if m := re.match(r"\*COMMENTS\n", rest):

@@ -43,7 +43,8 @@ class ShellFile:
         # begin named sections
         file_info, rest = parsing.get_file(rest)
         # sections that may appear out of order
-        administration, location, instrument, history, calibration, comments = (
+        administration, location, instrument, history, calibration, comments, raw = (
+            None,
             None,
             None,
             None,
@@ -77,6 +78,10 @@ class ShellFile:
                 if calibration is not None:
                     raise ValueError("There should only be one calibration section")
                 calibration, rest = parsing.get_calibration(rest)
+            elif first.startswith("*RAW"):
+                if raw is not None:
+                    raise ValueError("There should only be one raw section")
+                raw, rest = parsing.get_raw(rest)
             else:
                 raise ValueError(f"Unknown section: {first}")
         # end named sections

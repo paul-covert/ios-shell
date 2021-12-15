@@ -92,6 +92,7 @@ def test_shell_get_section():
         "1985-041-0004.bot",
         "1986-033-0003.bot",
         "1992-016-0001.bot",
+        "1996-036-0005.che",
     ])
 def test_shell_read_file(file_name):
     full_file_name = os.path.join(os.path.dirname(__file__), "data", file_name)

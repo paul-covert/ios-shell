@@ -1,0 +1,292 @@
+*2013/12/16 15:11:13.18
+*IOS HEADER VERSION 1.10 2011/10/26 2011/10/26
+
+*FILE
+    START TIME          : UTC 1996/09/09 20:50:00.000
+    NUMBER OF RECORDS   : 9
+    DATA DESCRIPTION    : Bottle:Rosette:Up:Stop + CTD:Down
+    FILE TYPE           : ASCII
+    DATA TYPE           : REAL*4
+    NUMBER OF CHANNELS  : 11
+
+    $TABLE: CHANNELS
+    ! No Name                   Units            Minimum        Maximum
+    !--- ---------------------- ---------------- -------------- --------------
+       1 Pressure               decibar          0              150.3
+       2 Bottle_Number          n/a              1              9
+       3 Oxygen:Dissolved       umol/kg          105.9          175.2
+       4 Oxygen:Dissolved       mL/L             2.433          4.011
+       5 Nitrate_plus_Nitrite   umol/L           22             31
+       6 Silicate               umol/L           40.6           48.8
+       7 Phosphate              umol/L           1.93           2.53
+       8 Temperature            'deg C (IPTS68)' 8.2809         10.9275
+       9 Salinity               PSS-78           29.7172        32.8153
+      10 Transmissivity         %/metre          32.7           50.9
+      11 Salinity:Bottle        PSS-78           29.6278        32.8096
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  -99   ' '        7  F       ' '     1
+       2  -99   ' '        5  I       I       0
+       3  -99   ' '        6  F       ' '     1
+       4  -99   ' '        8  F       ' '     3
+       5  -99   ' '        6  F       ' '     1
+       6  -99   ' '        6  F       ' '     1
+       7  -99   ' '        7  F       ' '     2
+       8  -99   ' '        9  F       ' '     4
+       9  -99   ' '        9  F       ' '     4
+      10  -99   ' '        6  F       ' '     1
+      11  -99   ' '        9  F       ' '     4
+    $END
+    $REMARKS
+        Raw data in file 96360005
+        VI03  =  10.03      ! Volume of iodate standard (cm**3)
+        NI03  =  .01013679  ! Normality of iodate standard
+        VREG  = 2.0         ! Volume of sample displaced by reagents (cm**3)
+        DOREG = 0.0017      ! Absolute amount of O2 added with reagents (ml)
+        UFLAG = -1          ! 0|-1, -1 indicates DO_mass is valid
+
+        Comments from secondary file: D:\CRUISES\GS9697\9636\iosshell\96360005.dwn
+        --------------------------------------------------------------------------
+        File name : 96360004.ACQ
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1996-36
+    AGENCY              : IOS, Ocean Science and Productivity, Sidney, B.C.
+    COUNTRY             : Canada
+    PROJECT             : Strait of Georgia
+    SCIENTIST           : Juhasz T.
+    PLATFORM            : Vector
+
+*LOCATION
+    STATION             : D07A
+    EVENT NUMBER        : 5
+    LATITUDE            :  48  44.02000 N  ! (deg min)
+    LONGITUDE           : 123   8.36000 W  ! (deg min)
+    WATER DEPTH         : 155
+    $REMARKS
+
+        Comments from secondary file: D:\CRUISES\GS9697\9636\iosshell\96360005.dwn
+        --------------------------------------------------------------------------
+        Station Latitude : 48 44.00 N  Longitude : 123  8.35 W  Depth : 160
+    $END
+
+*INSTRUMENT
+    TYPE                : Bottle
+    MODEL               : Niskin 10 litre
+    $REMARKS
+        Dissolved oxygen concentration determined using an automated
+        titration system consisting of a Brinkman Dosimat (model 665)
+        and a PC 900 Colorimeter.
+
+        Comments from secondary file: D:\CRUISES\GS9697\9636\iosshell\96360005.dwn
+        --------------------------------------------------------------------------
+        Acquisition program : CTD.EXE  version  1.46
+        CTD data type :  3   ! Guildline WOCE system
+        Control String : Set by program GCTD
+    $END
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name                     Vers   Date       Time     Recs In   Recs Out
+    !   ------------------------ ------ ---------- -------- --------- ---------
+        AutoOxy.bas              1.8    1996/09/09 22:45:05 ' '               9
+        AutoFix.bas              1.0    1996/09/16 11:10:48         9         9
+        CLEAN                    2.0    1996/09/16 11:11:55         9         9
+        SORT                     2.3    1996/11/14 13:25:09         9         9
+        SORT                     2.3    1997/03/11 10:52:01         9         9
+        MERGE                    1.0    1997/03/11 11:37:23         9         9
+        SORT                     2.3    1997/03/11 11:53:45         9         9
+        MERGE                    1.0    1997/03/11 12:11:49         9         9
+        CLEAN                    2.6    1998/08/26 10:28:13         9         9
+        HDREDIT2                 1.0    1998/08/26 11:02:36 ?         ?
+        REMOVECH                 3.1    1998/08/26 12:23:36         9         9
+        MERGE                    2.2    1998/08/26 13:10:18         9         9
+        HDREDIT2                 1.8    2003/10/15 13:21:27 ?         ?
+        CLEAN                    4.5    2003/10/15 13:22:15         9         9
+        CHANGE_CTD_CHANNEL_NAMES 1.0    2013/12/16 15:11:13         9         9
+    $END
+    $REMARKS
+        C.H. Culbertson's paper on Dissolved Oxygen in the 'Woce
+        Hydrographic Program Operations and Methods - July 1991'
+        OxyRedo fixs DO_mass and DO_volumne when incorrect values
+        for VIO3, NIO3, blank, or standard have been entered.
+        -The following CLEAN parameters were used.
+         Reset #RECS, MIN & MAX values in header.
+        -The following SORT parameters were used.
+         Sorted by channel: PRESSURE
+         Pressure channel sorted according to values in sort channel
+        -The following SORT parameters were used.
+         Sorted by channel: consecutive_no
+         Pressure channel sorted according to values in sort channel
+         Sort in Ascending Order
+        -The following MERGE parameters were used:
+         Primary File Extension: h1
+         Secondary File Extension: nut
+         Merge Channel: Consecutive_no
+         Merge Scheme Used:
+          Interweave Records from Both Files
+         Overlap Scheme Used:
+          Keep Primary
+         Primary Channels to Include:
+         Consecutive_no,Pressure,Salinity:bottle,Dissolved_oxygen:mas,Dissolved_oxygen:v
+         Secondary Channels to Include:
+         Consecutive_no,Nitrate_plus_nitrite,Silicate,Orthophosphate
+        -The following SORT parameters were used.
+         Sorted by channel: pressure
+         Pressure channel sorted according to values in sort channel
+         Sort in Ascending Order
+        -The following MERGE parameters were used:
+         Primary File Extension: ch2
+         Secondary File Extension: dwn
+         Merge Channel: Pressure
+         Merge Scheme Used:
+          Interpolate Secondary onto Primary
+         Overlap Scheme Used:
+          Keep Primary
+         Primary Channels to Include:
+         Pressure,Consecutive_no,Salinity:bottle,Dissolved_oxygen:mas,Dissolved_oxygen:v
+         Secondary Channels to Include:
+         Pressure,Temperature,Salinity,Transmissivity
+
+        Comments from secondary file: D:\CRUISES\GS9697\9636\iosshell\96360005.dwn
+        --------------------------------------------------------------------------
+        -The following CALIB parameters were used:
+        Calibration type = R
+        Salinity is computed
+        Transmissivity converted to %/metre
+        Pressure offset =         .0
+        Calibration file = C:\IOSSHELL\CALFILES\woce.ccf
+        -The following DESPIKE parameters were used:
+        DESPIKE TABLE
+        CHANNEL              FIT   OVER-  MIN     MAX    MIN     MAX     SPIKE
+        WIDTH LAP    VALUE   VALUE  STDDEV  STDDEV  TOL.
+        -------------------- ----- ----- ------- ------- ------- ------- -----
+        Pres                    55     5     .00  500.00  .10000 999.000  3.00
+        Temp                    55     5     .00   30.00  .00500 999.000  3.00
+        Cond                    55     5     .00    1.00  .00010 999.000  3.00
+        Tran                    55     5     .00  100.00  .10000 999.000  3.00
+        -The following TIMECOMP parameters were used:
+        Temp. probe Dist (m):   .0000  Sample period (sec):   .0400
+        -The following DELETE parameters were used:
+        Surface Record Removal: Low Sal & Last Press Min
+        Maximum Surface Pressure (relative):       5.00
+        Minimum Surface Salinity:       .000
+        Surface Swell Pressure Tolerance:        .50
+        Pressure filtered over width:   11
+        Swells deleted. Warning message if pressure difference of      2.00
+        Drop rates<    .30m/s (calculated over  11 points) will be deleted
+        Sample interval =       .05 seconds.
+        -The following FILTER parameters were used.
+        Median filter was used.
+        Filter width =   21
+        The following channel(s) were filtered.
+        Sal
+        -The following BINAVE parameters were used:
+        Bin channel = Pressure
+        Averaging interval =    1.0
+        Minimum bin value =        .000
+        Average value was used
+        Interpolated values were NOT used for empty bins
+        Channel 'NUMBER_OF_BIN_RECORDS' was added to file.
+        -The following CALIB parameters were used:
+        Calibration type = C
+        Pressure offset =        0.0
+        Calibration file = WOCECOR.CCF
+        -The following CHANNEL(S) were removed from file.
+        conductivity_ratio
+        temperature:thermistor1
+        temperature:thermistor2
+        CLEAN functions:
+         - Reset #RECS, MIN & MAX values in header.
+         - Change Pad Value to -99 in All Channels.
+        -The following CHANNEL(S) were removed from file.
+         Salinity:Bottle
+        -The following MERGE parameters were used:
+         Merge Channel: Pressure
+         Merge Scheme Used: Interweave Records from Both Files
+         Overlap Scheme Used: Keep Primary
+         Primary Channels to Include:
+         Consecutive_no,Dissolved_Oxygen:mas,Dissolved_Oxygen:vol,nitrate_plus_nitrite,s
+         Secondary Channels to Include:
+         Salinity:bottle
+         Primary file  : d:\geostr\9636\iosshell\96360005.rm1
+         Secondary file: d:\geostr\9636\iosshell\96360005.is1
+        CLEAN functions:
+         - Reset #RECS, MIN & MAX values in header.
+         - Change Pad Value to -99 in All Channels.
+         - Delete Empty Channels:   0 deleted.
+         - Set channel name post-colon letters to upper case.
+    $END
+
+*COMMENTS
+
+    Comments from secondary file: D:\CRUISES\GS9697\9636\iosshell\96360005.nut
+    --------------------------------------------------------------------------
+    Information on nutrient data :
+    "See file 9636nuts.csv for nutrient data including averages, replicates and
+    quality flags."
+    "See file 9636nuts.txt for description of methods used to analyze nutrients,
+    list of raw data files, description of quality flags and comments on data."
+    "See excel file 0603nuts.xls for data, methods, depth profiles, comments
+    etc.; This is the main source file."
+    "Raw data files : 960916.aaz, 960918.aaz, 960919.aaz, 960920.aaz (.anz;
+    wk1/wk3/wk4 and .xls files with same names also); 9636nuts.xls"
+
+    Comments from secondary file: D:\CRUISES\GS9697\9636\iosshell\96360005.dwn
+    --------------------------------------------------------------------------
+
+    Alt S start position  48 43.98 N 123  8.37 W  20:44:43 09-09-1996
+    Alt S stop  position  48 44.02 N 123  8.37 W  20:48:09 09-09-1996
+
+*RAW
+
+    $TABLE: CHANNELS
+    !                Averaging (day hr min sec ms)
+    !Name Raw Units  Interval   Time Lag
+    !---- ---------  ---------  -----------
+    $END
+    $REMARKS
+
+        Comments from secondary file: D:\CRUISES\GS9697\9636\iosshell\96360005.dwn
+        --------------------------------------------------------------------------
+        The raw data channel order is not represented by the above table.
+    $END
+
+*CALIBRATION
+    $REMARKS
+
+        Comments from secondary file: D:\CRUISES\GS9697\9636\iosshell\96360005.dwn
+        --------------------------------------------------------------------------
+        WOCE temperature compensation values:
+        Temperature Range    3900    4520
+        Zero Degrees C       3956
+        Cu Temperature       1.24    0
+        Conductivity_Ratio  -.472    0
+        The following are the WOCE CTD temperature compensation values.
+        Temperature Range            3900           4520
+        Zero Degrees C               3956
+        Cu Temperature       .1240000E+01   .0000000E+00
+        Conductivity_Ratio  -.4720000E+00   .0000000E+00
+    $END
+!--1--- -2-- --3-- ---4--- --5-- --6-- --7--- ---8---- ---9---- --10- ---11---
+!Pressu Bott Oxyge Oxygen: Nitra Silic Phosph Temperat Salinity Trans Salinity
+!re     le_  n:    Dissolv te_   ate   ate    ure               missi :Bottle 
+!       Numb Disso ed      plus_                                vity          
+!       er   lved          Nitri                                              
+!                          te                                                 
+!------ ---- ----- ------- ----- ----- ------ -------- -------- ----- --------
+*END OF HEADER
+    0.0    9 175.2   4.011  22.0  40.6   1.93  10.9275  29.7172  47.8  29.6278
+   10.2    8 168.0   3.846  22.8  41.3   2.06  10.7679  29.9028  49.6  29.8442
+   20.6    7 157.6   3.609  24.0  41.7   2.14  10.6452  29.9230  50.3  30.0672
+   30.4    6 155.2   3.555  24.3  42.1   2.11  10.4706  30.1470  50.7  30.2306
+   50.9    5 151.3   3.467  24.9  43.1   2.16  10.3236  30.4067  50.9  30.5996
+   75.0    4 106.9   2.455  30.8  48.3   2.49   8.5921  32.5203  50.8  32.7740
+  101.1    3 106.1   2.435  31.0  47.6   2.48   8.3009  32.7931  42.4  32.8065
+  125.3    2 105.9   2.433  30.9  48.4   2.53   8.2826  32.8114  38.2  32.8096
+  150.3    1 106.1   2.436  30.8  48.8   2.53   8.2809  32.8153  32.7  32.8076
