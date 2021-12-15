@@ -1,0 +1,188 @@
+*2013/12/16 14:13:10.30
+*IOS HEADER VERSION 1.10 2011/10/26 2011/10/26
+
+*FILE
+    START TIME          : UTC 1958/11/03 19:24:00.000
+    NUMBER OF RECORDS   : 15
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    DATA TYPE           : REAL*4
+    PAD                 : -99
+    NUMBER OF CHANNELS  : 5
+
+    $TABLE: CHANNELS
+    ! No Name                    Units    Minimum        Maximum
+    !--- ----------------------- -------- -------------- --------------
+       1 Depth                   metres   0              295
+       2 Temperature:Reversing   'deg C'  3.72           8.66
+       3 Salinity:Bottle         ppt      32.647         33.921
+       4 Nitrite                 umol/L   0              0.63
+       5 Flag:Nitrite            n/a
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  ' '   ' '        6  F       ' '     0
+       2  ' '   ' '        7  F       ' '     2
+       3  ' '   ' '        8  F       ' '     3
+       4  -99   ' '        7  F       R4      2
+       5  ' '   ' '        2  NQ      C     ' '
+    $END
+    $REMARKS
+               This file converted from STDHYD file STDHYD58.DAT
+               using SUStoIOS.BAS version 2.3 Sep 04/96 rmb
+          Original HEADER:
+        5899  P 50 0.00N145 0.00W5811 31924GMT  1             3DTS          295   15   H
+
+        Data quality is expressed with the following flags
+        ----------------------------------------------------------------------------
+        1 = Sample for this measurement was drawn from water bottle but not analyzed
+            (not normally used).
+        2 = Acceptable measurement (not normally used)
+        3 = Questionable measurement (no problem observed in sampling or analysis,
+            but value is not trusted, nonetheless; includes outlyers).
+        4 = Bad measurement (known problem with sampling or analysis, but not
+            serious enough to completely discard the value).
+        5 = Not reported (lost sample; unredeemably bad measurement).
+        6 = Mean of replicate measurements.
+        7 = Manual chromatographic peak measurement.
+        8 = Irregular digital chromatographic peak integration.
+        9 = Sample not drawn for this measurement from this bottle (not normally
+            used).
+        ----------------------------------------------------------------------------
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1958-04
+    AGENCY              : POG, Nanaimo, B.C.
+    COUNTRY             : Canada
+    PROJECT             : Station P
+    SCIENTIST           : McAllister C.D.
+    PLATFORM            : St. Catharines
+
+*LOCATION
+    GEOGRAPHIC AREA     : NE PACIFIC
+    STATION             : P
+    EVENT NUMBER        : 1
+    LATITUDE            :  50   0.00000 N  ! (deg min)
+    LONGITUDE           : 145   0.00000 W  ! (deg min)
+
+*INSTRUMENT
+    TYPE                : Bottle
+    MODEL               : Nansen reversing
+
+*COMMENTS
+    Converted from SUS TABATA's STDHYD data files by Robin Brown
+
+    Contents:
+    Cast data from Weathership program
+    using ships C.G.S. "St. Catharines" and C.G.S. "Stonetown"
+    from Vancouver Island, BC, Canada
+    to   Ocean Weather Station P [50N x 145W]
+    Data incl SWT,SAL,O2, PO4, Si
+
+    Sample collection methods:
+    Sea Water Temp
+    -  reversing thermometers mounted on Reversing Bottle samplers
+    Salinity
+    - Collected in Reversing Bottle samplers
+    Dissolved Oxygen
+    - Collected in Reversing Bottle samplers
+
+    Sample analysis methods:
+    Sea Water Temp
+    -  Shipboard reading of reversing thermometers
+    Salinity
+    - Laboratory analysis with modified Werner/Smith/Soule salinity bridge
+    Dissolved Oxygen
+    - Shipboard analysis, modified Winkler (Strickland, 1958a, 1958b)
+    Reactive Nutrients
+    - Shipboard analysis (Strickland, 1958a, 1958b)
+    =========================================================================
+    Nitrite results are not unreasonable. However due to zeroing difficulties
+    with DU their reliablility may be questioned. See cruise report.
+    =========================================================================
+
+    References:
+    1. Fisheries Research Board of Canada
+    Manuscript Report Series, (Oceanographic and Limnological), No. 14
+    Data Record Ocean Weather Station "P" (50:00'N, 145:00'W).
+    January 1, 1957 - January 24, 1958
+    IOS Library: FRB-MR-OL-14
+    2. Fisheries Research Board of Canada
+    Manuscript Report Series, (Oceanographic and Limnological), No. 31
+    Data Record Ocean Weather Station "P" (50:00'N, 145:00'W).
+    January 22 - July 11, 1958
+    IOS Library: FRB-MR-OL-31
+    3. Fisheries Research Board of Canada
+    Manuscript Report Series, (Oceanographic and Limnological), No. 44
+    Data Record Ocean Weather Station "P" (50:00'N, 145:00'W).
+    July 9, 1958 - January 24, 1959
+    IOS Library: FRB-MR-OL-44
+    4. Fisheries Research Board of Canada
+    Manuscript Report Series, (Oceanographic and Limnological), No. 179
+    Data Record: Productivity Measurements in the NE Pacific
+    with associated Chemical & Physical Data 1958-1964
+    IOS Library: FRB-MR-OL-179
+    5. Fisheries Research Board of Canada
+    Manuscript Report Series, (Oceanographic and Limnological), No. 187
+    Oceanographic Atlas of Ocean Weather Station "Papa" 1956-1963
+    IOS Library: FRB-MR-OL-187
+    6. Strickland, J.D.H. 1958a. Standard methods of sea water analyses. Vol I
+    MS Report Series (Oceanographic and Limnological), No. 18.
+    Fisheries Research Board of Canada, Pacific Oceanographic Group, Nanaim
+    7. Strickland, J.D.H. 1958b. Standard methods of sea water analyses. Vol I
+    MS Report Series (Oceanographic and Limnological), No. 19.
+    Fisheries Research Board of Canada, Pacific Oceanographic Group, Nanaim
+    8. Annual FRB Report of the Pacific Oceanographic Group,
+    Biological Station, Nanaimo, B.C.
+    9. Above references @Institute of Ocean Sciences Library, Sidney, B.C.
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name                     Vers   Date       Time     Recs In   Recs Out
+    !   ------------------------ ------ ---------- -------- --------- ---------
+        PADZEROS                 1.0    1996/09/04 16:04:55        15        15
+        HDREDIT2                 1.1    2001/09/06 12:15:19 ?         ?
+        HDREDIT2                 1.3    2002/01/29 19:29:32 ?         ?
+        CLEAN                    3.4    2002/01/29 19:30:09        15        15
+        HDREDIT2                 1.3    2002/02/06 14:27:16 ?         ?
+        ADDCHANS                 1.2    2006/01/26 17:02:12 ?         ?
+        CLEAN                    4.8.1  2006/01/26 17:05:07        15        15
+        ADDCHANS                 1.2    2006/01/29 11:53:36 ?         ?
+        CHANGE_FLAGS             1.0    2013/07/16 11:42:07        15        15
+        CHANGE_CTD_CHANNEL_NAMES 1.0    2013/12/16 14:13:10        15        15
+    $END
+    $REMARKS
+        CLEAN functions:
+         - Reset #RECS, MIN & MAX values in header.
+         - Delete Empty Channels:   0 deleted.
+         - Set channel name post-colon letters to upper case.
+        -CLEAN functions: 2006/01/26 17:05:07
+         Reset #RECS, MIN & MAX values in header.
+    $END
+!--1-- --2--- ---3--- --4--- 5
+!Depth Temper Salinit Nitrit F
+!      ature: y:      e      l
+!      Revers Bottle         ~
+!      ing                   t
+!                            e
+!----- ------ ------- ------ -
+*END OF HEADER
+    0.   8.50  32.689   0.30 3
+   10.   8.66  32.655   0.26 3
+   30.   8.65  32.647   0.26 3
+   49.   8.64  32.653   0.28 3
+   69.   7.81  32.812   0.41 3
+   79.   6.76  32.969   0.63 3
+   89.   6.05  33.066   0.58 3
+   98.   5.49  33.125   0.00 3
+  108.   5.30  33.200   0.00 3
+  123.   5.44  33.439   0.00 3
+  148.   5.04  33.751   0.00 3
+  172.   4.40  33.760   0.00 3
+  197.   4.15  33.776   0.00 3
+  246.   3.72  33.827   0.00 3
+  295.   3.75  33.921   0.00 3

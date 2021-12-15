@@ -3,6 +3,8 @@ import datetime
 import numpy
 import typing
 
+EMPTY = ["", "' '", "n/a"]
+
 @dataclass
 class Version:
     version_no: str
@@ -28,9 +30,8 @@ class Channel:
         self.no = int(no)
         self.name = name.strip()
         self.units = units.strip()
-        empty = ["' '", "n/a"]
-        self.minimum = numpy.nan if minimum.strip() in empty else float(minimum)
-        self.maximum = numpy.nan if maximum.strip() in empty else float(maximum)
+        self.minimum = numpy.nan if minimum.strip() in EMPTY else float(minimum)
+        self.maximum = numpy.nan if maximum.strip() in EMPTY else float(maximum)
 
 class ChannelDetail:
     no: int # acts as an identifier
@@ -51,14 +52,13 @@ class ChannelDetail:
         type="",
         decimal_places="",
     ):
-        empty = ["", "' '"]
         self.no = int(no)
-        self.pad = float(pad) if pad.strip() not in empty else numpy.nan
+        self.pad = float(pad) if pad.strip() not in EMPTY else numpy.nan
         self.start = start
-        self.width = int(width) if width.strip() not in empty else 0
+        self.width = int(width) if width.strip() not in EMPTY else 0
         self.format = format
         self.type = type
-        self.decimal_places = int(decimal_places) if decimal_places.strip() not in empty else 0
+        self.decimal_places = int(decimal_places) if decimal_places.strip() not in EMPTY else 0
 
 @dataclass
 class FileInfo:
