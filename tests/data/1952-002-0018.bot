@@ -1,0 +1,107 @@
+*2014/03/03 10:14:25.86
+*IOS HEADER VERSION 1.10 2011/10/26 2011/10/26
+
+*FILE
+    START TIME          : UTC 1952/09/05 21:00:00.000
+    NUMBER OF RECORDS   : 16
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    DATA TYPE           : REAL*4
+    PAD                 : -99
+    NUMBER OF CHANNELS  : 3
+
+    $TABLE: CHANNELS
+    ! No Name                    Units     Minimum        Maximum
+    !--- ----------------------- --------- -------------- --------------
+       1 Pressure                decibar   0              247.4
+       2 Temperature:Reversing   'deg C'   -1.58          -0.13
+       3 Salinity:Bottle         ppt       30.12          34.65
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  ' '   ' '        7  F       ' '     1
+       2  ' '   ' '        7  F       ' '     2
+       3  ' '   ' '        7  F       ' '     2
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1952-02
+    AGENCY              : U. Washington
+    PLATFORM            : USS Burton Island
+
+*LOCATION
+    GEOGRAPHIC AREA     : Beaufort Sea
+    STATION             : 18
+    LATITUDE            :  74   5.00000 N  ! (deg min)
+    LONGITUDE           : 127  13.00000 W  ! (deg min)
+    WATER DEPTH         :
+
+*INSTRUMENT
+    TYPE                : Bottle Cast
+
+*COMMENTS
+    ODIS # 52-0002
+    Reference:
+    US Navy Hydrographic Office, 1954.
+    Oceanographic observations, USS Burton Island, 1950-1953.
+    USN Hydrographic Office, Washington DC.  Pub. 618-C.
+    Conversion:
+    Converted from Beaufort Sea variability 9-track by Rick Birch
+    Reference: Fissel & Melling, 1990.
+    Interannual variability of oceanographic conditions in the south-
+    eastern Beaufort Sea. DFO. Cdn Contr Rep #35.
+    Original header:
+     74.08 127.22   1952  9  5 21  0  16
+    Some values have been interpolated to standard depths.
+    Original depths (m) had been converted to pressure (db)
+    by multiplying by 1.00962
+    Density (sigma-t) are as re-computed by Fissel & Melling
+    Data Quality:
+    These data have undergone a quality control evaluation,
+    as per Fissel & Melling (1990).
+    Temperature (Rev. therm.) res=0.02, acc=0.03 degC
+    Salinity (Knudsen titration) res=0.02, acc=0.04 ppt
+    Minor density inversions were found.
+    Other measurements: dissolved oxygen,plankton,sediments,secchi,BT
+    Note - other stns from this cruise in US waters have not been converted.
+           they are available from NODC (# 3150400)
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name                     Vers   Date       Time     Recs In   Recs Out
+    !   ------------------------ ------ ---------- -------- --------- ---------
+        CLEAN                    2.0    1997/01/10 16:32:56        16        16
+        HDREDIT2                 1.6    2003/05/26 16:15:17 ?         ?
+        CHANGE_CTD_CHANNEL_NAMES 1.0    2013/12/16 14:12:50        16        16
+        CHANGE_MISSION_IDs       1.0    2014/03/03 10:14:25        16        16
+    $END
+    $REMARKS
+        -The following CLEAN parameters were used.
+         Reset #RECS, MIN & MAX values in header.
+    $END
+!--1--- --2--- --3---
+!Pressu Temper Salini
+!re     ature: ty:   
+!       Revers Bottle
+!       ing          
+!------ ------ ------
+*END OF HEADER
+    0.0  -1.58  30.12
+   10.1  -1.58  30.12
+   20.2  -1.44  30.12
+   25.2  -1.47  30.44
+   30.3  -1.48  30.85
+   45.4  -1.50  31.74
+   50.5  -1.53  31.87
+   60.6  -1.58  32.12
+   75.7  -1.55  32.28
+  101.0  -1.51  32.62
+  121.2  -1.47  32.94
+  126.2  -1.41  33.06
+  151.4  -1.12  33.61
+  171.6  -0.90  33.96
+  201.9  -0.58  34.36
+  247.4  -0.13  34.65
