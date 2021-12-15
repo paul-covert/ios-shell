@@ -219,13 +219,11 @@ def get_data(contents: str, format: str, records: int) -> tuple[list[typing.Any]
     rest = contents.lstrip()
     if (m := re.match(r"\*END OF HEADER", rest)):
         rest = rest[m.end():]
-        data = []
-        while len(rest) > 0:
-            line, rest = rest.split("\n", 1)
-            if len(line) == 0:
-                # skip blank lines
-                continue
-            data.append(line)
+        lines = rest.split("\n")
+        while "" in lines:
+            lines.remove("")
+        data = lines[:records]
+        rest = "\n".join(lines[records:])
         return data, rest
     else:
         raise ValueError("No data in file")
