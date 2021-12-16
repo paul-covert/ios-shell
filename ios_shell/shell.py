@@ -126,18 +126,3 @@ class ShellFile:
             return self.file.end_time
         else:
             raise ValueError("No valid time found")
-
-    def get_data_by_name(self, name: str) -> list[object]:
-        names = [channel.name for channel in self.file.channels]
-        if name not in names:
-            raise ValueError(f"{name} not found in {self.file.channels}")
-        return self.__get_data(names.index(name))
-
-    def get_data_by_channel_no(self, channel_no: int) -> list[object]:
-        numbers = [channel.no for channel in self.file.channels]
-        if channel_no not in numbers:
-            raise ValueError(f"{channel_no} not found in {self.file.channels}")
-        return self.__get_data(numbers.index(channel_no))
-
-    def __get_data(self, index, placeholder) -> list[object]:
-        return ["NaN" if row[index] == placeholder else row[index] for row in self.data]
