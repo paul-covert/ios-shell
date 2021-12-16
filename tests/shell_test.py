@@ -9,6 +9,7 @@ import ios_shell.parsing as parsing
     [
         ("*IOS HEADER VERSION 1.10 2011/10/26 2011/10/26", "1.10"),
         ("*IOS HEADER VERSION 2.0      2016/04/28 2016/06/13 IVF16", "2.0"),
+        ("*IOS HEADER VERSION 0.4  1992/11/17", "0.4"),
     ],
 )
 def test_header_version(contents, expected):
@@ -111,6 +112,7 @@ def test_shell_get_section():
         "2008-026-0089.che",
         "2015-022-0031.bot",
         "51010002.ubc",
+        "74010003.ubc",
     ],
 )
 def test_shell_read_file(file_name):

@@ -42,11 +42,11 @@ def get_header_version(contents: str) -> tuple[sections.Version, str]:
     # TODO: capture all sections of version
     rest = contents.lstrip()
     if m := re.match(
-        fr"\*IOS HEADER VERSION +(\d+.\d+) +({DATE_STR}) +({DATE_STR})( +[a-zA-Z0-9.]+)?",
+        fr"\*IOS HEADER VERSION +(?P<version_no>\d+.\d+) +(?P<date1>{DATE_STR})( +(?P<date2>{DATE_STR})( +(?P<tag>[a-zA-Z0-9.]+))?)?",
         rest,
     ):
         rest = rest[m.end() :]
-        return (sections.Version(*m.groups("")), rest)
+        return (sections.Version(**m.groupdict("")), rest)
     else:
         raise ValueError("No header version in string")
 
