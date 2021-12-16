@@ -47,7 +47,7 @@ def _to_timezone_offset(name: str) -> str:
         return "+00:00"
     elif name.upper() in ["MDT"]:
         return "-06:00"
-    elif name.upper() in ["PDT"]:
+    elif name.upper() in ["PDT", "MST"]:
         return "-07:00"
     elif name.upper() in ["PST"]:
         return "-08:00"

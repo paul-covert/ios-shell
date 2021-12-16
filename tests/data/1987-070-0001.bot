@@ -1,0 +1,162 @@
+*2004/05/28 09:28:09.39
+*IOS HEADER VERSION 1.4  2002/12/04 2002/12/04
+
+*FILE
+    START TIME          : MST 1987/03/30 12:26:00.000
+    NUMBER OF RECORDS   : 10
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    DATA TYPE           : REAL*4
+    NUMBER OF CHANNELS  : 12
+
+    $TABLE: CHANNELS
+    ! No Name                           Units    Minimum        Maximum
+    ! -- ------------------------------ -------- -------------- --------------
+       1 Sample_Number                  n/a      1              10
+       2 Depth:Nominal                  metres   0.5            150
+       3 Salinity:Bottle                PSS-78   31.03          33.686
+       4 Nitrate_plus_Nitrite           umol/L   2.1            16.7
+       5 Silicate                       umol/L   8.1            34.1
+       6 Phosphate                      umol/L   0.85           1.96
+       7 Carbon:Particulate:Organic     mg/m^3   32.31          64.17
+       8 Nitrogen:Particulate:Organic   mg/m^3   4.8            9.49
+       9 Chlorophyll:Extracted          mg/m^3   0.8E-02        0.97E-01
+      10 Total_Suspended_Solids         mg/L     0.56E-01       0.275
+      11 Oxygen:Isotope:18              /mille   -4.1           -1.3
+      12 Oxygen:Dissolved               mL/L     5.7344         8.892799
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    ! --  ----  -----  -----  ------  ----  --------------
+       1  -99   ' '        5  I       I       0
+       2  -99   ' '        8  F       ' '     1
+       3  -99   ' '        8  F       ' '     3
+       4  -99   ' '        6  F       ' '     1
+       5  -99   ' '        6  F       ' '     1
+       6  -99   ' '        7  F       ' '     2
+       7  -99   ' '       10  F       ' '     2
+       8  -99   ' '        8  F       ' '     2
+       9  -99   ' '        7  F       ' '     3
+      10  -99   ' '       10  F       ' '     3
+      11  -99   ' '        7  F       ' '     1
+      12  -99   ' '        8  F       ' '     3
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1987-70
+    AGENCY              : IOS, Ocean Chemistry Division, Sidney, B.C.
+    COUNTRY             : Canada
+    PROJECT             : NOGAP
+    SCIENTIST           : Macdonald R.W.
+    PLATFORM            : aircraft
+
+*LOCATION
+    GEOGRAPHIC AREA     : Beaufort Sea
+    STATION             : SS1-1
+    EVENT NUMBER        : 1
+    LATITUDE            :  70  47.50000 N  ! (deg min)
+    LONGITUDE           : 127  30.80000 W  ! (deg min)
+    WATER DEPTH         : 157
+    ICE THICKNESS       : 1
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name     Vers   Date       Time     Recs In   Recs Out
+    !   -------- ------ ---------- -------- --------- ---------
+        SPRD2IS  2.0    1997/12/18 13:50:42         0        10
+        HEADEDIT 1.1    1998/01/06 15:43:09 ' '       ' '
+        REMOVECH 6.0    2003/07/15 15:35:50        10        10
+        HDREDIT2 1.6    2003/07/15 15:50:50 ?         ?
+        CLEAN    4.3    2003/07/15 16:09:20        10        10
+        CALIB    11.4   2004/05/19 15:05:47        10        10
+        HDREDIT2 2.0    2004/05/19 15:39:00 ?         ?
+        HDREDIT2 2.1    2004/05/28 09:28:09 ?         ?
+    $END
+$REMARKS
+   -The following CHANNEL(S) were removed from file.
+    C/N:Ratio:Particulat
+   CLEAN functions:
+    - Reset #RECS, MIN & MAX values in header.
+    - Change Pad Value to -99 in All Channels.
+    - Delete Empty Channels:   0 deleted.
+    - Set channel name post-colon letters to upper case.
+   -The following CALIB parameters were used:
+    Calibration type = Raw
+    Mode: UNION - calibration specs from Header and Cal File.
+    Calibration file = L:\CRUISE_DATA\1987\1987-70\BOTTLE\OXY.CCF
+    Calibrations applied:
+    Ch Name                          Units    Fmla Coefficents
+    -- ----------------------------- --------- --- -----------------------------
+    12 Oxygen:Dissolved              mL/L       10  0.0000000E+00  0.2240000E-01
+$END
+
+*CALIBRATION
+
+    $TABLE: RAW CHANNELS
+    !   Name               Units  Fmla Pad    Coefficients
+    !   ------------------ ------ ---- ------ ------------
+        Oxygen:Dissolved   mL/L     10 -99    (0 0.224E-01)
+    $END
+
+*COMMENTS
+   Chemistry data cruise 8770 - Beaufort Sea - Spring 1987
+   "Program was operated out of Tuktoyaktuk, Polar Continental Shelf Project."
+
+   "For description of the sampling program,analytical methods and data quality
+   statements, refer to the following data reports :"
+   "(1)  Macdonald, R.W., K. Iseki, M.C. O'Brien, F.A. McLaughlin, D.
+   McCullough, D.M. Macdonald, E.C. Carmack, "
+   "M. Yunker, S. Buckingham, and G. Miskulin, 1988. NOGAP B.6; Volume 5:
+   Chemical data collected in the Beaufort Sea"
+   "and Mackenzie River delta, March-July 1987. Can. Data Rep. Hydrogr. Ocean
+   Sci.: 60, 55 pp."
+   "(2)  Macdonald, D.M., L.E. Cuypers, D. McCullough, E. Carmack, and R.W.
+   Macdonald, 1988, NOGAP B.6: Volume 2: Physical data collected "
+   "in the Beaufort Sea, March-June 1987. Can. Data Rep. Hydrogr. Ocean Sci.:
+   60(2), 157 pp."
+
+   Source files for archived chemistry data for cruise 8770 :
+   8770chem.xls
+   8770chem.csv
+
+   NOTES on the chemistry data :
+   (1) Possible analytical problems with oxygen and phosphate values for station
+   on SS3-1 90 meters.
+   "(2) Sample numbers 33, 34, 37, 38, 71,  72, 75, 76, and 120 and Mackenzie
+   River samples ME-4, MM-4, MR-4."
+   Silicate values are from samples that were acidified and refridgerated (not
+   frozen).
+   (3)  Samples 116 and 117 have only frozen silicate values available (low
+   salinity samples).
+   (4) O16/O18 value for station ME-3 is an average of two values (20.4 and
+   20.0).
+   (5) The POC and PON values for the Mackenzie Delta samples are averages of
+   two to four separate samples.
+   (6)  Sample numbers were assigned later for the samples taken at station 4-2A
+   2A (77 and 78) and for the Mackenzie River samples (121-126) .
+   (7) The stations were renamed to be compatible with ios header format (there
+   were problems with the 9-1 type format)
+   Stations with 9-1 type format were renamed to have a BS at the beginning (eg
+   9-1 renamed to BS9-1).
+   (8) There is no temperature data - reversing thermometers were not used.
+   (9) There is no Phaeo-Pigment data
+!-1-- ---2--- ---3--- --4-- --5-- --6--- ----7---- ---8--- --9--- ----10--- --11-- ---12--
+!Samp Depth:  Salinit Nitra Silic Phosph Carbon:   Nitroge Chloro Total_    Oxygen Oxygen:
+!le_  Nominal y:      te_   ate   ate    Particula n:      phyll: Suspended :      Dissolv
+!Numb         Bottle  plus_              te:       Particu Extrac _Solids   Isotop ed     
+!er                   Nitri              Organic   late:   ted              e:18          
+!                     te                           Organic                                
+!---- ------- ------- ----- ----- ------ --------- ------- ------ --------- ------ -------
+*END OF HEADER
+    1     0.5  31.068   2.1   8.4   0.85     38.19    5.46  0.069     0.098   -4.1   8.848
+    2     3.0  31.030   2.4   8.1   0.91     32.31    5.53  0.080     0.056  -99.0   8.848
+    3     8.0  31.070   2.5   9.0   1.05     34.95    5.18  0.097     0.066   -3.9   8.893
+    4    20.0  31.117   2.7   8.8   1.11     39.08    6.33  0.085     0.130  -99.0   8.803
+    5    30.0  31.398   3.0  10.7   1.07     35.70    4.80  0.029     0.251   -3.8   8.579
+    6    50.0  32.284   8.5  19.6   1.32     43.60    5.78  0.012     0.180   -2.7   7.392
+    7    75.0  32.643  12.9  26.7   1.79     59.22    9.49  0.011     0.202   -2.1   6.922
+    8   100.0  32.990  15.9  31.4   1.91     40.08    6.50  0.008     0.119   -1.9   6.429
+    9   125.0  33.311  15.8  33.6   1.96     64.17    9.29  0.008     0.207   -1.8   6.115
+   10   150.0  33.686  16.7  34.1   1.81     35.70    6.59  0.008     0.275   -1.3   5.734
