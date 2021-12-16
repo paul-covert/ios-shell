@@ -1,4 +1,5 @@
 import datetime
+import fortranformat as ff
 import functools
 import logging
 import re
@@ -296,15 +297,14 @@ def get_comments(contents: str) -> tuple[str, str]:
 
 
 def get_data(contents: str, format: str, records: int) -> tuple[list[typing.Any], str]:
-    # TODO: do formatted read of the data
-    # TODO: read given number of records
     rest = contents.lstrip()
     if m := re.match(r"\*END OF HEADER\n", rest):
         rest = rest[m.end() :]
         lines = rest.split("\n")
         while "" in lines:
             lines.remove("")
-        data = lines[:records]
+        reader = ff.FortranRecordReader(format)
+        data = [reader.read(line) for line in lines[:records]]
         rest = "\n".join(lines[records:])
         return data, rest
     else:

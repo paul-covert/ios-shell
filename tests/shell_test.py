@@ -121,3 +121,46 @@ def test_shell_read_file(file_name):
     full_file_name = os.path.join(os.path.dirname(__file__), "data", file_name)
     info = shell.ShellFile.fromfile(full_file_name)
     assert len(info.data) == info.file.number_of_records
+
+
+@pytest.mark.parametrize(
+    "contents",
+    [
+        """
+*2018/06/22 09:04:04.94
+*IOS HEADER VERSION 2.0      2016/04/28 2016/06/13 IVF16
+
+*FILE
+    START TIME          : UTC 2015/03/16 10:36:00.000
+    NUMBER OF RECORDS   : 1
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    NUMBER OF CHANNELS  : 4
+
+    $TABLE: CHANNELS
+    ! No Name                         Units    Minimum        Maximum
+    !--- ---------------------------- -------- -------------- --------------
+       1 Depth:Nominal                metres   0              0
+       2 Sample_Number                n/a      5              5
+       3 Chlorophyll:Extracted        mg/m^3   30.69          30.69
+       4 Flag:Chlorophyll:Extracted   ' '
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  -99   ' '        6  F       R4      0
+       2  -99   ' '        5  I       I       0
+       3  -99   ' '        7  F       R4      2
+       4  ' '   ' '        3  NQ      C     ' '
+    $END
+
+*END OF HEADER
+    0.    5  30.69 6
+        """,
+    ]
+)
+def test_shell_read_data(contents):
+    info = shell.ShellFile.fromcontents(contents)
+    assert len(info.data) == info.file.number_of_records
+    assert info.file.channels[0].minimum <= info.data[0][0] <= info.file.channels[0].maximum
