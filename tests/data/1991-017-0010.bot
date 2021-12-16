@@ -1,0 +1,390 @@
+*2014/11/20 09:51:18.20
+*IOS HEADER VERSION 1.10 2011/10/26 2011/10/26
+
+*FILE
+    START TIME          : UTC 1991/05/14 01:05:00.000
+    NUMBER OF RECORDS   : 42
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    NUMBER OF CHANNELS  : 18
+
+    $TABLE: CHANNELS
+    ! No Name                            Units     Minimum        Maximum
+    !--- ------------------------------- --------- -------------- --------------
+       1 Sample_Number                   n/a
+       2 Depth                           metres    0              4058
+       3 Temperature:Reversing           'deg C'   1.48           26.52
+       4 Salinity:Bottle                 ppt       34.237         35.022
+       5 Oxygen:Dissolved                mL/L      0.83           4.81
+       6 Oxygen:Dissolved                umol/kg   35.1           205.2
+       7 Phosphate                       umol/L    0.6E-01        3.11
+       8 Nitrate_plus_Nitrite            umol/L    0              43.4
+       9 Silicate                        umol/L    1.3            155.9
+      10 Calcium:Total                   mmol/kg   10.018         10.247
+      11 Carbon:Dissolved:Organic        umol/L    61             140
+      12 Chlorophyll:Extracted           mg/m^3    0.25E-01       0.11
+      13 pH:NBS                          n/a       7.561          8.264
+      14 pH:SWS                          n/a       7.452          8.155
+      15 Carbon:Dissolved:Inorganic      umol/kg   1913.5         2349.2
+      16 Alkalinity:Total:Colorimetric   umol/kg   2259           2442
+      17 Alkalinity:Total                umol/kg   2254           2426
+      18 Flag:Alkalinity:Total           n/a
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  ' '   ' '        6  NQ      C     ' '
+       2  -99   ' '        7  F       R4      1
+       3  -99   ' '        7  F       R4      2
+       4  -99   ' '        8  F       R4      3
+       5  -99   ' '        7  F       R4      2
+       6  -99   ' '        7  F       R4      1
+       7  -99   ' '        7  F       R4      2
+       8  -99   ' '        6  F       R4      1
+       9  -99   ' '        6  F       R4      1
+      10  -99   ' '        8  F       R4      3
+      11  -99   ' '        6  F       R4      1
+      12  -99   ' '        8  F       R4      3
+      13  -99   ' '        8  F       R4      3
+      14  -99   ' '        8  F       R4      3
+      15  -99   ' '        7  F       R4      1
+      16  -99   ' '        7  F       R4      1
+      17  -99   ' '        7  F       R4      1
+      18  ' '   ' '        2  NQ      C     ' '
+    $END
+    $REMARKS
+        Input  data file used:
+        ./inpoc-1991-9117-gems91-av91-010b.dat04i
+
+        Flag channels initialized with zeros. Non-zero values have the following significance:
+        --------------------------------------------------------------------------------------
+        1 = Sample for this measurement was drawn from water bottle but not analyzed
+            (not normally used).
+        2 = Acceptable measurement (Flag 'b' also reported as ' ')
+        3 = Questionable measurement (no problem observed in sampling or analysis,
+            but value is not trusted, nonetheless; includes outlyers).
+        4 = Bad measurement (known problem with sampling or analysis, but not
+            serious enough to completely discard the value).
+        5 = Not reported (lost sample; unredeemably bad measurement).
+        6 = Mean of replicate measurements.
+        7 = Manual chromatographic peak measurement.
+        8 = Irregular digital chromatographic peak integration.
+        9 = Sample not drawn for this measurement from this bottle (not normally used).
+        --------------------------------------------------------------------------------------
+
+        References:
+           http://www.pacificinfo.ru/en/db/poi/?show=cruise&id=116
+           http://www.olympus.net/ISPSO/JointAssembly97/abstracts/ip5.html  (IP5i)
+           http://pubs.usgs.gov/publications/1997-06/informal.shtml
+              Report available only through USGS, Information Services
+              OF 94-0230 Data and results from R/V A. Vinogradov cruises 91-AV19
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1991-17
+    AGENCY              : POI,IOS
+    PROJECT             : COCC 9103, POI AV19
+    SCIENTIST           : A.Bychkov,CS.Wong
+    PLATFORM            : Ak. A. Vinogradov
+    $REMARKS
+        This is    OSAP Cruise 1991-17    (IOS)
+        Previously COCC Cruise 9103       (C.S.Wong)
+        and Russian     Cruise AV19       (POI)
+        aka Cruise Gems91                 (C.S.Wong)
+
+        Chief Scientist for IOS: C.S.Wong (not aboard)
+        Chief Scientist for POI: A.Bychkov
+        Technicians (IOS):
+          Ron Bellegay         - sample log sheets, deck log sheets, ...
+          Keith Johnson        - DOC,DIC supplies, equipment, analysis
+          Wendy Richardson     - Alkalinity  supplies, equipment, analysis
+                                 also some assistance with Nutrient analysis
+          Glenn Smith          - pCO2 supplies, equipment, analysis
+          Tim Soutar           - Sediment traps, Satnav/GPS
+          Frank Whitney        - Nutrient supplies, equipment
+                               - Chlorophyll supplies, equipment
+                               - Oxygen kit and supplies
+                               - POC supplies
+                               - sample DOC, Primary Productivity, POC, Chla on Leg4
+          Valerie Forsland     - analyze DIC, pCO2
+          Janet Barwell-Clarke - analyze nutrients
+                               - filter samples for POC, Primary Productivity, Chla
+    $END
+
+*LOCATION
+    GEOGRAPHIC AREA     : NW Pacific
+    STATION             : HS14
+    EVENT NUMBER        : 10
+    LATITUDE            :  16  33.00000 N  ! (deg min)
+    LONGITUDE           : 168  27.40000 W  ! (deg min)
+    $REMARKS
+        This was a joint Canada-Russia expedition aboard the Russian ship R/V
+        R/V Akademik A. Vinogradov during April-May 1991, in the NW Pacific ocean.
+
+        Leg1 = Vladivostok to Hawaii
+        Leg3 = Hawaii      to Taiwan
+        Leg4 = Vladivostok to Vladivostok via Bering Sea
+    $END
+
+*INSTRUMENT
+    TYPE                : Bottle
+    MODEL               : Niskin (10 litre)
+    $REMARKS
+        See details wrt various instruments in COMMENTS section
+    $END
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name                     Vers   Date       Time     Recs In   Recs Out
+    !   ------------------------ ------ ---------- -------- --------- ---------
+        chem_cast_gems_1991_01.F 1.3    2004/05/05 16:23:19        42        42
+        CLEAN                    4.6.1  2004/05/05 16:18:48        42        42
+        HDREDIT2                 2.0    2004/05/06 11:03:52 ?         ?
+        CLEAN                    4.6.1  2004/05/06 11:28:02        42        42
+        SORT                     3.4.1  2004/06/02 11:35:59        42        42
+        CHANGE_FLAGS             1.0    2013/07/16 11:44:59        42        42
+        CHANGE_CTD_CHANNEL_NAMES 1.0    2013/12/16 14:31:19        42        42
+        CHANGE_FLAGS             2.0    2014/11/20 09:51:18        42        42
+    $END
+    $REMARKS
+        CLEAN functions:
+         - Reset #RECS, MIN & MAX values in header.
+         - Set header Start and End times from the data. *FAILED*
+        CLEAN functions:
+         - Reset #RECS, MIN & MAX values in header.
+         - Delete Empty Channels:   0 deleted.
+        -The following SORT parameters were used.
+         Sorted by channel: Depth
+         Pressure channel sorted according to values in sort channel
+    $END
+
+*COMMENTS
+    C  Contents:
+    C     Bottle Cast (Niskin Bottles) observations for water chemistry
+    C
+    C  Sample collection methods:
+    C     Collection device was
+    C        10L PVC Niskin bottles        (Canada)  data as follows
+    C        and a Guildline CTD probe     (Russia)  see POI for data
+    C           http://www.pacificinfo.ru/en/db/poi/?show=cruise&id=116
+    C     Depth
+    C        - corrected using reversing thermometer info
+    C     Sea Water Temp
+    C        - reversing thermometers
+    C     Salinity (CTD)
+    C        - Guildline AutoSal 8400
+    C     Salinity (Bottle)
+    C        - Samples collected in glass bottles from Niskin Samplers
+    C     Oxygen:Dissolved
+    C        - no information
+    C     Phosphate
+    C        - Samples collected in 2 glass 16 x 12.5 mm test tubes.
+    C          Test tubes were twice rinsed with sample, then filled 2/3 and
+    C          stored at 4 C until analyzed.  The samples were usually analyzed
+    C          within 12 hours of collection
+    C     Nitrate_plus_Nitrite
+    C        - Samples collected in 2 polystyrene 16 x 12.5 mm test tubes.
+    C          Test tubes were twice rinsed with sample, then filled 2/3 and
+    C          stored at 4 C until analyzed.  The samples were usually analyzed
+    C          within 12 hours of collection
+    C     Silicate
+    C        - Samples collected in 2 polystyrene 16 x 12.5 mm test tubes.
+    C          Test tubes were twice rinsed with sample, then filled 2/3 and
+    C          stored at 4 C until analyzed.  The samples were usually analyzed
+    C          within 12 hours of collection
+    C     Calcium:Total
+    C        - no information
+    C     Carbon:Dissolved:Organic
+    C        - glass ampoules, no further information
+    C     Chlorophyll:Extracted
+    C        - Samples drawn from 10L Niskin bottles into clean, volume calibrated
+    C          polyethylene bottles.  The samples were filtered onto 24 mm diameter
+    C          Whatman GF/F filer (0.7 um nominal pore size) with vacuum pump
+    C          < 100 mm Hg.
+    C     ph:NBS
+    C        - no information
+    C     pH:SWS
+    C        - no information
+    C     Carbon:Isotope:13
+    C        - Samples drawn from 10L Niskin bottles into 250ml glass bottles,
+    C          fixed with 200uL of saturated H2Cl2 solution - used ground glass
+    C          stoppers greased with Aprizon M and secured with tape/band.
+    C     Carbon:Dissolved:Inorganic
+    C        - no information
+    C     Alkalinity:Total:Colorimetric
+    C        - no information
+    C     Alkalinity:Total:Potentiometric
+    C        - no information
+    C
+    C  Sample analysis methods:
+    C     Depth
+    C        - computed from protected and unprotected thermometer readings
+    C     Sea Water Temp
+    C        - protected reversing thermometers
+    C     Salinity (Bottle)
+    C        - analyzed onboard with a Guildline Model 8400 Autosal
+    C     Oxygen:Dissolved
+    C        - Oxygen for legs 1 & 3 were done by Russian method which
+    C          has no blank correction.
+    C          Oxygen for leg 4 was done by IOS MicroWinkler (Carpenter) method
+    C          (with blank correction). => ~+0.5 ml/L bias on Russian oxygen data.
+    C     Phosphate
+    C        - A 3 channel Technicon Autoanalyzer II was used to measure Phosphate
+    c          Soluble orthophosphate was determined by
+    C          .. by Technicon Industrial Methods No.155-71).
+    C     Nitrate_plus_Nitrite
+    C        - A 3 channel Technicon Autoanalyzer II was used to measure Nitrate*
+    C          Soluble Nitrate was determined by
+    C          .. by Technicon Industrial Methods No.158-71W (revised Aug 1979)
+    C          .. and is a modification of procedure by Armstrong et al. (1967).
+    C     Silicate
+    C        - A 3 channel Technicon Autoanalyzer II was used to measure Nitrate*
+    C          Dissolved Silica was determined by
+    C          .. by Technicon Industrial Methods No.186-72W,
+    C          .. essentially that of Armstrong et al (1967).
+    C
+    C          Nutrient Sample Analysis - more info - see separate Word Document
+    C     Calcium:Total
+    C        - potentiometric titration
+    C     Carbon:Dissolved:Organic
+    C        - spectrophotometric measurements
+    C     Chlorophyll:Extracted
+    C        - After filtering, the sample was analyzed immediately or frozen for
+    C          later analysis.  When freezing, the folded filter was placed in a
+    C          cone made from a paper filter (eg Whatmon #1, 9mm diameter),
+    C          labelled, then placed in a large plastic jar with silica desiccant.
+    C          The flourometer was calibrated with a spectrophotometer using
+    C          'fucus sp.' extracted in 90% acetone.
+    C     ph:NBS
+    C        - pH on NBS Scale, "pH was determined by glass (OP-0718P) and
+    C          calomel (OP-0830P) electrodes of 'Radelkis' firm.
+    C          The digital precision pH-meter 'Radelkis' (OP-208/1) was used.
+    C          Measurements werecarried out at 24 +/- 0.1C at once after hydrocast.
+    C          Electrodes were standardized in NBS-scale by phosphate buffer
+    C          (GOST 8,135-74) ph(25)=6.86 - Russian commercial standard.
+    C     pH:SWS
+    C        - pH on Sea Water Scale, "pH was determined by glass (OP-0718P) and
+    C          calomel (OP-0830P) electrodes of 'Radelkis' firm.
+    C          The digital precision pH-meter 'Radelkis' (OP-208/1) was used.
+    C          Measurements werecarried out at 24 +/- 0.1C at once after hydrocast.
+    C          Electrodes were standardized in SWS-scale by TRIS buffer prepared
+    C          according to the prescription of Table 6 (Millero,1986)
+    C          Refs:
+    C          1. Millero F.J. (1986)
+    C             The pH of Estuarine Water
+    C             Limnol. Oceaogr. V31, N4, pp839-847
+    C          2. UNESCO technical paper in marine science (1987) V5, 21p
+    C          3. Hansson I. (1973)
+    C             A new set of acidity constants for carbonic acid and boric acid
+    C             in seawater.
+    C             Deep-Sea Res., V20, N5, pp461-478
+    C          4. Letter (undated) from Pavel Ya.Tishchenko (POI)
+    C             to Frank Whitney (IOS) detailing analysis procedure for pH.
+    C     Carbon:Isotope:13
+    C        - CO2 extracted from seawater by NIWA Automated DIC Extraction system,
+    C          as per NIWA Seawater Line Manual (cryogenic vaccum removal).
+    C          C-13 samples analyzed by Nuclide Mass Spectrometer Procedure
+    C          (Forsland, 1994).
+    C          C-13 samples were measured wrt to our Working Tank (aluminum)
+    C          whose concentration was determined wrt NBS standard tank.
+    C          (technician = Valerie Forsland)
+    C     Carbon:Dissolved:Inorganic
+    C        - SOMMA-I Coulometer (Stns HS01,...,HS11 analyzed aboard ship)
+    C     Alkalinity:Total:Colorimetric
+    C        - determined by POI using Bruevich's Method (1944),
+    C          which consists of direct colorimetric titration by HCl acid in an
+    C          open system.  A mixed indicator (methylene blue and methylene red)
+    C          is used to visually determine the equivalence point (color changes
+    C          from geen to light pink).  The titration is carried out under a
+    C          continuous flow of CO2 free air (or nitrogen gas).
+    C          The equivalence point is reached at approximately pH 5.4 - 5.5 .
+    C          The precision of the method is about 0.2% .
+    C     Alkalinity:Total:Potentiometric
+    C        - determined by IOS using potentiometric titration in a closed cell.
+    C          IOS Alkalinity Vol,Emf data acquired from Metrohm 636 Titroprocessor
+    C          using PC program 'GTITR211.BAS'.
+    C          IOS Alkalinity was computed using PC program 'TALKY117.BAS'
+    C          Some IOS Alkalinity values were recomputed due to an Acid concentrati
+    C          recalibration on approx May 10 1991.
+    C          The original Acid Normality of 0.2506 (mol/L) was replaced by
+    C          0.2524 (mol/L).    The final corrected values are used here.
+    C          Duplicate samples are averaged - see flag "f"
+    C
+    C  Note: POI also took CTD samples - not included here
+    C
+    C  REFERENCES:
+    C     Carpenter, J.H. 1965
+    C        The Chesapeake Bay Inst technique for Winkler Dissolved Oxygen Method.
+    C         Limnol. Oceanogr. 10: 141-143
+    C     WOCE Report No. 73/91, 1991.
+    C        A comparison of methods for the determination of dissolved oxygen in
+    C        seawater.
+    C        WHPO Publication 91-2.  Unpublished manuscript.
+    C     Analysis of Total Alkalinity using two methods: direct titration in
+    C        opened system.
+    C        (Bruevich) and potentiometric titration in closed system (Edmond)
+    C        by Galina Pavlova (POI), Wendy Richardson (IOS), W.Keith Johnson (IOS)
+    C        April 1993
+    C     Comparison of three methods of determination of total alkalinity in
+    C        seawater.        IOS internal paper (no author or date)
+    C     http://sam.ucsd.edu/onr_jes/talley/revelle_report.html
+    C        (some description of Bruevich Method)
+    C     Determination alkalinity of small volumes of seawater by direct titration.
+    C        In: Instruction of chemical investigation of seawater.
+    C        Bruevich C.V., 1944, Glavsevmorput, M.-L., 83p.
+    C     Alkalinity - According To
+    C        "Methods Of Hydrochemical Investigations Of The Ocean",
+    C        Moscow, Science, 1978.  Method Of Bruevich.
+    C
+!--1-- --2--- --3--- ---4--- --5--- --6--- --7--- --8-- --9-- ---10-- --11- ---12-- ---13-- ---14-- --15-- --16-- --17-- -
+!Sampl Depth  Temper Salinit Oxygen Oxygen Phosph Nitra Silic Calcium Carbo Chlorop pH:NBS  pH:SWS  Carbon Alkali Alkali F
+!e_           ature: y:      :      :      ate    te_   ate   :Total  n:Dis hyll:                   :Disso nity:  nity:  l
+!Numbe        Revers Bottle  Dissol Dissol        plus_               solve Extract                 lved:  Total: Total  ~
+!r            ing            ved    ved           Nitri               d:Org ed                      Inorga Colori        a
+!                                                 te                  anic                          nic    metric        l
+!----- ------ ------ ------- ------ ------ ------ ----- ----- ------- ----- ------- ------- ------- ------ ------ ------ -
+*END OF HEADER
+ 7523     0.0  26.52  34.380   4.65  198.6   0.10   0.0   1.6  10.104 -99.0   0.025   8.239   8.130 1914.0 2259.0 2256.0 0
+ 7524    11.0  26.50  34.385   4.63  197.6   0.10   0.0   1.6  10.105 -99.0   0.056   8.250   8.141 1913.5 2259.0 2265.0 0
+ 7525    22.0  26.46  34.390   4.65  198.5   0.10   0.0   1.5  10.090 -99.0   0.047   8.256   8.147 1914.8 2261.0 2254.0 0
+         25.0  26.37  34.348 -99.00  -99.0 -99.00 -99.0 -99.0 -99.000 122.0 -99.000 -99.000 -99.000  -99.0  -99.0  -99.0 5
+ 7526    34.0  26.49  34.401   4.63  197.6   0.10   0.0   1.3  10.086 -99.0   0.050   8.257   8.148 1915.1 2267.0 2254.0 0
+         50.0  26.34  34.348 -99.00  -99.0 -99.00 -99.0 -99.0 -99.000  92.0 -99.000 -99.000 -99.000  -99.0  -99.0  -99.0 5
+ 7527    53.0  26.45  34.406   4.68  199.5   0.10   0.0   1.5  10.084 -99.0   0.050   8.264   8.155 1915.3 2261.0 2260.0 0
+ 7528    79.0  25.61  34.811   4.76  203.3   0.08   0.0   1.5  10.202 -99.0   0.091   8.247   8.138 1942.7 2291.0 2283.0 6
+        100.0  24.88  34.649 -99.00  -99.0 -99.00 -99.0 -99.0 -99.000 140.0 -99.000 -99.000 -99.000  -99.0  -99.0  -99.0 5
+ 7529   107.0  24.63  35.022   4.81  205.2   0.06   0.0   1.7  10.247 -99.0   0.110   8.242   8.133 1957.7 2300.0 2302.0 0
+ 7530   131.0  23.02  34.960   4.74  202.2   0.15   0.0   1.9  10.217 -99.0 -99.000   8.193   8.084 1989.3 2304.0 2300.0 0
+ 7531   154.0  21.43  34.904   4.51  192.3   0.25   1.1   2.8  10.209 -99.0 -99.000   8.141   8.032 2016.0 2304.0 2301.0 0
+ 7532   180.0  18.10  34.791   3.95  167.8   0.55   5.8   5.0  10.185 -99.0 -99.000   8.044   7.935 2056.3 2294.0 2285.0 6
+ 7533   202.0  16.84  34.653   3.84  162.9   0.71   8.0   6.3  10.138 -99.0 -99.000   7.992   7.883 2071.8 2295.0 2283.0 0
+        250.0  12.00  34.312 -99.00  -99.0 -99.00 -99.0 -99.0 -99.000  65.0 -99.000 -99.000 -99.000  -99.0  -99.0  -99.0 5
+ 7534   254.0  12.54  34.337   3.54  150.1   1.25  16.4  14.8  10.066 -99.0 -99.000   7.887   7.778 2110.3 2266.0 2264.0 0
+        300.0  10.40  34.299 -99.00  -99.0 -99.00 -99.0 -99.0 -99.000  64.0 -99.000 -99.000 -99.000  -99.0  -99.0  -99.0 5
+ 7535   306.0  10.12  34.250   3.29  139.3   1.62  22.0  24.3  10.018 -99.0 -99.000   7.813   7.704 2146.1 2273.0 2268.0 0
+ 7549?  374.0   8.77  34.237   2.82  119.8   1.85  25.1  29.9  10.058 -99.0 -99.000   7.737   7.644 2170.5 2442.0  -99.0 5
+ ?      394.0   8.37  34.237 -99.00  -99.0 -99.00 -99.0 -99.0 -99.000 -99.0 -99.000 -99.000 -99.000  -99.0  -99.0  -99.0 5
+ 7536   410.0   8.06  34.349   1.54   65.3   2.55  34.0  45.0  10.068 -99.0 -99.000   7.620   7.511 2240.8 2300.0 2301.0 0
+        500.0   6.94  34.398 -99.00  -99.0 -99.00 -99.0 -99.0 -99.000  61.0 -99.000 -99.000 -99.000  -99.0  -99.0  -99.0 5
+ 7537   511.0   6.80  34.474   0.88   37.0   2.92  39.4  57.8  10.128 -99.0 -99.000   7.579   7.470 2283.2 2324.0 2311.0 0
+ 7538   586.0   6.44  34.499   0.83   35.1   3.01  40.7  63.7  10.130 -99.0 -99.000   7.569   7.460 2293.0 2325.0 2317.0 6
+ 7539   670.0   5.89  34.508   1.06   44.8   3.07  42.0  70.6  10.152 -99.0 -99.000   7.571   7.462 2301.3 2337.0 2326.0 0
+        716.0   5.69  34.512 -99.00  -99.0 -99.00 -99.0 -99.0 -99.000  86.0 -99.000 -99.000 -99.000  -99.0  -99.0  -99.0 5
+ 7540   775.0   5.44  34.518   1.03   43.8   3.07  42.8  78.1  10.159 -99.0 -99.000   7.561   7.452 2310.0 2353.0 2338.0 0
+        916.0   4.68  34.545 -99.00  -99.0 -99.00 -99.0 -99.0 -99.000  69.0 -99.000 -99.000 -99.000  -99.0  -99.0  -99.0 5
+ 7541  1032.0   4.32  34.551   1.25   52.6   3.11  43.4  96.8  10.186 -99.0 -99.000   7.596   7.487 2327.3 2369.0 2358.0 0
+ 7542  1096.0   4.04  34.563   1.33   56.5   3.10  43.2 101.5  10.187 -99.0 -99.000   7.581   7.472 2330.3 2377.0 2367.0 0
+       1115.0   3.98  34.555 -99.00  -99.0 -99.00 -99.0 -99.0 -99.000 127.0 -99.000 -99.000 -99.000  -99.0  -99.0  -99.0 5
+ 7543  1413.0   3.06  34.596   1.77   74.9   3.02  42.4 122.7  10.197 -99.0 -99.000   7.615   7.506 2342.4 2398.0 2389.0 0
+       1432.0   3.01  34.604 -99.00  -99.0 -99.00 -99.0 -99.0 -99.000 122.0 -99.000 -99.000 -99.000  -99.0  -99.0  -99.0 5
+ 7543* 1505.0   2.92  34.596   1.78   74.9   2.98  41.8 132.0  10.200 -99.0 -99.000   7.673   7.580 2344.4 2406.0 2387.0 0
+ 7544  2002.0   2.22  34.636   2.90  122.6   2.89  40.8 147.2  10.205 -99.0 -99.000   7.642   7.550 2349.2 2420.0 2409.0 0
+       2346.0   1.98  34.645 -99.00  -99.0 -99.00 -99.0 -99.0 -99.000  86.0 -99.000 -99.000 -99.000  -99.0  -99.0  -99.0 5
+       2352.0   1.90  34.656 -99.00  -99.0 -99.00 -99.0 -99.0 -99.000  96.0 -99.000 -99.000 -99.000  -99.0  -99.0  -99.0 5
+ 7545  2505.0   1.88  34.659   2.61  110.0   2.81  39.7 153.3  10.220 -99.0 -99.000   7.661   7.568 2346.0 2435.0 2412.0 0
+ 7546  3002.0   1.62  34.677   2.97  125.5   2.71  38.7 155.9  10.225 -99.0 -99.000   7.696   7.604 2339.5 2435.0 2425.0 0
+ 7547  3515.0   1.54  34.690   3.03  128.4   2.64  37.9 155.8  10.239 -99.0 -99.000   7.708   7.616 2331.7 2436.0 2426.0 0
+ 7548  4038.0   1.48  34.696   3.55  149.8   2.58  37.0 150.7  10.225 -99.0 -99.000   7.715   7.622 2321.3 2428.0 2420.0 0
+       4058.0   1.48  34.696 -99.00  -99.0 -99.00 -99.0 -99.0 -99.000 125.0 -99.000 -99.000 -99.000  -99.0  -99.0  -99.0 5

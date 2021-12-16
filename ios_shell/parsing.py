@@ -296,6 +296,12 @@ def get_comments(contents: str) -> tuple[str, str]:
         raise ValueError("No COMMENTS section found")
 
 
+def _replace_unexpected(s: str) -> str:
+    unexpected = ["?", "*"]
+    for c in unexpected:
+        s = s.replace(c, " ")
+    return s
+
 def get_data(contents: str, format: str, records: int) -> tuple[list[typing.Any], str]:
     rest = contents.lstrip()
     if m := re.match(r"\*END OF HEADER\n", rest):
@@ -306,7 +312,7 @@ def get_data(contents: str, format: str, records: int) -> tuple[list[typing.Any]
         reader = ff.FortranRecordReader(format)
         # FIXME: This is a quick workaround for the problem of unexpected characters in the data section of the file.
         # Ideally such characters never show up, but in case they do, we may need a more robust method of handling them.
-        data = [reader.read(line.replace("?", " ")) for line in lines[:records]]
+        data = [reader.read(_replace_unexpected(line)) for line in lines[:records]]
         rest = "\n".join(lines[records:])
         return data, rest
     else:
