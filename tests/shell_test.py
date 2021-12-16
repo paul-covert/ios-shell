@@ -112,6 +112,7 @@ def test_shell_get_section():
         "1996-036-0005.che",
         "1996-038-0077.che",
         "2002-030-8008.bot",
+        "2002-043-Cape-Beale-Lighthouse.bot",
         "2005-010-0016.che",
         "2008-010-0001.che",
         "2008-026-0089.che",

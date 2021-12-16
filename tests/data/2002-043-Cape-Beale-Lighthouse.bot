@@ -1,0 +1,122 @@
+*2017/06/07 16:41:31.44
+*IOS HEADER VERSION 2.0      2016/04/28 2016/06/13 IVF16
+
+*FILE
+    START TIME          : PDT 2002/07/25 17:00:00.000
+    END TIME            : PDT 2002/09/21 17:00:00.000
+    TIME ZERO           : PDT 1980/01/01 00:00:00.000
+    NUMBER OF RECORDS   : 31
+    DATA DESCRIPTION    : Lighthouse Data
+    FILE TYPE           : ASCII
+    NUMBER OF CHANNELS  : 6
+
+    $TABLE: CHANNELS
+    ! No Name                   Units    Minimum        Maximum
+    !--- ---------------------- -------- -------------- --------------
+       1 Date                   n/a      8241           8299
+       2 Time                   n/a      0.7083333      0.7083333
+       3 Depth                  meters   0              0
+       4 Nitrate_plus_Nitrite   umol/L   1.4            22.4
+       5 Silicate               umol/L   13.7           41.3
+       6 Phosphate              umol/L   1.04           2.17
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format       Type  Decimal_Places
+    !---  ----  -----  -----  -----------  ----  --------------
+       1  -99   ' '    ' '    YYYY/MM/DD   D     ' '
+       2  -99   ' '    ' '    hh:mm:ss.ss  T     ' '
+       3  -99   ' '    ' '    F7.1         R4    ' '
+       4  -99   ' '    ' '    F6.1         R4    ' '
+       5  -99   ' '    ' '    F6.1         R4    ' '
+       6  -99   ' '    ' '    F7.2         R4    ' '
+    $END
+
+*ADMINISTRATION
+    MISSION             : 2002-43
+    AGENCY              : IOS, Contaminants Science, Sidney, B.C
+    COUNTRY             : Canada
+    PROJECT             : Cape Beale Nutrients
+    SCIENTIST           : Kruzynski, G.
+    PLATFORM            : Cape Beale Lighthouse
+
+*LOCATION
+    GEOGRAPHIC AREA     : Cape Beale Lighthouse
+    LATITUDE            :  48  47.18000 N  ! (deg min)
+    LONGITUDE           : 125  12.93000 W  ! (deg min)
+
+*INSTRUMENT
+    TYPE                : Bottle
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name     Vers   Date       Time     Recs In   Recs Out
+    !   -------- ------ ---------- -------- --------- ---------
+        SPRD2IS  5.1    2017/03/25 15:33:50        31        31
+        CLEAN    5.2.2  2017/03/25 15:50:20        31        31
+        ADTIMCH  4.4    2017/06/07 16:39:02        31        31
+        REMOVECH 8.2    2017/06/07 16:41:31        31        31
+    $END
+    $REMARKS
+        -CLEAN functions: 2017/03/25 15:50:20
+         Reset #RECS, MIN & MAX values in header.
+         Set header Start and End times from the data.
+        -The following ADTIMCH parameters were used.
+         Add IOS header Time/Date channels
+         Add End Time to header
+        -REMOVECH 2017/06/07 16:41:31
+         The following CHANNEL(S) were removed:
+          Date_Time [YYYY/MM/DD HH:MM:SS]
+    $END
+
+*COMMENTS
+    The nutrient data was collected by the Cape Beale Lighthouse (Bamfield) light keeper for
+    Dr. George Kruynski. The purpose of the nutrient samples was to explore whether uptake
+    of cadium by oysters is accelerated during periods of upwelling and/or mixing of surface
+    with deeper waters.
+
+    The samples were shipped to the Institute of Ocean Sciences for analysis. Samples were
+    analyzed November 8, 2002 using a Technicon AutoAnalyzer using methods described in
+    Barwell-Clarke and Whitney, 1996.
+
+    Note: Dates are accurate but times are a guess.
+!----1----- -----2----- --3--- --4-- --5-- --6---
+!   Date       Time     Depth  Nitra Silic Phosph
+!                              te_   ate   ate   
+!                              plus_             
+!                              Nitri             
+!                              te                
+!---------- ----------- ------ ----- ----- ------
+*END OF HEADER
+ 2002/07/25 17:00:00.00    0.0  13.8  35.8   1.97
+ 2002/07/27 17:00:00.00    0.0  11.5  36.2   1.55
+ 2002/07/29 17:00:00.00    0.0  11.6  34.0   1.46
+ 2002/07/31 17:00:00.00    0.0  12.0  32.5   1.97
+ 2002/08/02 17:00:00.00    0.0   2.4  16.7   1.30
+ 2002/08/04 17:00:00.00    0.0   1.4  13.7   1.04
+ 2002/08/06 17:00:00.00    0.0   3.5  14.9   1.38
+ 2002/08/08 17:00:00.00    0.0   4.5  19.1   1.33
+ 2002/08/10 17:00:00.00    0.0   6.2  24.0   1.47
+ 2002/08/12 17:00:00.00    0.0  11.6  29.0   1.59
+ 2002/08/14 17:00:00.00    0.0  17.9  33.6   1.23
+ 2002/08/16 17:00:00.00    0.0   9.1  27.4   1.38
+ 2002/08/18 17:00:00.00    0.0   8.2  24.9   1.04
+ 2002/08/20 17:00:00.00    0.0   7.4  25.1   1.26
+ 2002/08/22 17:00:00.00    0.0  13.3  33.6   1.74
+ 2002/08/24 17:00:00.00    0.0  13.2  32.9   1.71
+ 2002/08/26 17:00:00.00    0.0  18.6  39.0   1.87
+ 2002/08/28 17:00:00.00    0.0  17.6  37.0   1.97
+ 2002/08/30 17:00:00.00    0.0  10.9  22.6   1.70
+ 2002/09/01 17:00:00.00    0.0   5.8  20.3   1.64
+ 2002/09/03 17:00:00.00    0.0  13.8  30.6   1.80
+ 2002/09/05 17:00:00.00    0.0  15.2  33.9   1.66
+ 2002/09/07 17:00:00.00    0.0  14.3  34.0   1.75
+ 2002/09/09 17:00:00.00    0.0  19.1  37.5   1.88
+ 2002/09/11 17:00:00.00    0.0  18.0  37.3   1.83
+ 2002/09/13 17:00:00.00    0.0  14.6  32.2   1.87
+ 2002/09/15 17:00:00.00    0.0  15.2  31.3   1.78
+ 2002/09/17 17:00:00.00    0.0  21.7  41.3   2.17
+ 2002/09/18 17:00:00.00    0.0  17.5  37.0   1.96
+ 2002/09/19 17:00:00.00    0.0  22.4  40.1   2.13
+ 2002/09/21 17:00:00.00    0.0  19.7  40.2   1.96
