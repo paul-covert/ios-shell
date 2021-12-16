@@ -42,22 +42,38 @@ def format_string(fortrantype: str, width: int, decimals: int) -> str:
         return fortrantype
 
 
+def _to_timezone_offset(name: str) -> str:
+    if name.upper() in ["UTC", "GMT"]:
+        return "+00:00"
+    elif name.upper() in ["MDT"]:
+        return "-06:00"
+    elif name.upper() in ["PDT"]:
+        return "-07:00"
+    elif name.upper() in ["PST"]:
+        return "-08:00"
+    else:
+        logging.warning(f"Unknown time zone: {name}. Defaulting to UTC")
+        return "+00:00"
+
+
+def _to_iso(tz: str, date: str, time: str="") -> datetime.datetime:
+    formatted_date = date.replace("/", "-")
+    if time.startswith("24"):
+        logging.warning(f"Invalid time: {time}")
+        time = "00" + time[2:]
+    if time != "":
+        time = " " + time
+        tzinfo = _to_timezone_offset(tz)
+        date_string = formatted_date + time + tzinfo
+        return datetime.datetime.fromisoformat(date_string)
+    else:
+        return datetime.datetime.fromisoformat(formatted_date)
+
+
 def to_iso(value: str) -> datetime.datetime:
     value_no_comment = value.split("!")[0].strip()
-    # TODO: handle time zone
     time_vals = value_no_comment.split(" ")
-    if len(time_vals) == 3:
-        # all values are present
-        tz, date, time = time_vals
-        if time.startswith("24"):
-            logging.warning(f"Invalid time: {time}")
-            time = "00" + time[2:]
-        return datetime.datetime.fromisoformat("T".join([date.replace("/", "-"), time]))
-    elif len(time_vals) == 2:
-        tz, date = time_vals
-        return datetime.datetime.fromisoformat(date.replace("/", "-"))
-    else:
-        raise ValueError(f"Unsure how to handle {value_no_comment}")
+    return _to_iso(*time_vals)
 
 
 def _get_coord(raw_coord: str, positive_marker: str, negative_marker: str) -> float:
