@@ -304,7 +304,9 @@ def get_data(contents: str, format: str, records: int) -> tuple[list[typing.Any]
         while "" in lines:
             lines.remove("")
         reader = ff.FortranRecordReader(format)
-        data = [reader.read(line) for line in lines[:records]]
+        # FIXME: This is a quick workaround for the problem of unexpected characters in the data section of the file.
+        # Ideally such characters never show up, but in case they do, we may need a more robust method of handling them.
+        data = [reader.read(line.replace("?", " ")) for line in lines[:records]]
         rest = "\n".join(lines[records:])
         return data, rest
     else:
