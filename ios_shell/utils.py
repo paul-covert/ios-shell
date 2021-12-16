@@ -32,13 +32,13 @@ def format_string(fortrantype: str, width: int, decimals: int) -> str:
     fortrantype = fortrantype.strip()
     if fortrantype in ["F"]:
         return f"F{width}.{decimals}"
-    elif fortrantype in ["I", "NQ"]:
+    elif fortrantype in ["I"]:
         return f"I{width}"
     elif fortrantype in ["YYYY/MM/DD"]:
         return "A11"
     elif fortrantype in ["HH:MM"]:
         return "A6"
-    elif fortrantype in ["' '"]:
+    elif fortrantype in ["' '", "NQ"]:
         return f"A{width}"
     else:
         return fortrantype
