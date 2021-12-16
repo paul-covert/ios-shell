@@ -69,7 +69,7 @@ def _get_coord(raw_coord: str, positive_marker: str, negative_marker: str) -> fl
     if pieces[2].upper() == positive_marker.upper():
         return out
     elif pieces[2].upper() == negative_marker.upper():
-        return out * 1.0
+        return out * -1.0
     else:
         raise ValueError("Coordinate contains unknown direction marker")
 

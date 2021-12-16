@@ -39,7 +39,9 @@ def test_header_version_fails_with_no_version():
     ],
 )
 def test_get_location(contents):
-    _, rest = parsing.get_location(contents)
+    loc, rest = parsing.get_location(contents)
+    assert loc.longitude < 0
+    assert loc.latitude > 0
     assert rest.strip() == "*END OF HEADER"
 
 
