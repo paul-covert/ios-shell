@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import datetime
-import typing
+from typing import Any, Dict, List, Union
 
 EMPTY = ["", "' '", "n/a"]
 NAN = float("NaN")
@@ -82,10 +82,10 @@ class FileInfo:
     format: str
     data_type: str
     number_of_channels: int
-    channels: list[Channel]
-    channel_details: list[ChannelDetail]
+    channels: List[Channel]
+    channel_details: List[ChannelDetail]
     remarks: str
-    raw: dict[str, typing.Any]
+    raw: Dict[str, Any]
 
 
 @dataclass
@@ -97,7 +97,7 @@ class Administration:
     scientist: str
     platform: str
     remarks: str
-    raw: dict[str, typing.Any]
+    raw: Dict[str, Any]
 
 
 @dataclass
@@ -109,7 +109,7 @@ class Location:
     longitude: float
     water_depth: float
     remarks: str
-    raw: dict[str, typing.Any]
+    raw: Dict[str, Any]
 
 
 @dataclass
@@ -117,7 +117,7 @@ class Instrument:
     type: str
     model: str
     remarks: str
-    raw: dict[str, typing.Any]
+    raw: Dict[str, Any]
 
 
 @dataclass
@@ -132,19 +132,19 @@ class Program:
 
 @dataclass
 class Raw:
-    channels: list[list[str]]
+    channels: List[List[str]]
     remarks: str
-    raw: dict[str, typing.Any]
+    raw: Dict[str, Any]
 
 
 @dataclass
 class History:
-    programs: list[Program]
+    programs: List[Program]
     remarks: str
-    raw: dict[str, typing.Any]
+    raw: Dict[str, Any]
 
 
 @dataclass
 class Calibration:
-    corrected_channels: list[dict[str, str]]
-    raw: dict[str, typing.Any]
+    corrected_channels: List[Dict[str, str]]
+    raw: Dict[str, Any]

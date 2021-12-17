@@ -3,16 +3,16 @@ import fortranformat as ff
 import functools
 import logging
 import re
-import typing
+from typing import Any, Callable, Dict, List, Tuple, Union
 
 from . import sections, utils
 from .keys import *
 
 
 def fallible(name):
-    def decorator_fallible(fn: typing.Callable[[str], tuple[typing.Any, str]]):
+    def decorator_fallible(fn: Callable[[str], Tuple[Any, str]]):
         @functools.wraps(fn)
-        def wrapper(contents: str) -> tuple[typing.Union[typing.Any, None], str]:
+        def wrapper(contents: str) -> Tuple[Union[Any, None], str]:
             try:
                 return fn(contents)
             except Exception as e:
@@ -28,7 +28,7 @@ DATE_STR = r"\d{4}[/-]\d{2}[/-]\d{2}"
 TIME_STR = r"\d{2}:\d{2}:\d{2}(.\d*)?"
 
 
-def get_modified_date(contents: str) -> tuple[datetime.datetime, str]:
+def get_modified_date(contents: str) -> Tuple[datetime.datetime, str]:
     rest = contents.lstrip()
     if m := re.match(fr"\*({DATE_STR} {TIME_STR})", rest):
         rest = rest[m.end() :]
@@ -39,7 +39,7 @@ def get_modified_date(contents: str) -> tuple[datetime.datetime, str]:
         raise ValueError("No modified date at start of string")
 
 
-def get_header_version(contents: str) -> tuple[sections.Version, str]:
+def get_header_version(contents: str) -> Tuple[sections.Version, str]:
     rest = contents.lstrip()
     if m := re.match(
         fr"\*IOS HEADER VERSION +(?P<version_no>\d+.\d+) +(?P<date1>{DATE_STR})( +(?P<date2>{DATE_STR})( +(?P<tag>[a-zA-Z0-9.]+))?)?",
@@ -51,7 +51,7 @@ def get_header_version(contents: str) -> tuple[sections.Version, str]:
         raise ValueError("No header version in string")
 
 
-def get_section(contents: str, section_name: str) -> tuple[dict[str, typing.Any], str]:
+def get_section(contents: str, section_name: str) -> Tuple[Dict[str, Any], str]:
     rest = contents.lstrip()
     prefix = f"*{section_name.upper()}\n"
     section_info = {}
@@ -110,7 +110,7 @@ def get_section(contents: str, section_name: str) -> tuple[dict[str, typing.Any]
     return section_info, rest
 
 
-def get_file(contents: str) -> tuple[sections.FileInfo, str]:
+def get_file(contents: str) -> Tuple[sections.FileInfo, str]:
     file_dict, rest = get_section(contents, "file")
     start_time = (
         utils.to_iso(file_dict[START_TIME])
@@ -174,7 +174,7 @@ def get_file(contents: str) -> tuple[sections.FileInfo, str]:
     return file_info, rest
 
 
-def get_administration(contents: str) -> tuple[sections.Administration, str]:
+def get_administration(contents: str) -> Tuple[sections.Administration, str]:
     admin_dict, rest = get_section(contents, "administration")
     mission = admin_dict[MISSION] if MISSION in admin_dict else ""
     agency = admin_dict[AGENCY] if AGENCY in admin_dict else ""
@@ -196,7 +196,7 @@ def get_administration(contents: str) -> tuple[sections.Administration, str]:
     return admin_info, rest
 
 
-def get_location(contents: str) -> tuple[sections.Location, str]:
+def get_location(contents: str) -> Tuple[sections.Location, str]:
     location_dict, rest = get_section(contents, "location")
     geographic_area = (
         location_dict[GEOGRAPHIC_AREA] if GEOGRAPHIC_AREA in location_dict else ""
@@ -226,7 +226,7 @@ def get_location(contents: str) -> tuple[sections.Location, str]:
     return location_info, rest
 
 
-def get_instrument(contents: str) -> tuple[sections.Instrument, str]:
+def get_instrument(contents: str) -> Tuple[sections.Instrument, str]:
     instrument_dict, rest = get_section(contents, "instrument")
     kind = instrument_dict[TYPE] if TYPE in instrument_dict else ""
     model = instrument_dict[MODEL] if MODEL in instrument_dict else ""
@@ -240,7 +240,7 @@ def get_instrument(contents: str) -> tuple[sections.Instrument, str]:
     return instrument_info, rest
 
 
-def get_history(contents: str) -> tuple[sections.History, str]:
+def get_history(contents: str) -> Tuple[sections.History, str]:
     history_dict, rest = get_section(contents, "history")
     programs = (
         [sections.Program(*elem) for elem in history_dict[PROGRAMS]]
@@ -256,7 +256,7 @@ def get_history(contents: str) -> tuple[sections.History, str]:
     return history_info, rest
 
 
-def get_calibration(contents: str) -> tuple[sections.Calibration, str]:
+def get_calibration(contents: str) -> Tuple[sections.Calibration, str]:
     calibration_dict, rest = get_section(contents, "calibration")
     corrected_channels = (
         calibration_dict[CORRECTED_CHANNELS]
@@ -270,7 +270,7 @@ def get_calibration(contents: str) -> tuple[sections.Calibration, str]:
     return calibration_info, rest
 
 
-def get_raw(contents: str) -> tuple[sections.Raw, str]:
+def get_raw(contents: str) -> Tuple[sections.Raw, str]:
     raw_dict, rest = get_section(contents, "raw")
     channels = raw_dict[CHANNELS] if CHANNELS in raw_dict else []
     remarks = raw_dict[REMARKS] if REMARKS in raw_dict else ""
@@ -282,7 +282,7 @@ def get_raw(contents: str) -> tuple[sections.Raw, str]:
     return raw_info, rest
 
 
-def get_comments(contents: str) -> tuple[str, str]:
+def get_comments(contents: str) -> Tuple[str, str]:
     rest = contents.lstrip()
     if m := re.match(r"\*COMMENTS\n", rest):
         rest = rest[m.end() :]
@@ -295,7 +295,7 @@ def get_comments(contents: str) -> tuple[str, str]:
         raise ValueError("No COMMENTS section found")
 
 
-def get_data(contents: str, format: str, records: int) -> tuple[list[typing.Any], str]:
+def get_data(contents: str, format: str, records: int) -> Tuple[List[Any], str]:
     rest = contents.lstrip()
     if m := re.match(r"\*END OF HEADER\n", rest):
         rest = rest[m.end() :]

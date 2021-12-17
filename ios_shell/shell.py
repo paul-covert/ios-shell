@@ -1,5 +1,5 @@
 import datetime
-import typing
+from typing import Dict, List, Union
 
 from . import parsing, sections
 
@@ -17,7 +17,7 @@ class ShellFile:
         history: sections.History,
         calibration: sections.Calibration,
         comments: str,
-        data: typing.Union[list[list[object]], str],
+        data: Union[List[List[object]], str],
     ):
         self.filename = filename
         self.modified_date = modified_date
@@ -117,7 +117,7 @@ class ShellFile:
             data=data,
         )
 
-    def get_location(self) -> dict[str, float]:
+    def get_location(self) -> Dict[str, float]:
         return {
             "longitude": self.location.longitude,
             "latitude": self.location.latitude,

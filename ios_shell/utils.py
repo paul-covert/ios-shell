@@ -1,9 +1,10 @@
 import datetime
 import logging
 import re
+from typing import List
 
 
-def apply_column_mask(data: str, mask: list[bool]) -> list[str]:
+def apply_column_mask(data: str, mask: List[bool]) -> List[str]:
     """Apply a mask to a single row of data
 
     Parameters
