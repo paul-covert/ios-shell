@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 import datetime
-import numpy
 import typing
 
 EMPTY = ["", "' '", "n/a"]
+NAN = float("NaN")
 
 
 @dataclass
@@ -37,8 +37,8 @@ class Channel:
             minimum = "0"
         if maximum.strip().upper() == "O":
             maximum = "0"
-        self.minimum = numpy.nan if minimum.strip() in EMPTY else float(minimum)
-        self.maximum = numpy.nan if maximum.strip() in EMPTY else float(maximum)
+        self.minimum = NAN if minimum.strip() in EMPTY else float(minimum)
+        self.maximum = NAN if maximum.strip() in EMPTY else float(maximum)
 
 
 class ChannelDetail:
@@ -61,7 +61,7 @@ class ChannelDetail:
         decimal_places="",
     ):
         self.no = int(no)
-        self.pad = float(pad) if pad.strip() not in EMPTY else numpy.nan
+        self.pad = float(pad) if pad.strip() not in EMPTY else NAN
         self.start = start
         self.width = int(width) if width.strip() not in EMPTY else 0
         self.format = format
