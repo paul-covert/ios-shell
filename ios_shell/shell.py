@@ -1,4 +1,5 @@
 import datetime
+import typing
 
 from . import parsing, sections
 
@@ -16,7 +17,7 @@ class ShellFile:
         history: sections.History,
         calibration: sections.Calibration,
         comments: str,
-        data: list[list[object]],
+        data: typing.Union[list[list[object]], str],
     ):
         self.filename = filename
         self.modified_date = modified_date
@@ -31,13 +32,13 @@ class ShellFile:
         self.data = data
 
     @classmethod
-    def fromfile(cls, filename):
+    def fromfile(cls, filename, process_data=True):
         with open(filename, "r", encoding="ASCII", errors="ignore") as f:
             contents = f.read()
-        return ShellFile.fromcontents(contents, filename=filename)
+        return ShellFile.fromcontents(contents, process_data, filename=filename)
 
     @classmethod
-    def fromcontents(cls, contents, filename="bare string"):
+    def fromcontents(cls, contents, process_data=True, filename="bare string"):
         modified_date, rest = parsing.get_modified_date(contents)
         header_version, rest = parsing.get_header_version(rest)
         # begin named sections
@@ -98,7 +99,10 @@ class ShellFile:
             else:
                 raise ValueError(f"Unknown section: {first}")
         # end named sections
-        data, rest = parsing.get_data(rest, file.format, file.number_of_records)
+        if process_data:
+            data, rest = parsing.get_data(rest, file.format, file.number_of_records)
+        else:
+            data = rest
         return ShellFile(
             filename=filename,
             modified_date=modified_date,
@@ -126,3 +130,13 @@ class ShellFile:
             return self.file.end_time
         else:
             raise ValueError("No valid time found")
+
+    def data_is_processed(self) -> bool:
+        return not isinstance(self.data, str)
+
+    def process_data(self):
+        if self.data_is_processed():
+            return
+        self.data = parsing.get_data(
+            self.data, self.file.format, self.file.number_of_records
+        )

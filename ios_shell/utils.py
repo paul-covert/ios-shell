@@ -56,7 +56,7 @@ def _to_timezone_offset(name: str) -> str:
         return "+00:00"
 
 
-def _to_iso(tz: str, date: str, time: str="") -> datetime.datetime:
+def _to_iso(tz: str, date: str, time: str = "") -> datetime.datetime:
     formatted_date = date.replace("/", "-")
     if time.startswith("24"):
         logging.warning(f"Invalid time: {time}")
