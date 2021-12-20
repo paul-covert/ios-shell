@@ -1,6 +1,6 @@
 import pytest
 import os
-import ios_shell.shell as shell
+import ios_shell as shell
 import ios_shell.parsing as parsing
 
 TEST_FILES = [
