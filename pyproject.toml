@@ -1,8 +1,23 @@
 [tool.poetry]
 name = "ios-shell"
 version = "0.1.31"
-description = ""
+description = "Parses files formatted by the Institute of Ocean Sciences' IOSShell tool"
 authors = ["James Hannah <jhannah@protonmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/cyborgsphinx/ios-shell"
+repository = "https://github.com/cyborgsphinx/ios-shell"
+keywords = ["ocean", "science", "parse"]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+  "Topic :: Text Processing :: General",
+]
+include = [
+  "LICENSE",
+]
 
 [tool.poetry.dependencies]
 python = ">=3.7,<3.11"
