@@ -1,3 +1,4 @@
+"""Contains classes to represent complex elements of an IOS Shell file."""
 from dataclasses import dataclass
 import datetime
 from typing import Any, Dict, List, Union

@@ -1,3 +1,4 @@
+"""Contains high-level object representing the whole of an IOS Shell file."""
 import datetime
 from typing import Dict, List, Union
 

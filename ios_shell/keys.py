@@ -1,5 +1,4 @@
-"""
-This module holds constats for expected keys for each section in an IOS Shell file.
+"""This module holds constants for expected keys for each section in an IOS Shell file.
 
 It exists because it is easier to ensure consistent string values by using constants instead of raw strings.
 This also means typos are easier to correct.

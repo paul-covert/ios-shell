@@ -1,3 +1,4 @@
+"""Contains functions for parsing files in IOS Shell format."""
 import datetime
 import fortranformat as ff
 import functools

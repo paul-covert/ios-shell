@@ -1,3 +1,4 @@
+"""Contains useful functions for parsing that are not themselves parsing functions."""
 import datetime
 import logging
 import re
@@ -7,9 +8,8 @@ from typing import List
 def apply_column_mask(data: str, mask: List[bool]) -> List[str]:
     """Apply a mask to a single row of data
 
-    Parameters
-    data: the row of data to break up
-    mask: a string with - for every character to be included as an element
+    :param data: the row of data to break up
+    :param mask: a string with - for every character to be included as an element
     """
     PLACEHOLDER = "$"
     data = data.rstrip().ljust(len(mask))
@@ -25,10 +25,9 @@ def apply_column_mask(data: str, mask: List[bool]) -> List[str]:
 def format_string(fortrantype: str, width: int, decimals: int) -> str:
     """Construct an appropriate format string for the given type
 
-    Parameters
-    fortrantype: the type the data is expected to be
-    width: the number of characters the data may take up
-    decimals: the number of characters after a decimal a float is intended to use
+    :param fortrantype: the type the data is expected to be
+    :param width: the number of characters the data may take up
+    :param decimals: the number of characters after a decimal a float is intended to use
     """
     fortrantype = fortrantype.strip()
     if fortrantype in ["F"]:
