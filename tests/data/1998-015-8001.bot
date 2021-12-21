@@ -1,0 +1,164 @@
+*2021/12/20 16:12:17.76
+*IOS HEADER VERSION 2.0      2016/04/28 2016/06/13 IVF16
+
+*FILE
+    START TIME          : UTC 1998/06/04 07:21:00.000
+    END TIME            : UTC 1998/06/04 19:30:00.000
+    TIME ZERO           : UTC 1980/01/01 00:00:00.000
+    NUMBER OF RECORDS   : 12
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    NUMBER OF CHANNELS  : 15
+
+    $TABLE: CHANNELS
+    ! No Name                               Units    Minimum        Maximum
+    !--- ---------------------------------- -------- -------------- --------------
+       1 Date                               n/a      6729           6729
+       2 Time                               n/a      0.30625        0.8131945
+       3 Sample_Order                       n/a      1              7
+       4 Sampler_Type                       n/a
+       5 Sampler_ID_Number                  n/a
+       6 Sample_Number                      n/a      1              12
+       7 Depth                              metres   0              1000
+       8 Iron:Filtered:Buffered:0.03        nmol/L   0.4E-01        0.7E-01
+       9 Flag:Iron:Filtered:Buffered:0.03   n/a
+      10 Iron:Filtered:Buffered:0.1         nmol/L   0.4E-01        0.1
+      11 Flag:Iron:Filtered:Buffered:0.1    n/a
+      12 Iron:Filtered:Buffered:0.45        nmol/L   0.5E-01        1.64
+      13 Flag:Iron:Filtered:Buffered:0.45   n/a
+      14 Iron:Unfiltered:Buffered           nmol/L   0.16           4.58
+      15 Flag:Iron:Unfiltered:Buffered      n/a
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format      Type  Decimal_Places
+    !---  ----  -----  -----  ----------  ----  --------------
+       1  -99   ' '    ' '    YYYY/MM/DD  D     ' '
+       2  -99   ' '    ' '    HH:MM:SS    T     ' '
+       3  -99   ' '        4  I           I       0
+       4  ' '   ' '        8  NQ          C     ' '
+       5  ' '   ' '        8  NQ          C     ' '
+       6  -99   ' '        4  I           I       0
+       7  -99   ' '        7  F           R4      1
+       8  -99   ' '        7  F           R4      2
+       9  ' '   ' '        7  NQ          C     ' '
+      10  -99   ' '        7  F           R4      2
+      11  ' '   ' '        7  NQ          C     ' '
+      12  -99   ' '        7  F           R4      2
+      13  ' '   ' '        7  NQ          C     ' '
+      14  -99   ' '        7  F           R4      2
+      15  ' '   ' '        7  NQ          C     ' '
+    $END
+    $REMARKS
+        Flag channels initialized with zeros. Non-zero values have the following significance:
+        --------------------------------------------------------------------------------------
+        1 = Sample for this measurement was drawn from water bottle but not analyzed
+            (not normally used).
+        2 = Acceptable measurement (not normally used).
+        3 = Questionable measurement (no problem observed in sampling or analysis,
+            but value is not trusted, nonetheless; includes outlyers).
+        4 = Bad measurement (known problem with sampling or analysis, but not
+            serious enough to completely discard the value).
+        5 = Not reported (lost sample; unredeemably bad measurement).
+        6 = Mean of replicate measurements.
+        7 = Manual chromatographic peak measurement.
+        8 = Irregular digital chromatographic peak integration.
+        9 = Sample not drawn for this measurement from this bottle (not normally used).
+        --------------------------------------------------------------------------------------
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1998-15
+    AGENCY              : IOS, Ocean Science and Productivity, Sidney, B.C.
+    COUNTRY             : Canada
+    PROJECT             : Line P
+    SCIENTIST           : Perkin, R.
+    PLATFORM            : John P. Tully
+
+*LOCATION
+    STATION             : P04
+    EVENT NUMBER        : 8001
+    LATITUDE            :  48  39.00000 N  ! (deg min)
+    LONGITUDE           : 126  40.00000 W  ! (deg min)
+
+*INSTRUMENT
+    TYPE                : Bottle
+    MODEL               : Sampler_Type
+    $REMARKS
+        Sampler_Type described in the data record
+    $END
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name         Vers   Date       Time     Recs In   Recs Out
+    !   ------------ ------ ---------- -------- --------- ---------
+        SPRD2IS      4.9    2013/02/01 14:21:50        12        12
+        HDREDIT2     2.6    2013/02/01 14:40:00 ?         ?
+        SORT         3.6    2013/02/01 14:44:00        12        12
+        CLEAN        5.0.5  2013/02/01 14:44:01        12        12
+        SORT         3.6    2013/02/01 14:44:01        12        12
+        CHANGE_FLAGS 1.0    2013/07/16 09:55:21        12        12
+        HDREDIT2     2.6    2013/12/18 13:44:22 ?         ?
+        CLEAN        5.1    2013/12/18 13:45:08        12        12
+        CHANGE_FLAGS 2.0    2014/11/20 09:52:25        12        12
+        HDREDIT2     3.2    2021/12/20 15:48:13 ?         ?
+        ADTIMCH      4.4    2021/12/20 16:11:19        12        12
+        REMOVECH     8.2    2021/12/20 16:12:17        12        12
+    $END
+    $REMARKS
+        -HEADER EDITS: 2013/02/01 14:40:00
+         Applied edit header: O:\Data Processing\Header Comments\Work\1998-15-Iron.txt
+        -SORT parameters: 2013/02/01 14:44:00
+         Sorted in ascending order of channel Date_Time
+        -CLEAN functions: 2013/02/01 14:44:01
+         Reset #RECS, MIN & MAX values in header.
+         Delete Empty Channels:     0 deleted.
+         Set header Start and End times from the data.
+        -SORT parameters: 2013/02/01 14:44:01
+         Sorted in ascending order of channel Depth
+        -HEADER EDITS: 2013/12/18 13:44:22
+         Channel 11: Iron:Filtered:Buffered:0.45 [nmol/L]
+           Units: ==> nmol/L
+        -CLEAN functions: 2013/12/18 13:45:08
+         Reset #RECS, MIN & MAX values in header.
+        -HEADER EDITS: 2021/12/20 15:48:13
+         Channel  1: Date_Time [YYYY/MM/DD HH:MM]
+           Format: HH:MM ==> YYYY/MM/DD
+         Channel  3: Sampler_Type [n/a]
+           Format: ==> NQ
+         Channel  4: Sampler_ID_Number [n/a]
+           Format: ==> NQ
+        -The following ADTIMCH parameters were used.
+         Add IOS header Time/Date channels
+        -REMOVECH 2021/12/20 16:12:17
+         The following CHANNEL(S) were removed:
+          Date_Time [YYYY/MM/DD HH:MM]
+    $END
+
+*COMMENTS
+    Sample_Number  12: // FB filtered direct from pump
+
+    For Collection and Analysis Methods, types of filters used and Explanation of
+    Abbreviations please see the Metadata Sheet in the Iron Spreadsheet file located
+    in the Cruise .DOC directory.
+!----1----- ---2---- -3- ---4--- ---5--- -6- --7--- --8--- --9--- --10-- --11-- --12-- --13-- --14-- --15--
+!   Date      Time   Sam Sampler Sampler Sam Depth  Iron:  Flag:I Iron:  Flag:I Iron:  Flag:I Iron:  Flag:
+!                    ple _Type   _ID_    ple        Filter ron:Fi Filter ron:Fi Filter ron:Fi Unfilt Iron:U
+!                    _           Number  _          ed:Buf ~red:B ed:    ~ered: ed:Buf ~red:B ered:  nfilte
+!                    Ord                 Num        fered: uffere Buffer Buffer fered: uffere Buffer red:Bu
+!                    er                  ber        0.03   d:0.03 ed:0.1 ed:0.1 0.45   d:0.45 ed     ffered
+!---------- -------- --- ------- ------- --- ------ ------ ------ ------ ------ ------ ------ ------ ------
+*END OF HEADER
+ 1998/06/04 19:31:00   7 Zodiac  Dip      12    0.0 -99.00 0        0.09 0        0.12 0        0.32 0
+ 1998/06/04 13:31:00   6 Pump    Asti     11   10.0   0.06 0        0.10 0        0.10 0        0.34 0
+ 1998/06/04 13:00:00   6 Pump    Asti     10   25.0   0.07 0        0.04 0        0.10 0        0.16 0
+ 1998/06/04 12:30:00   6 Pump    Asti      9   40.0   0.04 0        0.06 0        0.05 0        0.25 0
+ 1998/06/04 11:00:00   5 LA10    ?#        8   75.0 -99.00 0      -99.00 0        0.65 0        1.07 0
+ 1998/06/04 10:31:00   4 GF10    #6        6  100.0 -99.00 0      -99.00 0        0.67 0        1.45 0
+ 1998/06/04 10:31:00   4 GF10    #5        7  200.0 -99.00 0      -99.00 0        0.82 0        1.78 0
+ 1998/06/04 09:33:00   3 GF10    #6        4  300.0 -99.00 0      -99.00 0        1.26 0        2.30 0
+ 1998/06/04 09:33:00   3 GF10    #5        5  400.0 -99.00 0      -99.00 0        1.51 0        3.02 0
+ 1998/06/04 08:10:00   2 LA10    ?#        2  600.0 -99.00 0      -99.00 0        1.64 0        4.58 0
+ 1998/06/04 07:21:00   1 GF10    #6        1  800.0 -99.00 0      -99.00 0        1.54 0        4.08 0
+ 1998/06/04 08:10:00   2 GF10    #5        3 1000.0 -99.00 0      -99.00 0        1.43 0        3.63 0
