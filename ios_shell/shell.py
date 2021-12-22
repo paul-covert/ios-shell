@@ -138,6 +138,6 @@ class ShellFile:
     def process_data(self):
         if self.data_is_processed():
             return
-        self.data = parsing.get_data(
+        self.data, _ = parsing.get_data(
             self.data, self.file.format, self.file.number_of_records
         )

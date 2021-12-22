@@ -188,6 +188,7 @@ def test_shell_process_data(file_name):
     info = shell.ShellFile.fromfile(full_file_name, process_data=False)
     assert not info.data_is_processed()
     info.process_data()
+    assert isinstance(info.data, list)
     assert info.data_is_processed()
 
     info = shell.ShellFile.fromfile(full_file_name, process_data=True)
