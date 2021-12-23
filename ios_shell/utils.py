@@ -74,6 +74,8 @@ def _to_iso(tz: str, date: str, time: str = "") -> datetime.datetime:
 def to_iso(value: str) -> datetime.datetime:
     value_no_comment = value.split("!")[0].strip()
     time_vals = value_no_comment.split(" ")
+    if all(value == "" for value in time_vals):
+        return None
     return _to_iso(*time_vals)
 
 

@@ -1,0 +1,207 @@
+*2017/03/30 14:06:31.07
+*IOS HEADER VERSION 2.0      2016/04/28 2016/06/13 IVF16
+
+*COMMENTS
+
+*FILE
+    START TIME          : UTC 1994/08/18 00:38:03.640
+    END TIME            :
+    NUMBER OF RECORDS   : 36
+    DATA DESCRIPTION    : CTD
+    FILE TYPE           : ASCII
+    DATA TYPE           : real*4
+    NUMBER OF CHANNELS  : 5
+
+    $TABLE: CHANNELS
+    ! No Name                    Units            Minimum        Maximum
+    !--- ----------------------- ---------------- -------------- --------------
+       1 Pressure                decibar          0.4            34.5
+       2 Temperature             'deg C (IPTS68)' 9.3386         17.0009
+       3 Transmissivity          %/metre          1.2            46.9
+       4 Salinity                PSS-78           31.297         32.2464
+       5 Number_of_bin_records   n/a              4              48
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  -99   ' '        7  F       ' '     1
+       2  -99   ' '        9  F       ' '     4
+       3  -99   ' '        6  F       ' '     1
+       4  -99   ' '        9  F       ' '     4
+       5  -99   ' '        5  I       I       0
+    $END
+    $REMARKS
+        File name : 94310152.ACQ
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1994-31
+    AGENCY              : IOS, Ocean Physics Division, Sidney, B.C.
+    COUNTRY             : Canada
+    PROJECT             : Laperouse, JGOFS
+    SCIENTIST           : Denman K.L.
+    PLATFORM            : John P. Tully
+
+*LOCATION
+    GEOGRAPHIC AREA     : WCVI
+    STATION             : LD02
+    EVENT NUMBER        : 152
+    LATITUDE            :  48  58.50000 N  ! (deg min)
+    LONGITUDE           : 125  47.00000 W  ! (deg min)
+    LATITUDE 2          :    ! (deg min)
+    LONGITUDE 2         :    ! (deg min)
+    WATER DEPTH         : 43
+    $REMARKS
+        Station Latitude : 48 58.35 N   Longitude : 125 47.05 W  Depth : 42
+    $END
+
+*INSTRUMENT
+    TYPE                : Guildline 8705 CTD
+    MODEL               : DEL450DE
+    SERIAL NUMBER       : 58483
+    $REMARKS
+        Acquisition program : CTD.EXE  version  1.31
+        CTD data type :  2   ! 8755 system binary frame
+        Control String : KP3000TC4
+    $END
+
+*RAW
+    START TIME          : UTC 1994/08/18 00:38:03.640
+    END TIME            :
+    TIME INCREMENT      : 0 0 0 0 40  ! (day hr min sec ms)
+    NUMBER OF RECORDS   :
+
+    $TABLE: CHANNELS
+    !                                      Averaging (day hr min sec ms)
+    !Name                 Raw Units        Interval   Time Lag
+    !-------------------- ---------------  ---------  -----------
+     Pressure             Percent_FS
+     Temperature          'DEG C (ITS68)'
+     Conductivity_Ratio   n/a
+     Transmissivity       Percent_FS
+    $END
+
+*CALIBRATION
+
+    $TABLE: RAW CHANNELS
+    !   Name                 Units           Fmla Pad    Coefficients
+    !   -------------------- --------------- ---- ------ ------------
+        Pressure             DBAR              10 n/a    (-3 3000)
+        Temperature          'DEG C (ITS68)'   10 n/a    (0.47653E-01 0.99872)
+        Conductivity_Ratio   n/a               10 n/a    (-0.2184E-02 1.0002)
+        Transmissivity       '%/25 cm'         10 n/a    (100.7616 -2.01523)
+    $END
+
+    $TABLE: CALCULATED CHANNELS
+    !   Name       Units    Fmla Pad    Coefficients
+    !   ---------- -------- ---- ------ ------------
+        Salinity   PSS-78     30 ' '    (Pressure Temperature
+                                         Conductivity_Ratio)
+                                        ()
+    $END
+
+    $TABLE: CORRECTED CHANNELS
+    !   Name       Units    Fmla Pad    Coefficients
+    !   ---------- -------- ---- ------ ------------
+        Salinity   PSS-78     10 -99.9  () (0.96E-01 1)
+    $END
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name                     Vers   Date       Time     Recs In   Recs Out
+    !   ------------------------ ------ ---------- -------- --------- ---------
+        ACQCONV                  1.4.1  1995/02/13 17:40:12 ' '       ' '
+        CALIB                    6.1    1995/02/22 10:33:37      3912      3912
+        DELETE                   4.3    1995/02/22 10:34:50      3912      1258
+        CTDEDIT                  3.2    1995/03/07 14:56:29      1258      1258
+        REMOVECH                 1.3    1995/03/30 13:22:31      1258      1258
+        BINAVE                   1.3    1995/03/30 13:31:04      1258        36
+        CALIB                    7.1    1997/04/21 10:37:41        36        36
+        HDREDIT2                 1.7    2003/09/12 14:42:06 ?         ?
+        CLEAN                    4.4    2003/09/12 14:43:50        36        36
+        CHANGE_CTD_CHANNEL_NAMES 1.0    2013/12/16 15:06:51        36        36
+        HDREDIT2                 3.1.1  2017/03/30 14:06:31 ?         ?
+    $END
+    $REMARKS
+        -The following CALIB parameters were used:
+         Calibration type = R
+         Salinity is computed
+         Transmissivity converted to %/metre
+         Pressure offset =       -3.0
+        -The following DELETE parameters were used:
+         Surface Record Removal: Last Press Min
+           Maximum Surface Pressure (relative):      20.00
+           Surface Swell Pressure Tolerance:       1.00
+         Pressure filtered over width:   11
+         Swells deleted. Warning message if pressure difference of      2.00
+         Slow Drop Rate NOT deleted
+        -The following CALIB parameters were used:
+         Calibration type = C
+         Salinity is computed
+         Pressure offset =        0.0
+        -The following CHANNEL(S) were removed from file.
+         CONDUCTIVITY
+        -The following BINAVE parameters were used:
+         Bin channel = PRESSURE
+         Averaging interval =    1.0
+         Minimum bin value =       0.000
+         Average value was used
+         Interpolated values were NOT used for empty bins
+         Channel 'NUMBER_OF_BIN_RECORDS' was added to file.
+        -The following CALIB parameters were used:
+         Calibration type = C
+         Pressure offset =        0.0
+         Calibration file = 9431cor.dat
+        CLEAN functions:
+         - Reset #RECS, MIN & MAX values in header.
+         - Change Pad Value to -99 in All Channels.
+         - Delete Empty Channels:   0 deleted.
+         - Set channel name post-colon letters to upper case.
+        -HEADER EDITS: 2017/03/30 14:06:31 - none.
+    $END
+!--1--- ---2---- --3-- ---4---- -5--
+!Pressu Temperat Trans Salinity Numb
+!re     ure      missi          er_o
+!                vity           ~bin
+!                               _rec
+!                               ords
+!------ -------- ----- -------- ----
+*END OF HEADER
+    0.4  17.0009   1.2  31.3593    9
+    0.9  16.9995   1.2  31.3545   31
+    2.0  16.9965   1.2  31.3546   32
+    3.0  16.9765   1.2  31.3603   41
+    4.0  16.9335   1.3  31.3572   33
+    5.0  16.7933   1.3  31.3470   28
+    6.0  16.6654   1.4  31.3484   48
+    7.0  16.3783   1.4  31.3690   30
+    8.0  16.0647   1.4  31.3610   28
+    9.0  16.0684   1.5  31.3519   47
+    9.9  15.9305   1.6  31.3801   40
+   11.0  15.2240   1.8  31.4375   36
+   12.0  15.1477   1.6  31.3973   34
+   13.0  14.8968   1.7  31.2970   46
+   13.9  13.9703   4.4  31.4122   38
+   14.9  13.4509   7.3  31.5853   31
+   16.0  12.6966  15.1  31.9163   42
+   16.9  12.1564  23.3  31.6329   39
+   18.0  11.8448  28.2  31.7293   33
+   19.0  11.4097  32.1  31.8492   40
+   20.0  11.1061  34.1  31.9570   42
+   20.9  10.9441  35.8  31.6707   32
+   22.0  10.8512  34.6  31.6455   26
+   23.0  10.7981  36.4  31.6639   43
+   23.9  10.7367  38.9  31.6799   34
+   25.0  10.6456  43.0  31.7011   31
+   26.0  10.5541  44.3  31.7251   38
+   27.0  10.5194  44.2  31.7185   38
+   28.0  10.4492  45.6  31.7337   34
+   29.0  10.4252  43.9  31.7905   44
+   30.0  10.4421  42.2  31.8613   33
+   31.1  10.2659  43.1  31.9655   41
+   32.0  10.0351  44.7  31.9866   35
+   33.0   9.6481  46.9  32.1094   32
+   34.1   9.4520  46.7  32.2020   45
+   34.5   9.3386  46.9  32.2464    4
