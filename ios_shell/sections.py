@@ -149,3 +149,9 @@ class History:
 class Calibration:
     corrected_channels: List[Dict[str, str]]
     raw: Dict[str, Any]
+
+
+@dataclass
+class Deployment:
+    remarks: str
+    raw: Dict[str, Any]

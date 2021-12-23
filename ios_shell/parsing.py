@@ -283,6 +283,16 @@ def get_raw(contents: str) -> Tuple[sections.Raw, str]:
     return raw_info, rest
 
 
+def get_deployment(contents: str) -> Tuple[sections.Deployment, str]:
+    deployment_dict, rest = get_section(contents, "deployment")
+    remarks = deployment_dict[REMARKS] if REMARKS in deployment_dict else ""
+    deployment_info = sections.Deployment(
+        remarks=remarks,
+        raw=deployment_dict,
+    )
+    return deployment_info, rest
+
+
 def get_comments(contents: str) -> Tuple[str, str]:
     rest = contents.lstrip()
     if m := re.match(r"\*COMMENTS\n", rest):

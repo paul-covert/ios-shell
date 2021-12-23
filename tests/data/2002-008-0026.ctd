@@ -1,0 +1,335 @@
+*2013/12/16 15:25:47.63
+*IOS HEADER VERSION 1.10 2011/10/26 2011/10/26
+
+*FILE
+    START TIME          : UTC 2002/05/11 10:22:50.000
+    TIME INCREMENT      : 0 0 0 0.416667E-01 0  ! (day hr min sec ms)
+    NUMBER OF RECORDS   : 89
+    DATA DESCRIPTION    : CTD
+    FILE TYPE           : ASCII
+    DATA TYPE           : REAL*4
+    NUMBER OF CHANNELS  : 7
+
+    $TABLE: CHANNELS
+    ! No Name                    Units           Minimum        Maximum
+    !--- ----------------------- --------------- -------------- --------------
+       1 Pressure                decibar         3.218          90.706
+       2 Temperature:Primary     'deg C (ITS90)' 6.9413         9.1992
+       3 Transmissivity          %/metre         7.5            47.9
+       4 PAR                     uE/m^2/sec      0.824          1.384
+       5 PAR:Reference           uE/m^2/sec      26.32721       26.32721
+       6 Salinity:T0:C0          PSS-78          31.8664        33.7365
+       7 Number_of_bin_records   n/a             1              40
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  -9.9  ' '        7  F       ' '     1
+       2  -9.9  ' '        9  F       ' '     4
+       3  -9.9  ' '        7  F       ' '     1
+       4  -9.9  ' '        7  F       ' '     1
+       5  -9.9  ' '        7  F       ' '     1
+       6  -9.9  ' '        9  F       ' '     4
+       7  ' '   ' '        5  F       ' '     0
+    $END
+    $REMARKS
+        This file converted from Sea-Bird file: Q:\CTD\2002-08\derive\2002-08-0026.cn
+    $END
+
+*ADMINISTRATION
+    MISSION             : 2002-08
+    AGENCY              : OSAP
+    COUNTRY             : Canada
+    PROJECT             : Covariability
+    SCIENTIST           : Juhasz T.
+    PLATFORM            : John P. Tully
+
+*LOCATION
+    GEOGRAPHIC AREA     : WCVI/QCI
+    STATION             : LB03
+    EVENT NUMBER        : 26
+    LATITUDE            :  48  37.30000 N  ! (deg min)
+    LONGITUDE           : 125   5.51000 W  ! (deg min)
+    WATER DEPTH         : 93
+
+*INSTRUMENT
+    TYPE                : Sea-Bird CTD
+    MODEL               : SBE-911plus
+    SERIAL NUMBER       : 0585
+
+    $TABLE: SENSORS
+    !   Name                       Abs Depth       Serial No
+    !   -------------------------  --------------  ----------
+        temperature:primary        ' '             2038
+        conductivity:primary       ' '             1729
+        pressure                   ' '             77511
+        temperature:secondary      ' '             2968
+        conductivity:secondary     ' '             2173
+        Fluorometer                ' '             Seapoint
+        transmissometer:primary    ' '             498DR
+        Oxygen:SBE                 ' '             0047
+        irradiance                 ' '             4601
+        surface                    ' '             'degrees = 0.0'
+    $END
+    $REMARKS
+        SOFTWARE VERSION SEASAVE WIN32 V 5.25A
+    $END
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name                     Vers   Date       Time     Recs In   Recs Out
+    !   ------------------------ ------ ---------- -------- --------- ---------
+        SBE_IOS                  2.2    2002/08/08 15:55:49      7061      7061
+        CLEAN                    3.7    2002/08/08 16:53:45      7031      7031
+        DELETE                   5.2    2002/08/08 17:02:18      7031      1988
+        CTDEDIT                  4.43   2002/08/14 16:44:29      1988      1803
+        BINAVE                   4.0.1  2002/08/15 13:04:19      1803        89
+        CALIB                    10.3   2002/08/20 17:23:56        89        89
+        REMOVECH                 6.0    2002/08/20 17:26:25        89        89
+        REORDER                  1.2    2002/08/20 17:31:18 ?         ?
+        HDREDIT2                 1.5    2002/08/20 17:31:28 ?         ?
+        HDREDIT2                 2.1    2004/06/01 13:29:10 ?         ?
+        CHANGE_CTD_CHANNEL_NAMES 1.0    2013/12/16 15:25:47        89        89
+    $END
+    $REMARKS
+        CLEAN functions:
+         - Reset #RECS, MIN & MAX values in header.
+        -The following DELETE parameters were used:
+         Surface Record Removal: Low Sal & Last Press Min
+           Maximum Surface Pressure (relative):      10.00
+           Minimum Surface Salinity:     10.000
+           Surface Swell Pressure Tolerance:       1.00
+         Pressure filtered over width:   15
+         Swells deleted. Warning message if pressure difference of      2.00
+         Drop rates<   0.30m/s (calculated over  15 points) will be deleted
+         Sample interval =     0.042 seconds.
+        -The following BINAVE parameters were used:
+         Bin channel = Pressure
+         Averaging interval =    1.0
+         Minimum bin value =       0.000
+         Average value was used
+         Interpolated values were NOT used for empty bins
+         Channel 'NUMBER_OF_BIN_RECORDS' was added to file.
+        -The following CALIB parameters were used:
+         Calibration type = Correct
+         Mode: ONLY - calibration specs from Cal File only.
+         Calibration file = Q:\CTD\2002-14\SPAR.ccf
+         Calibrations applied:
+         Ch Name                          Units    Fmla Coefficents
+         -- ----------------------------- --------- --- -----------------------------
+         10 Irradiance (PAR:Surface       n/a        10  0.0000000E+00  0.1000160E+01
+        -The following CHANNEL(S) were removed from file.
+         Scan_Number
+         Temperature:Secondary
+         Conductivity:Primary
+         Conductivity:Secondary
+         Chlorophyll:Fluorescence:Seapoint
+         Oxygen:Dissolved:SBE
+         Salinity:T1:C1
+         Flag
+    $END
+
+*COMMENTS
+    SBE HEADER
+      Sea-Bird SBE 9 Data File:
+      FileName = C:\data\2002-08\2002-08-00026.dat
+      Software Version Seasave Win32 V 5.25a
+      Temperature SN = 2038
+      Conductivity SN = 1729
+      Number of Bytes Per Scan = 33
+      Number of Voltage Words = 5
+      Number of Scans Averaged by the Deck Unit = 1
+      System UpLoad Time = May 11 2002  10:22:50
+      NMEA Latitude = 48 37.30 N
+      NMEA Longitude = 125 05.51 W
+      NMEA UTC (Time) = none
+      Store Lat/Lon Data = Add to Header Only
+       Ship:     John P. Tully
+       Cruise:    2002-08
+       Station:    LB03
+       DEPTH numbers only: 93
+    # nquan = 14
+    # nvalues = 7061
+    # units = specified
+    # name 0 = scan: Scan Count
+    # name 1 = prDM: Pressure, Digiquartz [db]
+    # name 2 = t090C: Temperature [ITS-90, deg C]
+    # name 3 = t190C: Temperature, 2 [ITS-90, deg C]
+    # name 4 = c0S/m: Conductivity [S/m]
+    # name 5 = c1S/m: Conductivity, 2 [S/m]
+    # name 6 = xmiss: Beam Transmission, Chelsea/Seatech/Wetlab CStar [%]
+    # name 7 = flSP: Fluorescence, Seapoint
+    # name 8 = sbeox0ML/L: Oxygen, SBE 43 [ml/l]
+    # name 9 = spar: SPAR/Surface Irradiance
+    # name 10 = par: PAR/Irradiance, Biospherical/Licor
+    # name 11 = sal00: Salinity [PSU]
+    # name 12 = sal11: Salinity, 2 [PSU]
+    # name 13 = flag: flag
+    # span 0 =          1,       7061
+    # span 1 =      0.940,     90.929
+    # span 2 =     6.9402,     9.2129
+    # span 3 =     6.9372,     9.2162
+    # span 4 =   3.363403,   3.433439
+    # span 5 =   3.363611,   3.434020
+    # span 6 =    47.2418,    83.2245
+    # span 7 = 1.9414e-01, 1.4919e+01
+    # span 8 =    2.11478,    7.15579
+    # span 9 = 2.6323e+01, 2.6323e+01
+    # span 10 = 8.1908e-01, 3.4070e+00
+    # span 11 =    31.6831,    33.7377
+    # span 12 =    31.6606,    33.7447
+    # span 13 = 0.0000e+00, 0.0000e+00
+    # interval = seconds: 0.0416667
+    # start_time = May 11 2002 10:22:50
+    # bad_flag = -9.990e-29
+    # sensor 0 = Frequency  0  temperature, primary, 2038, 11-Sep-01
+    # sensor 1 = Frequency  1  conductivity, primary, 1729, 17-Jul-01, cpcor = -9.57
+    00e-08
+    # sensor 2 = Frequency  2  pressure, 77511, 13-Mar-00
+    # sensor 3 = Frequency  3  temperature, secondary, 2968, 18-Sep-01s
+    # sensor 4 = Frequency  4  conductivity, secondary, 2173, 11-Sep-01, cpcor = -9.
+    5700e-08
+    # sensor 5 = Extrnl Volt  0  Fluorometer, Seapoint
+    # sensor 6 = Extrnl Volt  2  transmissometer, primary, 498DR, 06-Apr-2002
+    # sensor 7 = Extrnl Volt  4  Oxygen, SBE, primary, 0047, 11/26/01
+    # sensor 8 = Extrnl Volt  6  irradiance (PAR), 4601, 09-Feb-2001
+    # sensor 9 = Extrnl Volt  9  surface irradiance (SPAR), degrees = 0.0
+    # datcnv_date = Aug 07 2002 17:18:22, 5.25b
+    # datcnv_in = Q:\CTD\2002-08\2002-08-0026.dat Q:\CTD\2002-08\0585A.CON
+    # datcnv_skipover = 0
+    # strip_date = Aug 08 2002 14:41:50, 5.25b
+    # strip_in = Q:\CTD\2002-08\convert\2002-08-0026.cnv
+    # alignctd_date = Aug 08 2002 14:49:45, 5.25b
+    # alignctd_in = Q:\CTD\2002-08\strip\2002-08-0026.cnv
+    # alignctd_adv = c0S/m 0.018, c1S/m 0.018
+    # wildedit_date = Aug 08 2002 15:19:41, 5.25b
+    # wildedit_in = Q:\CTD\2002-08\align\2002-08-0026.cnv
+    # wildedit_pass1_nstd = 2.0
+    # wildedit_pass2_nstd = 5.0
+    # wildedit_pass2_mindelta = 0.000e+000
+    # wildedit_npoint = 50
+    # wildedit_vars = prDM t090C t190C c0S/m c1S/m xmiss flSP sbeox0ML/L spar par
+    # wildedit_excl_bad_scans = yes
+    # celltm_date = Aug 08 2002 15:25:43, 5.25b
+    # celltm_in = Q:\CTD\2002-08\wildedit\2002-08-0026.cnv
+    # celltm_alpha = 0.0300, 0.0300
+    # celltm_tau = 9.0000, 9.0000
+    # celltm_temp_sensor_use_for_cond = primary, secondary
+    # Derive_date = Aug 08 2002 15:34:32, 5.25b
+    # Derive_in = Q:\CTD\2002-08\celltm\2002-08-0026.cnv Q:\CTD\2002-16\ctd\0585CTD.
+    CON
+    # file_type = ascii
+     END*
+
+*DEPLOYMENT
+    $REMARKS
+        CTDEDIT was used to remove records around 0-3db, 54,56,66,84,86db; salinity
+        was cleaned.
+    $END
+
+*CALIBRATION
+
+    $TABLE: CORRECTED CHANNELS
+    !   Name                      Units Fmla Pad    Coefficients
+    !   ------------------------- ----- ---- ------ ------------
+        'Irradiance (PAR:Surface' n/a     10 -9.9   () (0 1.00016)
+    $END
+!--1--- ---2---- --3--- --4--- --5--- ---6---- -7--
+!Pressu Temperat Transm  PAR   PAR:   Salinity Numb
+!re     ure:     issivi        Refere :T0:C0   er_o
+!       Primary  ty            nce             ~bin
+!                                              _rec
+!                                              ords
+!------ -------- ------ ------ ------ -------- ----
+*END OF HEADER
+    3.2   9.1992    7.6    1.4   26.3  31.8668  24.
+    4.0   9.1917    7.5    1.2   26.3  31.8666  40.
+    4.9   9.1931    7.8    1.0   26.3  31.8667  25.
+    6.0   9.1884    8.5    0.9   26.3  31.8670  27.
+    7.0   9.1926    8.6    0.9   26.3  31.8670  23.
+    8.0   9.1784    9.3    0.9   26.3  31.8667  19.
+    9.0   9.1234   12.5    0.9   26.3  31.8664  30.
+   10.0   9.0469   14.9    0.9   26.3  31.8692  15.
+   11.0   8.9475   21.4    0.9   26.3  31.8726  26.
+   12.0   8.9573   22.9    0.9   26.3  31.8724  17.
+   13.0   8.9370   23.3    0.9   26.3  31.8725  17.
+   14.0   8.8737   26.7    0.9   26.3  31.8773  18.
+   15.0   8.8199   30.8    0.9   26.3  31.8794  19.
+   16.0   8.7835   34.8    0.9   26.3  31.8815  23.
+   17.0   8.7586   36.6    0.9   26.3  31.8835  28.
+   18.0   8.7787   36.2    0.9   26.3  31.8826  23.
+   19.0   8.7613   36.0    0.9   26.3  31.8833  20.
+   20.0   8.7287   37.4    0.9   26.3  31.8864  18.
+   21.0   8.6964   38.5    0.8   26.3  31.8899  20.
+   22.0   8.6643   39.5   -9.9   -9.9  31.8947  21.
+   23.0   8.6387   40.0   -9.9   -9.9  31.8991  24.
+   24.0   8.5934   40.8    0.8   26.3  31.9101  21.
+   25.0   8.5379   41.5    0.8   26.3  31.9247  22.
+   26.0   8.4577   42.3    0.8   26.3  31.9482  20.
+   27.0   8.4244   42.9    0.8   26.3  31.9582  18.
+   28.0   8.3939   43.3    0.8   26.3  31.9648  19.
+   29.0   8.3820   43.6   -9.9   26.3  31.9671  22.
+   30.0   8.3769   43.8   -9.9   26.3  31.9679  25.
+   31.0   8.3717   43.8   -9.9   26.3  31.9693  23.
+   32.0   8.3662   43.9   -9.9   26.3  31.9706  19.
+   33.0   8.3645   43.8    0.8   26.3  31.9713   7.
+   34.0   8.3529   43.9    0.8   26.3  31.9736  16.
+   35.0   8.3442   44.1    0.8   26.3  31.9758  16.
+   36.0   8.3332   44.2    0.8   26.3  31.9785  11.
+   37.0   8.3061   44.5   -9.9   26.3  31.9887  18.
+   38.0   8.2505   44.9   -9.9   26.3  32.0197  19.
+   39.0   8.1901   45.6    0.8   26.3  32.0564  12.
+   40.0   8.1484   46.2    0.8   26.3  32.0950  18.
+   41.0   8.1371   46.6    0.8   26.3  32.1103  17.
+   42.0   8.1370   46.8    0.8   26.3  32.1160   3.
+   43.0   8.1356   47.0   -9.9   26.3  32.1319  17.
+   44.0   8.1348   47.2   -9.9   26.3  32.1492  17.
+   45.0   8.1351   47.2    0.8   26.3  32.1623  14.
+   46.0   8.1351   47.2    0.8   26.3  32.1720  18.
+   47.0   8.1374   47.4    0.8   26.3  32.1882  18.
+   48.0   8.1368   47.6   -9.9   26.3  32.1994  18.
+   49.0   8.1355   47.6   -9.9   26.3  32.2156  16.
+   50.0   8.1306   47.7   -9.9   26.3  32.2245  16.
+   51.0   8.1173   47.8   -9.9   26.3  32.2485  16.
+   52.0   8.0688   47.9   -9.9   26.3  32.2972  17.
+   53.0   7.9647   47.5    0.8   26.3  32.3658   1.
+   53.9   7.9156   46.7    0.8   26.3  32.3964  13.
+   55.1   7.9076   46.3    0.8   26.3  32.4008  16.
+   56.0   7.9046   46.2    0.8   26.3  32.4035   5.
+   57.0   7.9011   46.1   -9.9   26.3  32.4057  16.
+   58.0   7.8977   45.9   -9.9   26.3  32.4087  16.
+   59.0   7.8962   45.9    0.8   26.3  32.4106   5.
+   60.0   7.8864   45.8    0.8   -9.9  32.4253  16.
+   61.0   7.8529   45.9    0.8   -9.9  32.4795  17.
+   62.0   7.8297   45.9    0.8   26.3  32.5090   7.
+   63.0   7.8204   46.1   -9.9   26.3  32.5250  21.
+   64.0   7.8023   45.9   -9.9   26.3  32.5441  22.
+   65.0   7.7354   45.7    0.8   26.3  32.6600  20.
+   66.0   7.5737   44.8    0.8   26.3  32.9462  11.
+   67.0   7.5260   45.2    0.8   26.3  33.0215  17.
+   68.0   7.5214   45.4    0.8   26.3  33.0284  17.
+   69.0   7.5174   45.5    0.8   26.3  33.0340  17.
+   70.0   7.4979   45.4    0.8   26.3  33.0674  14.
+   71.0   7.4639   45.3    0.8   26.3  33.1201  20.
+   72.0   7.4452   45.5    0.8   26.3  33.1470  19.
+   73.0   7.4357   45.8    0.8   26.3  33.1659   4.
+   74.0   7.4286   46.1    0.8   -9.9  33.1788  11.
+   75.0   7.4193   46.3    0.8   -9.9  33.1956  16.
+   76.0   7.4085   46.3    0.8   26.3  33.2064  12.
+   77.0   7.4025   45.9    0.8   26.3  33.2128  18.
+   78.0   7.3913   45.8    0.8   26.3  33.2289  20.
+   79.0   7.3794   45.8   -9.9   26.3  33.2469  23.
+   80.0   7.3420   46.0   -9.9   26.3  33.3113  22.
+   81.0   7.3162   45.3    0.8   26.3  33.3490  14.
+   82.0   7.2815   44.7    0.8   26.3  33.3939  17.
+   83.0   7.2261   43.8    0.8   26.3  33.4569  17.
+   84.0   7.1736   43.4    0.8   26.3  33.5120  18.
+   85.1   7.1125   43.5    0.8   26.3  33.5727  18.
+   86.3   7.0490   44.1    0.8   26.3  33.6332  11.
+   86.9   7.0114   43.8    0.8   26.3  33.6661   6.
+   87.9   6.9646   43.3    0.8   26.3  33.7102  25.
+   89.0   6.9481   43.0    0.8   26.3  33.7273  37.
+   90.0   6.9456   43.5    0.8   26.3  33.7310  38.
+   90.7   6.9413   43.7    0.8   26.3  33.7365   8.

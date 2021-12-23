@@ -17,6 +17,7 @@ class ShellFile:
         instrument: sections.Instrument,
         history: sections.History,
         calibration: sections.Calibration,
+        deployment: sections.Deployment,
         comments: str,
         data: Union[List[List[object]], str],
     ):
@@ -29,6 +30,7 @@ class ShellFile:
         self.instrument = instrument
         self.history = history
         self.calibration = calibration
+        self.deployment = deployment
         self.comments = comments
         self.data = data
 
@@ -51,9 +53,11 @@ class ShellFile:
             instrument,
             history,
             calibration,
+            deployment,
             comments,
             raw,
         ) = (
+            None,
             None,
             None,
             None,
@@ -97,6 +101,10 @@ class ShellFile:
                 if raw is not None:
                     raise ValueError("There should only be one raw section")
                 raw, rest = parsing.get_raw(rest)
+            elif first.startswith("*DEPLOYMENT"):
+                if deployment is not None:
+                    raise ValueError("There should only be one deployment section")
+                deployment, rest = parsing.get_deployment(rest)
             else:
                 raise ValueError(f"Unknown section: {first}")
         # end named sections
@@ -114,6 +122,7 @@ class ShellFile:
             instrument=instrument,
             history=history,
             calibration=calibration,
+            deployment=deployment,
             comments=comments,
             data=data,
         )
