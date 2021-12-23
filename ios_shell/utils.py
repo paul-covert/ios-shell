@@ -2,7 +2,7 @@
 import datetime
 import logging
 import re
-from typing import List
+from typing import List, Tuple
 
 
 def apply_column_mask(data: str, mask: List[bool]) -> List[str]:
@@ -42,32 +42,33 @@ def format_string(fortrantype: str, width: int, decimals: int) -> str:
         return fortrantype
 
 
-def _to_timezone_offset(name: str) -> str:
+def _to_timezone_offset(name: str) -> Tuple[str, int]:
     if name.upper() in ["UTC", "GMT"]:
-        return "+00:00"
+        return "+00:00", 0
     elif name.upper() in ["MDT"]:
-        return "-06:00"
+        return "-06:00", -6
     elif name.upper() in ["PDT", "MST"]:
-        return "-07:00"
+        return "-07:00", -7
     elif name.upper() in ["PST"]:
-        return "-08:00"
+        return "-08:00", -8
     else:
         logging.warning(f"Unknown time zone: {name}. Defaulting to UTC")
-        return "+00:00"
+        return "+00:00", 0
 
 
 def _to_iso(tz: str, date: str, time: str = "") -> datetime.datetime:
     formatted_date = date.replace("/", "-")
+    tzstr, tzoffset = _to_timezone_offset(tz)
     if time.startswith("24"):
         logging.warning(f"Invalid time: {time}")
         time = "00" + time[2:]
     if time != "":
         time = " " + time
-        tzinfo = _to_timezone_offset(tz)
-        date_string = formatted_date + time + tzinfo
+        date_string = formatted_date + time + tzstr
         return datetime.datetime.fromisoformat(date_string)
     else:
-        return datetime.datetime.fromisoformat(formatted_date)
+        tzinfo = datetime.timezone(datetime.timedelta(hours=tzoffset))
+        return datetime.datetime.fromisoformat(formatted_date).replace(tzinfo=tzinfo)
 
 
 def to_iso(value: str) -> datetime.datetime:
