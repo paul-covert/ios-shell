@@ -2,6 +2,7 @@ import pytest
 
 import ios_shell.parsing as parsing
 
+
 @pytest.mark.parametrize(
     "contents,expected",
     [

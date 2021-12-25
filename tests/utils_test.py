@@ -8,7 +8,7 @@ import ios_shell.utils as utils
     [
         "UTC 2015/03/16 10:36:00.000",
         "UTC 2015/03/16",
-    ]
+    ],
 )
 def test_utils_to_iso_produces_usable_datetime(time):
     time_info = utils.to_iso(time)

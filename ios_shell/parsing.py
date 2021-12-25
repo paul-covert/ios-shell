@@ -287,7 +287,11 @@ def get_deployment(contents: str) -> Tuple[sections.Deployment, str]:
     deployment_dict, rest = get_section(contents, "deployment")
     mission = deployment_dict[MISSION] if MISSION in deployment_dict else ""
     type = deployment_dict[TYPE] if TYPE in deployment_dict else ""
-    anchor_dropped = utils.to_iso(deployment_dict[TIME_ANCHOR_DROPPED]) if TIME_ANCHOR_DROPPED in deployment_dict else None
+    anchor_dropped = (
+        utils.to_iso(deployment_dict[TIME_ANCHOR_DROPPED])
+        if TIME_ANCHOR_DROPPED in deployment_dict
+        else None
+    )
     remarks = deployment_dict[REMARKS] if REMARKS in deployment_dict else ""
     deployment_info = sections.Deployment(
         mission=mission,
@@ -302,7 +306,11 @@ def get_deployment(contents: str) -> Tuple[sections.Deployment, str]:
 def get_recovery(contents: str) -> Tuple[sections.Recovery, str]:
     recovery_dict, rest = get_section(contents, "recovery")
     mission = recovery_dict[MISSION] if MISSION in recovery_dict else ""
-    anchor_released = utils.to_iso(recovery_dict[TIME_ANCHOR_RELEASED]) if TIME_ANCHOR_RELEASED in recovery_dict else None
+    anchor_released = (
+        utils.to_iso(recovery_dict[TIME_ANCHOR_RELEASED])
+        if TIME_ANCHOR_RELEASED in recovery_dict
+        else None
+    )
     remarks = recovery_dict[REMARKS] if REMARKS in recovery_dict else ""
     recovery_info = sections.Recovery(
         mission=mission,
