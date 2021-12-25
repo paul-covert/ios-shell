@@ -153,5 +153,16 @@ class Calibration:
 
 @dataclass
 class Deployment:
+    mission: str
+    type: str
+    anchor_dropped: datetime.datetime
+    remarks: str
+    raw: Dict[str, Any]
+
+
+@dataclass
+class Recovery:
+    mission: str
+    anchor_released: datetime.datetime
     remarks: str
     raw: Dict[str, Any]

@@ -46,3 +46,9 @@ PROGRAMS = "programs"
 
 # *CALIBRATION keys
 CORRECTED_CHANNELS = "corrected channels"
+
+# *DEPLOYMENT keys
+TIME_ANCHOR_DROPPED = "time anchor dropped"
+
+# *RECOVERY keys
+TIME_ANCHOR_RELEASED = "time anchor released"

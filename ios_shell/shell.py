@@ -18,6 +18,7 @@ class ShellFile:
         history: sections.History,
         calibration: sections.Calibration,
         deployment: sections.Deployment,
+        recovery: sections.Recovery,
         comments: str,
         data: Union[List[List[object]], str],
     ):
@@ -31,6 +32,7 @@ class ShellFile:
         self.history = history
         self.calibration = calibration
         self.deployment = deployment
+        self.recovery = recovery
         self.comments = comments
         self.data = data
 
@@ -54,9 +56,11 @@ class ShellFile:
             history,
             calibration,
             deployment,
+            recovery,
             comments,
             raw,
         ) = (
+            None,
             None,
             None,
             None,
@@ -105,6 +109,10 @@ class ShellFile:
                 if deployment is not None:
                     raise ValueError("There should only be one deployment section")
                 deployment, rest = parsing.get_deployment(rest)
+            elif first.startswith("*RECOVERY"):
+                if recovery is not None:
+                    raise ValueError("There should only be one recovery section")
+                recovery, rest = parsing.get_recovery(rest)
             else:
                 raise ValueError(f"Unknown section: {first}")
         # end named sections
@@ -123,6 +131,7 @@ class ShellFile:
             history=history,
             calibration=calibration,
             deployment=deployment,
+            recovery=recovery,
             comments=comments,
             data=data,
         )

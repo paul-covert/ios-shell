@@ -29,7 +29,7 @@ def format_string(fortrantype: str, width: int, decimals: int) -> str:
     :param width: the number of characters the data may take up
     :param decimals: the number of characters after a decimal a float is intended to use
     """
-    fortrantype = fortrantype.strip()
+    fortrantype = fortrantype.strip().upper()
     if fortrantype in ["F"]:
         return f"F{width}.{decimals}"
     elif fortrantype in ["I"]:
