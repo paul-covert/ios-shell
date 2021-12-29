@@ -45,6 +45,8 @@ def format_string(fortrantype: str, width: int, decimals: int) -> str:
 def _to_timezone_offset(name: str) -> Tuple[str, int]:
     if name.upper() in ["UTC", "GMT"]:
         return "+00:00", 0
+    elif name.upper() in ["ADT"]:
+        return "-03:00", -3
     elif name.upper() in ["MDT"]:
         return "-06:00", -6
     elif name.upper() in ["PDT", "MST"]:
