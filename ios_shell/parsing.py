@@ -94,7 +94,7 @@ def get_section(contents: str, section_name: str) -> Tuple[Dict[str, Any], str]:
                     }
                 )
             _, rest = rest.lstrip().split("\n", 1)
-        elif m := re.match(r"\$REMARKS", rest):
+        elif m := re.match(r"\$REMARKS?", rest):
             # handle remarks
             rest = rest[m.end() :]
             remarks = []
