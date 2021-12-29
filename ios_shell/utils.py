@@ -67,7 +67,9 @@ def to_date(contents: str) -> datetime.date:
 
 
 def to_time(contents: str, tzinfo=datetime.timezone.utc) -> datetime.time:
-    time_info = [int(part) for piece in contents.strip().split(":") for part in piece.split(".")]
+    time_info = [
+        int(part) for piece in contents.strip().split(":") for part in piece.split(".")
+    ]
     hour = time_info[0] % 24
     minute = time_info[1] % 60
     second = time_info[2] % 60 if len(time_info) > 2 else 0
