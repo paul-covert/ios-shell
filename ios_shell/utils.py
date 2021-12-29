@@ -11,7 +11,7 @@ def apply_column_mask(data: str, mask: List[bool]) -> List[str]:
     :param data: the row of data to break up
     :param mask: a string with - for every character to be included as an element
     """
-    PLACEHOLDER = "$"
+    PLACEHOLDER = "@"
     data = data.rstrip().ljust(len(mask))
     masked = [
         c if i >= len(mask) or mask[i] else PLACEHOLDER for i, c in enumerate(data)
