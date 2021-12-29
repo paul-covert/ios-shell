@@ -44,5 +44,9 @@ def test_utils_to_date():
     assert utils.to_date("2000/01/01") == datetime.date(2000, 1, 1)
 
 def test_utils_to_time():
-    assert utils.to_time("00:00:00") == datetime.time(hour=0, tzinfo=datetime.timezone.utc)
-    assert utils.to_time("00:00:00.000") == datetime.time(hour=0, tzinfo=datetime.timezone.utc)
+    assert utils.to_time("01:00:00") == datetime.time(hour=1, tzinfo=datetime.timezone.utc)
+    # drop sub-second information
+    assert utils.to_time("01:00:00.1") == datetime.time(hour=1, tzinfo=datetime.timezone.utc)
+
+def test_utils_to_datetime():
+    assert utils.to_datetime("2000/01/01 00:00") == datetime.datetime(2000, 1, 1, tzinfo=datetime.timezone.utc)

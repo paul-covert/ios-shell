@@ -1,41 +1,22 @@
 """Contains functions for parsing files in IOS Shell format."""
 import datetime
 import fortranformat as ff
-import functools
-import logging
 import re
-from typing import Any, Callable, Dict, List, Tuple, Union
+from typing import Any, Dict, List, Tuple
 
 from . import sections, utils
 from .keys import *
 
 
-def fallible(name):
-    def decorator_fallible(fn: Callable[[str], Tuple[Any, str]]):
-        @functools.wraps(fn)
-        def wrapper(contents: str) -> Tuple[Union[Any, None], str]:
-            try:
-                return fn(contents)
-            except Exception as e:
-                logging.warning(f"Could not find valid {name.upper()} section: {e}")
-                return None, contents
-
-        return wrapper
-
-    return decorator_fallible
-
-
 DATE_STR = r"\d{4}[/-]\d{2}[/-]\d{2}"
-TIME_STR = r"\d{2}:\d{2}:\d{2}(.\d*)?"
+TIME_STR = r"\d{2}:\d{2}(:\d{2}(.\d*)?)?"
 
 
 def get_modified_date(contents: str) -> Tuple[datetime.datetime, str]:
     rest = contents.lstrip()
     if m := re.match(fr"\*({DATE_STR} {TIME_STR})", rest):
         rest = rest[m.end() :]
-        # trim sub-second information to make parsing using datetime easier
-        raw_datetime = m.group(1).replace("/", "-").split(".")[0]
-        return (datetime.datetime.fromisoformat(raw_datetime), rest)
+        return (utils.to_datetime(m.group(1)), rest)
     else:
         raise ValueError("No modified date at start of string")
 
@@ -335,11 +316,11 @@ def get_comments(contents: str) -> Tuple[str, str]:
 
 
 def _has_date(contents: str) -> bool:
-    return re.search(r"\d{4}/\d{2}/\d{2}", contents) is not None
+    return re.search(DATE_STR, contents) is not None
 
 
 def _has_time(contents: str) -> bool:
-    return re.search(r"\d{2}:\d{2}(:\d{2}(.\d+)?)?", contents) is not None
+    return re.search(TIME_STR, contents) is not None
 
 
 def _process_item(contents: Any) -> Any:

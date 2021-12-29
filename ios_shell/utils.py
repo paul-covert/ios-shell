@@ -59,7 +59,7 @@ def _to_timezone_offset(name: str) -> Tuple[str, int]:
 
 
 def to_date(contents: str) -> datetime.date:
-    date_info = [int(part) for part in contents.strip().split("/")]
+    date_info = [int(part) for part in contents.strip().replace("-", "/").split("/")]
     year = date_info[0]
     month = date_info[1]
     day = date_info[2]
@@ -71,8 +71,7 @@ def to_time(contents: str, tzinfo=datetime.timezone.utc) -> datetime.time:
     hour = time_info[0] % 24
     minute = time_info[1] % 60
     second = time_info[2] % 60 if len(time_info) > 2 else 0
-    usecond = time_info[3] % 1000000 if len(time_info) > 3 else 0
-    return datetime.time(hour=hour, minute=minute, second=second, microsecond=usecond, tzinfo=tzinfo)
+    return datetime.time(hour=hour, minute=minute, second=second, tzinfo=tzinfo)
 
 
 def to_datetime(contents: str) -> datetime.datetime:

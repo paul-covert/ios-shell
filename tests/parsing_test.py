@@ -7,6 +7,20 @@ import ios_shell.parsing as parsing
 @pytest.mark.parametrize(
     "contents,expected",
     [
+        ("*2017/06/30 13:26:49.33", datetime.datetime(2017, 6, 30, hour=13, minute=26, second=49)),
+        ("*1998-10-16 14:17:54.54", datetime.datetime(1998, 10, 16, hour=14, minute=17, second=54)),
+    ]
+)
+def test_modified_date(contents, expected):
+    expected = expected.replace(tzinfo=datetime.timezone.utc)
+    modified, rest = parsing.get_modified_date(contents)
+    assert modified == expected
+    assert len(rest) == 0
+
+
+@pytest.mark.parametrize(
+    "contents,expected",
+    [
         ("*IOS HEADER VERSION 1.10 2011/10/26 2011/10/26", "1.10"),
         ("*IOS HEADER VERSION 2.0      2016/04/28 2016/06/13 IVF16", "2.0"),
         ("*IOS HEADER VERSION 0.4  1992/11/17", "0.4"),
