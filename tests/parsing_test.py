@@ -1,3 +1,4 @@
+import datetime
 import pytest
 
 import ios_shell.parsing as parsing
@@ -44,7 +45,7 @@ def test_get_location(contents):
     assert rest.strip() == "*END OF HEADER"
 
 
-def test_shell_get_section():
+def test_get_section():
     section, rest = parsing.get_section(
         """
 *FILE
@@ -76,8 +77,37 @@ def test_shell_get_section():
     $END
 
 *END OF HEADER
-    """,
+        """,
         "file",
     )
     assert rest.strip() == "*END OF HEADER"
     assert "channels" in section
+
+
+def test_get_data():
+    data, rest = parsing.get_data(
+        """
+*END OF HEADER
+200. 2000/01/01 00:00:00 100.000 other
+        """,
+        "(F4.0,A11,A10,F8.3,A6)",
+        1,
+    )
+    assert len(rest.strip()) == 0
+
+    date = data[0][1]
+    time = data[0][2]
+    value = data[0][3]
+    extra = data[0][4]
+
+    assert isinstance(date, datetime.date)
+    assert date == datetime.date(2000, 1, 1)
+
+    assert isinstance(time, datetime.time)
+    assert time == datetime.time(hour=0, tzinfo=datetime.timezone.utc)
+
+    assert isinstance(value, float)
+    assert value == 100.000
+
+    assert isinstance(extra, str)
+    assert extra == "other"

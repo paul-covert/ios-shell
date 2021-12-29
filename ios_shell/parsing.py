@@ -114,17 +114,17 @@ def get_section(contents: str, section_name: str) -> Tuple[Dict[str, Any], str]:
 def get_file(contents: str) -> Tuple[sections.FileInfo, str]:
     file_dict, rest = get_section(contents, "file")
     start_time = (
-        utils.to_iso(file_dict[START_TIME])
+        utils.from_iso(file_dict[START_TIME])
         if START_TIME in file_dict
         else datetime.datetime.fromtimestamp(0)
     )
     end_time = (
-        utils.to_iso(file_dict[END_TIME])
+        utils.from_iso(file_dict[END_TIME])
         if END_TIME in file_dict
         else datetime.datetime.fromtimestamp(0)
     )
     time_zero = (
-        utils.to_iso(file_dict[TIME_ZERO])
+        utils.from_iso(file_dict[TIME_ZERO])
         if TIME_ZERO in file_dict
         else datetime.datetime.fromtimestamp(0)
     )
@@ -288,7 +288,7 @@ def get_deployment(contents: str) -> Tuple[sections.Deployment, str]:
     mission = deployment_dict[MISSION] if MISSION in deployment_dict else ""
     type = deployment_dict[TYPE] if TYPE in deployment_dict else ""
     anchor_dropped = (
-        utils.to_iso(deployment_dict[TIME_ANCHOR_DROPPED])
+        utils.from_iso(deployment_dict[TIME_ANCHOR_DROPPED])
         if TIME_ANCHOR_DROPPED in deployment_dict
         else None
     )
@@ -307,7 +307,7 @@ def get_recovery(contents: str) -> Tuple[sections.Recovery, str]:
     recovery_dict, rest = get_section(contents, "recovery")
     mission = recovery_dict[MISSION] if MISSION in recovery_dict else ""
     anchor_released = (
-        utils.to_iso(recovery_dict[TIME_ANCHOR_RELEASED])
+        utils.from_iso(recovery_dict[TIME_ANCHOR_RELEASED])
         if TIME_ANCHOR_RELEASED in recovery_dict
         else None
     )
@@ -334,7 +334,34 @@ def get_comments(contents: str) -> Tuple[str, str]:
         raise ValueError("No COMMENTS section found")
 
 
-def get_data(contents: str, format: str, records: int) -> Tuple[List[Any], str]:
+def _has_date(contents: str) -> bool:
+    return re.search(r"\d{4}/\d{2}/\d{2}", contents) is not None
+
+
+def _has_time(contents: str) -> bool:
+    return re.search(r"\d{2}:\d{2}(:\d{2}(.\d+)?)?", contents) is not None
+
+
+def _process_item(contents: Any) -> Any:
+    if not isinstance(contents, str):
+        return contents
+    has_date = _has_date(contents)
+    has_time = _has_time(contents)
+    if has_date and has_time:
+        return utils.to_datetime(contents)
+    elif has_date:
+        return utils.to_date(contents)
+    elif has_time:
+        return utils.to_time(contents)
+    else:
+        return contents.strip()
+
+
+def _postprocess_line(line: List[Any]) -> List[Any]:
+    return [_process_item(item) for item in line]
+
+
+def get_data(contents: str, format: str, records: int) -> Tuple[List[List[Any]], str]:
     rest = contents.lstrip()
     if m := re.match(r"\*END OF HEADER\n", rest):
         rest = rest[m.end() :]
@@ -342,7 +369,7 @@ def get_data(contents: str, format: str, records: int) -> Tuple[List[Any], str]:
         while "" in lines:
             lines.remove("")
         reader = ff.FortranRecordReader(format)
-        data = [reader.read(line) for line in lines[:records]]
+        data = [_postprocess_line(reader.read(line)) for line in lines[:records]]
         rest = "\n".join(lines[records:])
         return data, rest
     else:

@@ -58,7 +58,31 @@ def _to_timezone_offset(name: str) -> Tuple[str, int]:
         return "+00:00", 0
 
 
-def _to_iso(tz: str, date: str, time: str = "") -> datetime.datetime:
+def to_date(contents: str) -> datetime.date:
+    date_info = [int(part) for part in contents.strip().split("/")]
+    year = date_info[0]
+    month = date_info[1]
+    day = date_info[2]
+    return datetime.date(year, month, day)
+
+
+def to_time(contents: str, tzinfo=datetime.timezone.utc) -> datetime.time:
+    time_info = [int(part) for piece in contents.strip().split(":") for part in piece.split(".")]
+    hour = time_info[0] % 24
+    minute = time_info[1] % 60
+    second = time_info[2] % 60 if len(time_info) > 2 else 0
+    usecond = time_info[3] % 1000000 if len(time_info) > 3 else 0
+    return datetime.time(hour=hour, minute=minute, second=second, microsecond=usecond, tzinfo=tzinfo)
+
+
+def to_datetime(contents: str) -> datetime.datetime:
+    # a more naive version of from_iso
+    no_comment = contents.split("!")[0].strip()
+    date, time = no_comment.split(" ")
+    return datetime.datetime.combine(to_date(date), to_time(time))
+
+
+def _from_iso(tz: str, date: str, time: str = "") -> datetime.datetime:
     formatted_date = date.replace("/", "-")
     tzstr, tzoffset = _to_timezone_offset(tz)
     if time.startswith("24"):
@@ -73,12 +97,12 @@ def _to_iso(tz: str, date: str, time: str = "") -> datetime.datetime:
         return datetime.datetime.fromisoformat(formatted_date).replace(tzinfo=tzinfo)
 
 
-def to_iso(value: str) -> datetime.datetime:
+def from_iso(value: str) -> datetime.datetime:
     value_no_comment = value.split("!")[0].strip()
     time_vals = value_no_comment.split(" ")
     if all(value == "" for value in time_vals):
         return None
-    return _to_iso(*time_vals)
+    return _from_iso(*time_vals)
 
 
 def _get_coord(raw_coord: str, positive_marker: str, negative_marker: str) -> float:
