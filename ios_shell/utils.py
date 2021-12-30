@@ -11,7 +11,7 @@ def apply_column_mask(data: str, mask: List[bool]) -> List[str]:
     :param data: the row of data to break up
     :param mask: a string with - for every character to be included as an element
     """
-    PLACEHOLDER = "@"
+    PLACEHOLDER = "@"  # pragma: no mutate
     data = data.rstrip().ljust(len(mask))
     masked = [
         c if i >= len(mask) or mask[i] else PLACEHOLDER for i, c in enumerate(data)
@@ -42,20 +42,19 @@ def format_string(fortrantype: str, width: int, decimals: int) -> str:
         return fortrantype
 
 
-def _to_timezone_offset(name: str) -> Tuple[str, int]:
+def _to_timezone_offset(name: str) -> int:
     if name.upper() in ["UTC", "GMT"]:
-        return "+00:00", 0
+        return 0
     elif name.upper() in ["ADT"]:
-        return "-03:00", -3
+        return -3
     elif name.upper() in ["MDT"]:
-        return "-06:00", -6
+        return -6
     elif name.upper() in ["PDT", "MST"]:
-        return "-07:00", -7
+        return -7
     elif name.upper() in ["PST"]:
-        return "-08:00", -8
+        return -8
     else:
-        logging.warning(f"Unknown time zone: {name}. Defaulting to UTC")
-        return "+00:00", 0
+        raise ValueError(f"Unknown time zone: {name}.")
 
 
 def to_date(contents: str) -> datetime.date:
@@ -84,18 +83,16 @@ def to_datetime(contents: str) -> datetime.datetime:
 
 
 def _from_iso(tz: str, date: str, time: str = "") -> datetime.datetime:
-    formatted_date = date.replace("/", "-")
-    tzstr, tzoffset = _to_timezone_offset(tz)
-    if time.startswith("24"):
-        logging.warning(f"Invalid time: {time}")
-        time = "00" + time[2:]
+    tzoffset = _to_timezone_offset(tz)
+    date_obj = to_date(date)
+    tz_obj = datetime.timezone(datetime.timedelta(hours=tzoffset))
     if time != "":
-        time = " " + time
-        date_string = formatted_date + time + tzstr
-        return datetime.datetime.fromisoformat(date_string)
+        time_obj = to_time(time, tz_obj)
+        return datetime.datetime.combine(date_obj, time_obj)
     else:
-        tzinfo = datetime.timezone(datetime.timedelta(hours=tzoffset))
-        return datetime.datetime.fromisoformat(formatted_date).replace(tzinfo=tzinfo)
+        return datetime.datetime(
+            date_obj.year, date_obj.month, date_obj.day, tzinfo=tz_obj
+        )
 
 
 def from_iso(value: str) -> datetime.datetime:
@@ -108,12 +105,12 @@ def from_iso(value: str) -> datetime.datetime:
 
 def _get_coord(raw_coord: str, positive_marker: str, negative_marker: str) -> float:
     coord = raw_coord.split("!")[0]
-    pieces = coord.split()
-    out = float(pieces[0]) + float(pieces[1]) / 60.0
-    if pieces[2].upper() == positive_marker.upper():
+    degrees, minutes, direction = coord.split()
+    out = float(degrees) + float(minutes) / 60.0
+    if direction.upper() == positive_marker.upper():
         return out
-    elif pieces[2].upper() == negative_marker.upper():
-        return out * -1.0
+    elif direction.upper() == negative_marker.upper():
+        return out * -1.0  # pragma: no mutate
     else:
         raise ValueError("Coordinate contains unknown direction marker")
 
