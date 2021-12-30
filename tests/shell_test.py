@@ -1,6 +1,9 @@
+import datetime
 import pytest
 import os
+
 import ios_shell as shell
+import ios_shell.sections as sections
 
 
 @pytest.mark.parametrize(
@@ -107,3 +110,111 @@ def test_shell_process_data(file_name):
     info = shell.ShellFile.fromfile(full_file_name, process_data=True)
     assert info.data_is_processed()
     assert len(info.data) == info.file.number_of_records
+
+
+def test_shell_init_does_the_right_thing():
+    some_date = datetime.datetime(1970, 1, 1)
+    filename = "thing.bot"
+    modified = some_date
+    version = sections.Version(version_no="some version", date1="some date", date2="some other date")
+    file = sections.FileInfo(
+        start_time=some_date,
+        end_time=some_date,
+        time_zero=some_date,
+        number_of_records=0,
+        data_description="",
+        file_type="",
+        format="",
+        data_type="",
+        number_of_channels=0,
+        channels=[],
+        channel_details=[],
+        remarks="",
+        raw={},
+    )
+    administration = sections.Administration(
+        mission="",
+        agency="",
+        country="",
+        project="",
+        scientist="",
+        platform="",
+        remarks="",
+        raw={},
+    )
+    location = sections.Location(
+        geographic_area="",
+        station="",
+        event_number=0,
+        latitude=0.0,
+        longitude=0.0,
+        water_depth=0.0,
+        remarks="",
+        raw={},
+    )
+    instrument = sections.Instrument(
+        type="",
+        model="",
+        remarks="",
+        raw={},
+    )
+    history = sections.History(
+        programs=[],
+        remarks="",
+        raw={},
+    )
+    calibration = sections.Calibration(
+        corrected_channels=[],
+        raw={},
+    )
+    deployment = sections.Deployment(
+        mission="",
+        type="",
+        anchor_dropped=some_date,
+        remarks="",
+        raw={},
+    )
+    recovery = sections.Recovery(
+        mission="",
+        anchor_released=some_date,
+        remarks="",
+        raw={},
+    )
+    raw = sections.Raw(
+        channels=[],
+        remarks="",
+        raw={},
+    )
+    comments = ""
+    data = [[]]
+
+    info = shell.ShellFile(
+        filename=filename,
+        modified_date=modified,
+        header_version=version,
+        file=file,
+        administration=administration,
+        location=location,
+        instrument=instrument,
+        history=history,
+        calibration=calibration,
+        deployment=deployment,
+        recovery=recovery,
+        raw=raw,
+        comments=comments,
+        data=data,
+    )
+
+    assert info.filename == filename
+    assert info.modified_date == modified
+    assert info.header_version == version
+    assert info.file == file
+    assert info.administration == administration
+    assert info.location == location
+    assert info.instrument == instrument
+    assert info.history == history
+    assert info.calibration == calibration
+    assert info.deployment == deployment
+    assert info.recovery == recovery
+    assert info.comments == comments
+    assert info.data == data

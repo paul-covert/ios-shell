@@ -19,6 +19,7 @@ class ShellFile:
         calibration: sections.Calibration,
         deployment: sections.Deployment,
         recovery: sections.Recovery,
+        raw: sections.Raw,
         comments: str,
         data: Union[List[List[object]], str],
     ):
@@ -33,6 +34,7 @@ class ShellFile:
         self.calibration = calibration
         self.deployment = deployment
         self.recovery = recovery
+        self.raw = raw
         self.comments = comments
         self.data = data
 
@@ -132,6 +134,7 @@ class ShellFile:
             calibration=calibration,
             deployment=deployment,
             recovery=recovery,
+            raw=raw,
             comments=comments,
             data=data,
         )
