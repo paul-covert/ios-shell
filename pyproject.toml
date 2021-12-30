@@ -20,13 +20,14 @@ include = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.11"
+python = ">=3.8,<3.10"
 fortranformat = "^1.0.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
 mypy = "^0.910"
 black = "^21.12b0"
+mutmut = "^2.2.0"
 
 [tool.pytest.ini_options]
 markers = [
