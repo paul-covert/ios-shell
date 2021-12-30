@@ -39,7 +39,7 @@ class ShellFile:
         self.data = data
 
     @classmethod
-    def fromfile(cls, filename, process_data=True):
+    def fromfile(cls, filename, process_data=True):  # pragma: no mutate
         with open(filename, "r", encoding="ASCII", errors="ignore") as f:
             contents = f.read()
         return ShellFile.fromcontents(contents, process_data, filename=filename)
@@ -74,49 +74,50 @@ class ShellFile:
             None,
         )
         while not rest.lstrip().startswith("*END OF HEADER"):
-            first = rest.lstrip().split("\n", 1)[0]
-            if first.startswith("*FILE"):
+            rest = rest.lstrip()
+            if rest.startswith("*FILE"):
                 if file is not None:
                     raise ValueError("There should only be one file section")
                 file, rest = parsing.get_file(rest)
-            elif first.startswith("*ADMINISTRATION"):
+            elif rest.startswith("*ADMINISTRATION"):
                 if administration is not None:
                     raise ValueError("There should only be one administration section")
                 administration, rest = parsing.get_administration(rest)
-            elif first.startswith("*LOCATION"):
+            elif rest.startswith("*LOCATION"):
                 if location is not None:
                     raise ValueError("There should only be one location section")
                 location, rest = parsing.get_location(rest)
-            elif first.startswith("*INSTRUMENT"):
+            elif rest.startswith("*INSTRUMENT"):
                 if instrument is not None:
                     raise ValueError("There should only be one instrument section")
                 instrument, rest = parsing.get_instrument(rest)
-            elif first.startswith("*HISTORY"):
+            elif rest.startswith("*HISTORY"):
                 if history is not None:
                     raise ValueError("There should only be one history section")
                 history, rest = parsing.get_history(rest)
-            elif first.startswith("*COMMENTS"):
+            elif rest.startswith("*COMMENTS"):
                 if comments is not None:
                     raise ValueError("There should only be one comments section")
                 comments, rest = parsing.get_comments(rest)
-            elif first.startswith("*CALIBRATION"):
+            elif rest.startswith("*CALIBRATION"):
                 if calibration is not None:
                     raise ValueError("There should only be one calibration section")
                 calibration, rest = parsing.get_calibration(rest)
-            elif first.startswith("*RAW"):
+            elif rest.startswith("*RAW"):
                 if raw is not None:
                     raise ValueError("There should only be one raw section")
                 raw, rest = parsing.get_raw(rest)
-            elif first.startswith("*DEPLOYMENT"):
+            elif rest.startswith("*DEPLOYMENT"):
                 if deployment is not None:
                     raise ValueError("There should only be one deployment section")
                 deployment, rest = parsing.get_deployment(rest)
-            elif first.startswith("*RECOVERY"):
+            elif rest.startswith("*RECOVERY"):
                 if recovery is not None:
                     raise ValueError("There should only be one recovery section")
                 recovery, rest = parsing.get_recovery(rest)
             else:
-                raise ValueError(f"Unknown section: {first}")
+                section_name = rest.lstrip().split("\n", 1)[0]  # pragma: no mutate
+                raise ValueError(f"Unknown section: {section_name}")
         # end named sections
         if process_data:
             data, rest = parsing.get_data(rest, file.format, file.number_of_records)
@@ -146,9 +147,9 @@ class ShellFile:
         }
 
     def get_time(self) -> datetime.datetime:
-        if self.file.start_time != datetime.datetime.fromtimestamp(0):
+        if self.file.start_time != datetime.datetime.min:
             return self.file.start_time
-        elif self.file.end_time != datetime.datetime.fromtimestamp(0):
+        elif self.file.end_time != datetime.datetime.min:
             return self.file.end_time
         else:
             raise ValueError("No valid time found")

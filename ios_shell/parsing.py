@@ -97,17 +97,17 @@ def get_file(contents: str) -> Tuple[sections.FileInfo, str]:
     start_time = (
         utils.from_iso(file_dict[START_TIME])
         if START_TIME in file_dict
-        else datetime.datetime.fromtimestamp(0)
+        else datetime.datetime.min
     )
     end_time = (
         utils.from_iso(file_dict[END_TIME])
         if END_TIME in file_dict
-        else datetime.datetime.fromtimestamp(0)
+        else datetime.datetime.min
     )
     time_zero = (
         utils.from_iso(file_dict[TIME_ZERO])
         if TIME_ZERO in file_dict
-        else datetime.datetime.fromtimestamp(0)
+        else datetime.datetime.min
     )
     number_of_records = int(file_dict[NUMBER_OF_RECORDS])
     data_description = (

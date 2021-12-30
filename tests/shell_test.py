@@ -6,11 +6,8 @@ import ios_shell as shell
 import ios_shell.sections as sections
 
 
-@pytest.mark.parametrize(
-    "contents",
-    [
-        """
-*2018/06/22 09:04:04.94
+def test_shell_read_data():
+    contents = """*2018/06/22 09:04:04.94
 *IOS HEADER VERSION 2.0      2016/04/28 2016/06/13 IVF16
 
 *FILE
@@ -38,19 +35,29 @@ import ios_shell.sections as sections
        4  ' '   ' '        3  NQ      C     ' '
     $END
 
+*LOCATION
+    LATITUDE            :  50   6.00000 N  ! (deg min)
+    LONGITUDE           : 124  54.00000 W  ! (deg min)
+
 *END OF HEADER
-    0.    5  30.69 6
-        """,
-    ],
-)
-def test_shell_read_data(contents):
+    0.    5  30.69 6"""
     info = shell.ShellFile.fromcontents(contents)
+    assert info.filename == "bare string"
     assert len(info.data) == info.file.number_of_records
     assert (
         info.file.channels[0].minimum
-        <= info.data[0][0]
+        <= float(info.data[0][0])
         <= info.file.channels[0].maximum
     )
+    loc = info.get_location()
+    assert loc["latitude"] == 50.1
+    assert loc["longitude"] == -124.9
+    assert info.get_time() != datetime.datetime.min
+
+    # test for end time
+    contents = contents.replace("START", "END")
+    info = shell.ShellFile.fromcontents(contents)
+    assert info.get_time() != datetime.datetime.min
 
 
 @pytest.mark.parametrize(
@@ -116,7 +123,9 @@ def test_shell_init_does_the_right_thing():
     some_date = datetime.datetime(1970, 1, 1)
     filename = "thing.bot"
     modified = some_date
-    version = sections.Version(version_no="some version", date1="some date", date2="some other date")
+    version = sections.Version(
+        version_no="some version", date1="some date", date2="some other date"
+    )
     file = sections.FileInfo(
         start_time=some_date,
         end_time=some_date,
@@ -216,5 +225,6 @@ def test_shell_init_does_the_right_thing():
     assert info.calibration == calibration
     assert info.deployment == deployment
     assert info.recovery == recovery
+    assert info.raw == raw
     assert info.comments == comments
     assert info.data == data
