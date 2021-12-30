@@ -1,7 +1,7 @@
 """Contains classes to represent complex elements of an IOS Shell file."""
 from dataclasses import dataclass
 import datetime
-from typing import Any, Dict, List, Union
+from typing import Any, Dict, List
 
 EMPTY = ["", "' '", "n/a"]
 NAN = float("NaN")
@@ -38,8 +38,8 @@ class Channel:
             minimum = "0"
         if maximum.strip().upper() == "O":
             maximum = "0"
-        self.minimum = NAN if minimum.strip() in EMPTY else float(minimum)
-        self.maximum = NAN if maximum.strip() in EMPTY else float(maximum)
+        self.minimum = float(minimum) if minimum.strip() not in EMPTY else NAN
+        self.maximum = float(maximum) if maximum.strip() not in EMPTY else NAN
 
 
 class ChannelDetail:
