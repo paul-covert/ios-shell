@@ -104,7 +104,7 @@ def test_shell_read_data():
         "BP2_20130705_20130810_0114m.ctd",
         "cmp1_20160127_20160520_0193m.ctd",
         "dev1_20150727_20160517_0152m.ctd",
-        "sogn_20081021_20081120_0284m.adcp",
+        "nep3_20061220_20070117_0093m.adcp",
     ],
 )
 def test_shell_process_data(file_name):
