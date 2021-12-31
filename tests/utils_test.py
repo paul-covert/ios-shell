@@ -239,3 +239,14 @@ def test_utils_get_latitude(lat_str, expected):
 )
 def test_utils_get_longitude(lon_str, expected):
     assert utils.get_longitude(lon_str) == expected
+
+
+@pytest.mark.parametrize(
+    "contents",
+    [
+        "Unknown",
+        "Unk.000",
+    ],
+)
+def test_utils_from_iso_rejects_unknown_values(contents):
+    assert utils.from_iso(contents) == None

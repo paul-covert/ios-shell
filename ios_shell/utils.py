@@ -99,6 +99,9 @@ def _from_iso(tz: str, date: str, time: str = "") -> datetime.datetime:
 
 def from_iso(value: str) -> datetime.datetime:
     value_no_comment = value.split("!")[0].strip()
+    # attempting to cover "Unknown" and "Unk.000"
+    if "unk" in value_no_comment.lower():
+        return None
     time_vals = value_no_comment.split(" ")
     if all(value == "" for value in time_vals):
         return None
