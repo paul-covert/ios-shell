@@ -11,16 +11,16 @@ import ios_shell.utils as utils
         "UTC 2015/03/16",
     ],
 )
-def test_utils_from_iso_produces_usable_datetime(time):
-    time_info = utils.from_iso(time)
+def test_utils_to_datetime_produces_usable_datetime(time):
+    time_info = utils.to_datetime(time)
     assert time_info.year == 2015
     assert time_info.month == 3
     assert time_info.day == 16
     assert time_info.tzinfo is not None
 
 
-def test_utils_from_iso_produces_none_for_empty_string():
-    time_info = utils.from_iso("")
+def test_utils_to_datetime_produces_none_for_empty_string():
+    time_info = utils.to_datetime("")
     assert time_info is None
 
 
@@ -37,7 +37,7 @@ def test_utils_from_iso_produces_none_for_empty_string():
     ],
 )
 def test_utils_from_iso_converts_time_zones_correctly(tzname, expected_offset):
-    time_info = utils.from_iso(tzname + " 2015/03/16 00:00:00")
+    time_info = utils.to_datetime(tzname + " 2015/03/16 00:00:00")
     assert time_info.tzinfo is not None
     assert time_info.tzinfo.utcoffset(time_info) == datetime.timedelta(
         hours=expected_offset
@@ -220,7 +220,7 @@ def test_utils_format_string(kind, width, decimals, expected):
     ],
 )
 def test_utils_from_iso_timezones(contents, expected):
-    assert utils.from_iso(contents) == expected
+    assert utils.to_datetime(contents) == expected
 
 
 @pytest.mark.parametrize(
@@ -257,4 +257,4 @@ def test_utils_get_longitude(lon_str, expected):
     ],
 )
 def test_utils_from_iso_rejects_unknown_values(contents):
-    assert utils.from_iso(contents) == None
+    assert utils.to_datetime(contents) == None

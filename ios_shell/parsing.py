@@ -107,17 +107,17 @@ def get_section(contents: str, section_name: str) -> Tuple[Dict[str, Any], str]:
 def get_file(contents: str) -> Tuple[sections.FileInfo, str]:
     file_dict, rest = get_section(contents, "file")
     start_time = (
-        utils.from_iso(file_dict[START_TIME])
+        utils.to_datetime(file_dict[START_TIME])
         if START_TIME in file_dict
         else datetime.datetime.min
     )
     end_time = (
-        utils.from_iso(file_dict[END_TIME])
+        utils.to_datetime(file_dict[END_TIME])
         if END_TIME in file_dict
         else datetime.datetime.min
     )
     time_zero = (
-        utils.from_iso(file_dict[TIME_ZERO])
+        utils.to_datetime(file_dict[TIME_ZERO])
         if TIME_ZERO in file_dict
         else datetime.datetime.min
     )
@@ -282,7 +282,7 @@ def get_deployment(contents: str) -> Tuple[sections.Deployment, str]:
     mission = deployment_dict[MISSION] if MISSION in deployment_dict else ""
     type = deployment_dict[TYPE] if TYPE in deployment_dict else ""
     anchor_dropped = (
-        utils.from_iso(deployment_dict[TIME_ANCHOR_DROPPED])
+        utils.to_datetime(deployment_dict[TIME_ANCHOR_DROPPED])
         if TIME_ANCHOR_DROPPED in deployment_dict
         else None
     )
@@ -301,7 +301,7 @@ def get_recovery(contents: str) -> Tuple[sections.Recovery, str]:
     recovery_dict, rest = get_section(contents, "recovery")
     mission = recovery_dict[MISSION] if MISSION in recovery_dict else ""
     anchor_released = (
-        utils.from_iso(recovery_dict[TIME_ANCHOR_RELEASED])
+        utils.to_datetime(recovery_dict[TIME_ANCHOR_RELEASED])
         if TIME_ANCHOR_RELEASED in recovery_dict
         else None
     )

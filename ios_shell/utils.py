@@ -82,14 +82,7 @@ def to_time(contents: str, tzinfo=datetime.timezone.utc) -> datetime.time:
     return datetime.time(hour=hour, minute=minute, second=second, tzinfo=tzinfo)
 
 
-def to_datetime(contents: str) -> datetime.datetime:
-    # a more naive version of from_iso
-    no_comment = contents.split("!")[0].strip()
-    date, time = no_comment.split(" ")
-    return datetime.datetime.combine(to_date(date), to_time(time))
-
-
-def _from_iso(tz: str, date: str, time: str) -> datetime.datetime:
+def _to_datetime(tz: str, date: str, time: str) -> datetime.datetime:
     tzoffset = _to_timezone_offset(tz)
     date_obj = to_date(date)
     tz_obj = datetime.timezone(datetime.timedelta(hours=tzoffset))
@@ -102,7 +95,7 @@ def _from_iso(tz: str, date: str, time: str) -> datetime.datetime:
         )
 
 
-def from_iso(value: str) -> datetime.datetime:
+def to_datetime(value: str) -> datetime.datetime:
     # attempting to cover "Unknown" and "Unk.000"
     if value == "" or "unk" in value.lower():
         return None
@@ -110,16 +103,18 @@ def from_iso(value: str) -> datetime.datetime:
     match_tz = f"(?P<tz>{TIMEZONE_STR})"
     match_time = f"(?P<time>{TIME_STR})"
     # separate matches are required in order to avoid reusing group names
-    if m := re.match(
+    if m := re.match(f"{match_date} {match_time}", value):
+        return _to_datetime(tz="UTC", **m.groupdict())
+    elif m := re.match(
         f"{match_tz} {match_date}( {match_time})?",
         value,
     ):
-        return _from_iso(**m.groupdict(""))
+        return _to_datetime(**m.groupdict(""))
     elif m := re.match(
         f"{match_date}( {match_time})? {match_tz}",
         value,
     ):
-        return _from_iso(**m.groupdict(""))
+        return _to_datetime(**m.groupdict(""))
     else:
         raise ValueError(f"Unknown time format: {value}")
 
