@@ -111,6 +111,10 @@ def test_utils_format_string(kind, width, decimals, expected):
             datetime.datetime(2000, 1, 1, hour=12, tzinfo=datetime.timezone.utc),
         ),
         (
+            "2000-01-01 UTC",
+            datetime.datetime(2000, 1, 1, tzinfo=datetime.timezone.utc),
+        ),
+        (
             "GMT 2000/01/01 12:00:00",
             datetime.datetime(2000, 1, 1, hour=12, tzinfo=datetime.timezone.utc),
         ),

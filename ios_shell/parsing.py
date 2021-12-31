@@ -5,11 +5,8 @@ import re
 from typing import Any, Dict, List, Tuple
 
 from . import sections, utils
+from .utils import DATE_STR, TIME_STR
 from .keys import *
-
-
-DATE_STR = r"\d{4}[/-]\d{2}[/-]\d{2}"
-TIME_STR = r"\d{2}:\d{2}(:\d{2}(.\d*)?)?"
 
 
 def _next_line(rest: str) -> List[str]:

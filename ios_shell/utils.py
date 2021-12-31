@@ -5,6 +5,11 @@ import re
 from typing import List, Tuple
 
 
+DATE_STR = r"\d{4}[/-]\d{2}[/-]\d{2}"
+TIME_STR = r"\d{2}:\d{2}(:\d{2}(.\d*)?)?"
+TIMEZONE_STR = r"[A-Z]{3}"
+
+
 def apply_column_mask(data: str, mask: List[bool]) -> List[str]:
     """Apply a mask to a single row of data
 
@@ -99,18 +104,24 @@ def _from_iso(tz: str, date: str, time: str) -> datetime.datetime:
 
 def from_iso(value: str) -> datetime.datetime:
     # attempting to cover "Unknown" and "Unk.000"
-    if "unk" in value.lower():
+    if value == "" or "unk" in value.lower():
         return None
-    time_vals = value.split(" ")
-    if all(value == "" for value in time_vals):
-        return None
-    tzname = [value for value in time_vals if value.isalpha()][0]
-    date = [value for value in time_vals if any(c in value for c in ["-", "/"])][0]
-    if ":" in value:
-        time = [value for value in time_vals if any(c in value for c in [":"])][0]
+    match_date = f"(?P<date>{DATE_STR})"
+    match_tz = f"(?P<tz>{TIMEZONE_STR})"
+    match_time = f"(?P<time>{TIME_STR})"
+    # separate matches are required in order to avoid reusing group names
+    if m := re.match(
+        f"{match_tz} {match_date}( {match_time})?",
+        value,
+    ):
+        return _from_iso(**m.groupdict(""))
+    elif m := re.match(
+        f"{match_date}( {match_time})? {match_tz}",
+        value,
+    ):
+        return _from_iso(**m.groupdict(""))
     else:
-        time = ""
-    return _from_iso(tzname, date, time)
+        raise ValueError(f"Unknown time format: {value}")
 
 
 def _get_coord(raw_coord: str, positive_marker: str, negative_marker: str) -> float:
