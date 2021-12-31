@@ -24,8 +24,12 @@ def get_modified_date(contents: str) -> Tuple[datetime.datetime, str]:
 
 def get_header_version(contents: str) -> Tuple[sections.Version, str]:
     rest = contents.lstrip()
+    match_version = r"(?P<version_no>\d+.\d+)"
+    match_date1 = f"(?P<date1>{DATE_STR})"
+    match_date2 = f"(?P<date2>{DATE_STR})"
+    match_tag = "(?P<tag>[a-zA-Z0-9.]+)"
     if m := re.match(
-        fr"\*IOS HEADER VERSION +(?P<version_no>\d+.\d+) +(?P<date1>{DATE_STR})( +(?P<date2>{DATE_STR})( +(?P<tag>[a-zA-Z0-9.]+))?)?",
+        fr"\*IOS HEADER VERSION +{match_version} +{match_date1}( +{match_date2}( +{match_tag})?)?",
         rest,
     ):
         rest = rest[m.end() :]
