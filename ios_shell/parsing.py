@@ -12,6 +12,10 @@ DATE_STR = r"\d{4}[/-]\d{2}[/-]\d{2}"
 TIME_STR = r"\d{2}:\d{2}(:\d{2}(.\d*)?)?"
 
 
+def _next_line(rest: str) -> List[str]:
+    return rest.split("\n", 1)  # pragma: no mutate
+
+
 def get_modified_date(contents: str) -> Tuple[datetime.datetime, str]:
     rest = contents.lstrip()
     if m := re.match(fr"\*({DATE_STR} {TIME_STR})", rest):
@@ -28,7 +32,7 @@ def get_header_version(contents: str) -> Tuple[sections.Version, str]:
         rest,
     ):
         rest = rest[m.end() :]
-        return (sections.Version(**m.groupdict("")), rest)
+        return (sections.Version(**m.groupdict()), rest)
     else:
         raise ValueError("No header version in string")
 
@@ -38,26 +42,25 @@ def get_section(contents: str, section_name: str) -> Tuple[Dict[str, Any], str]:
     prefix = f"*{section_name.upper()}\n"
     section_info = {}
     if not rest.startswith(prefix):
-        first_line = rest.split("\n", 1)[0]
         raise ValueError(
-            f"{section_name.upper()} section not present, found {first_line} instead"
+            f"{section_name.upper()} section not present, found {_next_line(rest)[0]} instead"
         )
     rest = rest[len(prefix) :]
     while not utils.is_section_heading(rest.lstrip()):
         rest = rest.lstrip()
         if rest.startswith("!"):
             # skip comments
-            rest = rest.split("\n", 1)[1]
+            _, rest = _next_line(rest)
             continue
         elif m := re.match(r"\$TABLE: ([^\n]+)\n", rest):
             # handle table
             table_name = m.group(1).lower()
             rest = rest[m.end() :]
             # table column names
-            line, rest = rest.split("\n", 1)
+            line, rest = _next_line(rest)
             column_names_line = line
             # table column mask
-            line, rest = rest.split("\n", 1)
+            line, rest = _next_line(rest)
             mask = [c == "-" for c in line]
             # apply column mask in case names contain spaces
             column_names = [
@@ -67,26 +70,26 @@ def get_section(contents: str, section_name: str) -> Tuple[Dict[str, Any], str]:
             # values
             section_info[table_name] = []
             while not rest.lstrip().startswith("$END"):
-                line, rest = rest.split("\n", 1)
+                line, rest = _next_line(rest)
                 section_info[table_name].append(
                     {
                         column_names[i]: v
                         for i, v in enumerate(utils.apply_column_mask(line, mask))
                     }
                 )
-            _, rest = rest.lstrip().split("\n", 1)
+            _, rest = _next_line(rest.lstrip())
         elif m := re.match(r"\$REMARKS?", rest):
             # handle remarks
             rest = rest[m.end() :]
             remarks = []
             while not rest.lstrip().startswith("$END"):
-                line, rest = rest.split("\n", 1)
+                line, rest = _next_line(rest)
                 remarks.append(line)
-            section_info[REMARKS] = "\n".join(remarks)
-            _, rest = rest.lstrip().split("\n", 1)
+            section_info[REMARKS] = "\n".join(remarks)  # pragma: no mutate
+            _, rest = _next_line(rest.lstrip())
         else:
             # handle single entry
-            line, rest = rest.split("\n", 1)
+            line, rest = _next_line(rest)
             key, value = line.split(":", 1)
             section_info[key.strip().lower()] = value.strip()
     return section_info, rest
@@ -127,7 +130,7 @@ def get_file(contents: str) -> Tuple[sections.FileInfo, str]:
     )
     remarks = file_dict[REMARKS] if REMARKS in file_dict else ""
     data_type = file_dict[DATA_TYPE] if DATA_TYPE in file_dict else ""
-    to_remove = " \n\t'"
+    to_remove = " \n\t'"  # pragma: no mutate
     if FORMAT in file_dict:
         format_str = file_dict[FORMAT].strip(to_remove)
         if CONTINUED in file_dict:
@@ -245,8 +248,10 @@ def get_calibration(contents: str) -> Tuple[sections.Calibration, str]:
         if CORRECTED_CHANNELS in calibration_dict
         else []
     )
+    remarks = calibration_dict[REMARKS] if REMARKS in calibration_dict else ""
     calibration_info = sections.Calibration(
         corrected_channels=corrected_channels,
+        remarks=remarks,
         raw=calibration_dict,
     )
     return calibration_info, rest
@@ -254,10 +259,8 @@ def get_calibration(contents: str) -> Tuple[sections.Calibration, str]:
 
 def get_raw(contents: str) -> Tuple[sections.Raw, str]:
     raw_dict, rest = get_section(contents, "raw")
-    channels = raw_dict[CHANNELS] if CHANNELS in raw_dict else []
     remarks = raw_dict[REMARKS] if REMARKS in raw_dict else ""
     raw_info = sections.Raw(
-        channels=channels,
         remarks=remarks,
         raw=raw_dict,
     )
@@ -308,7 +311,7 @@ def get_comments(contents: str) -> Tuple[str, str]:
         rest = rest[m.end() :]
         lines = []
         while not utils.is_section_heading(rest):
-            line, rest = rest.split("\n", 1)
+            line, rest = _next_line(rest)
             lines.append(line)
         return "\n".join(lines), rest
     else:
@@ -351,7 +354,7 @@ def get_data(contents: str, format: str, records: int) -> Tuple[List[List[Any]],
             lines.remove("")
         reader = ff.FortranRecordReader(format)
         data = [_postprocess_line(reader.read(line)) for line in lines[:records]]
-        rest = "\n".join(lines[records:])
+        rest = "\n".join(lines[records:])  # pragma: no mutate
         return data, rest
     else:
         raise ValueError("No data in file")

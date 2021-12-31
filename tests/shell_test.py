@@ -174,6 +174,7 @@ def test_shell_init_does_the_right_thing():
     )
     calibration = sections.Calibration(
         corrected_channels=[],
+        remarks="",
         raw={},
     )
     deployment = sections.Deployment(
@@ -190,7 +191,6 @@ def test_shell_init_does_the_right_thing():
         raw={},
     )
     raw = sections.Raw(
-        channels=[],
         remarks="",
         raw={},
     )

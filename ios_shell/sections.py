@@ -133,7 +133,6 @@ class Program:
 
 @dataclass
 class Raw:
-    channels: List[List[str]]
     remarks: str
     raw: Dict[str, Any]
 
@@ -148,6 +147,7 @@ class History:
 @dataclass
 class Calibration:
     corrected_channels: List[Dict[str, str]]
+    remarks: str
     raw: Dict[str, Any]
 
 
