@@ -1,8 +1,7 @@
 """Contains useful functions for parsing that are not themselves parsing functions."""
 import datetime
-import logging
 import re
-from typing import List, Tuple
+from typing import List
 
 
 DATE_STR = r"\d{4}[/-]\d{2}[/-]\d{2}"
@@ -98,7 +97,7 @@ def _to_datetime(tz: str, date: str, time: str) -> datetime.datetime:
 def to_datetime(value: str) -> datetime.datetime:
     # attempting to cover "Unknown" and "Unk.000"
     if value == "" or "unk" in value.lower():
-        return None
+        return datetime.datetime.min
     match_date = f"(?P<date>{DATE_STR})"
     match_tz = f"(?P<tz>{TIMEZONE_STR})"
     match_time = f"(?P<time>{TIME_STR})"

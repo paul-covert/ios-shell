@@ -19,11 +19,6 @@ def test_utils_to_datetime_produces_usable_datetime(time):
     assert time_info.tzinfo is not None
 
 
-def test_utils_to_datetime_produces_none_for_empty_string():
-    time_info = utils.to_datetime("")
-    assert time_info is None
-
-
 @pytest.mark.parametrize(
     "tzname,expected_offset",
     [
@@ -252,9 +247,10 @@ def test_utils_get_longitude(lon_str, expected):
 @pytest.mark.parametrize(
     "contents",
     [
+        "",
         "Unknown",
         "Unk.000",
     ],
 )
-def test_utils_from_iso_rejects_unknown_values(contents):
-    assert utils.to_datetime(contents) == None
+def test_utils_to_datetime_rejects_unknown_values(contents):
+    assert utils.to_datetime(contents) == datetime.datetime.min

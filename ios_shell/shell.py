@@ -14,12 +14,12 @@ class ShellFile:
         file: sections.FileInfo,
         administration: sections.Administration,
         location: sections.Location,
-        instrument: sections.Instrument,
-        history: sections.History,
-        calibration: sections.Calibration,
-        deployment: sections.Deployment,
-        recovery: sections.Recovery,
-        raw: sections.Raw,
+        instrument: Union[sections.Instrument, None],
+        history: Union[sections.History, None],
+        calibration: Union[sections.Calibration, None],
+        deployment: Union[sections.Deployment, None],
+        recovery: Union[sections.Recovery, None],
+        raw: Union[sections.Raw, None],
         comments: str,
         data: Union[List[List[object]], str],
     ):
@@ -123,6 +123,13 @@ class ShellFile:
             data, rest = parsing.get_data(rest, file.format, file.number_of_records)
         else:
             data = rest
+        # check for required sections
+        if file is None:
+            raise ValueError("*FILE section must be present")
+        if administration is None:
+            raise ValueError("*ADMINISTRATION section must be present")
+        if location is None:
+            raise ValueError("*LOCATION section must be present")
         return ShellFile(
             filename=filename,
             modified_date=modified_date,
@@ -136,7 +143,7 @@ class ShellFile:
             deployment=deployment,
             recovery=recovery,
             raw=raw,
-            comments=comments,
+            comments=comments if comments is not None else "",
             data=data,
         )
 
@@ -160,6 +167,8 @@ class ShellFile:
     def process_data(self):
         if self.data_is_processed():
             return
+        # assertion to satisfy (optional) type checking
+        assert isinstance(self.data, str)
         self.data, _ = parsing.get_data(
             self.data, self.file.format, self.file.number_of_records
         )

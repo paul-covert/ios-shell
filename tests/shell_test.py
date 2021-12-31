@@ -35,6 +35,9 @@ def test_shell_read_data():
        4  ' '   ' '        3  NQ      C     ' '
     $END
 
+*ADMINISTRATION
+    MISSION             : 1993-001
+
 *LOCATION
     LATITUDE            :  50   6.00000 N  ! (deg min)
     LONGITUDE           : 124  54.00000 W  ! (deg min)
@@ -44,9 +47,10 @@ def test_shell_read_data():
     info = shell.ShellFile.fromcontents(contents)
     assert info.filename == "bare string"
     assert len(info.data) == info.file.number_of_records
+    assert isinstance(info.data[0][0], float)
     assert (
         info.file.channels[0].minimum
-        <= float(info.data[0][0])
+        <= info.data[0][0]
         <= info.file.channels[0].maximum
     )
     loc = info.get_location()

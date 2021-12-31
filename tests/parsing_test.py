@@ -376,7 +376,7 @@ def test_get_deployment():
     )
     assert deployment.mission == ""
     assert deployment.type == ""
-    assert deployment.anchor_dropped == None
+    assert deployment.anchor_dropped == datetime.datetime.min
     assert deployment.remarks == ""
 
 
@@ -404,7 +404,7 @@ def test_get_recovery():
 *END OF HEADER"""
     )
     assert recovery.mission == ""
-    assert recovery.anchor_released == None
+    assert recovery.anchor_released == datetime.datetime.min
     assert recovery.remarks == ""
 
 

@@ -41,7 +41,7 @@ def get_header_version(contents: str) -> Tuple[sections.Version, str]:
 def get_section(contents: str, section_name: str) -> Tuple[Dict[str, Any], str]:
     rest = contents.lstrip()
     prefix = f"*{section_name.upper()}\n"
-    section_info = {}
+    section_info: Dict[str, Any] = {}
     if not rest.startswith(prefix):
         raise ValueError(
             f"{section_name.upper()} section not present, found {_next_line(rest)[0]} instead"
@@ -284,7 +284,7 @@ def get_deployment(contents: str) -> Tuple[sections.Deployment, str]:
     anchor_dropped = (
         utils.to_datetime(deployment_dict[TIME_ANCHOR_DROPPED])
         if TIME_ANCHOR_DROPPED in deployment_dict
-        else None
+        else datetime.datetime.min
     )
     remarks = deployment_dict[REMARKS] if REMARKS in deployment_dict else ""
     deployment_info = sections.Deployment(
@@ -303,7 +303,7 @@ def get_recovery(contents: str) -> Tuple[sections.Recovery, str]:
     anchor_released = (
         utils.to_datetime(recovery_dict[TIME_ANCHOR_RELEASED])
         if TIME_ANCHOR_RELEASED in recovery_dict
-        else None
+        else datetime.datetime.min
     )
     remarks = recovery_dict[REMARKS] if REMARKS in recovery_dict else ""
     recovery_info = sections.Recovery(
