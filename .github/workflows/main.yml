@@ -39,5 +39,7 @@ jobs:
           key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
       - name: Install dependencies
         run: poetry install
+      - name: Check formatting
+        run: poetry run black --check -t py38 .
       - name: Test
         run: poetry run pytest -m "not optional" tests
