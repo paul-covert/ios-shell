@@ -224,6 +224,20 @@ def test_get_location():
     assert loc.water_depth == -1
     assert loc.remarks == ""
 
+    loc, _ = parsing.get_location(
+        """*LOCATION
+    LATITUDE        :  49 39.00000 N
+    LONGITUDE       : 126 27.20000 W
+    WATER DEPTH     : Unknown
+
+*END OF HEADER"""
+    )
+    assert loc.geographic_area == ""
+    assert loc.station == ""
+    assert loc.event_number == -1
+    assert loc.water_depth == -1
+    assert loc.remarks == ""
+
 
 def test_get_instrument():
     instrument, rest = parsing.get_instrument(

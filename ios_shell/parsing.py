@@ -202,7 +202,8 @@ def get_location(contents: str) -> Tuple[sections.Location, str]:
     longitude = utils.get_longitude(location_dict[LONGITUDE])
     water_depth = (
         float(location_dict[WATER_DEPTH])
-        if WATER_DEPTH in location_dict and location_dict[WATER_DEPTH] not in [""]
+        if WATER_DEPTH in location_dict
+        and location_dict[WATER_DEPTH].lower() not in ["", "unknown"]
         else -1
     )
     remarks = location_dict[REMARKS] if REMARKS in location_dict else ""
