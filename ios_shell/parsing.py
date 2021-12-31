@@ -78,6 +78,14 @@ def get_section(contents: str, section_name: str) -> Tuple[Dict[str, Any], str]:
                     }
                 )
             _, rest = _next_line(rest.lstrip())
+        elif m := re.match(r"\$ARRAY: ([^\n]+)\n", rest):
+            array_name = m.group(1).lower()
+            rest = rest[m.end() :]
+            section_info[array_name] = []
+            while not rest.lstrip().startswith("$END"):
+                line, rest = _next_line(rest)
+                section_info[array_name].append(line)
+            _, rest = _next_line(rest.lstrip())
         elif m := re.match(r"\$REMARKS?", rest):
             # handle remarks
             rest = rest[m.end() :]

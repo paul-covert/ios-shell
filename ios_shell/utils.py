@@ -32,6 +32,8 @@ def format_string(fortrantype: str, width: int, decimals: int) -> str:
     fortrantype = fortrantype.strip().upper()
     if fortrantype in ["F"]:
         return f"F{width}.{decimals}"
+    elif fortrantype in ["E"]:
+        return f"E{width}.{decimals}"
     elif fortrantype in ["I"]:
         return f"I{width}"
     elif fortrantype.upper() in ["YYYY/MM/DD", "HH:MM", "HH:MM:SS", "HH:MM:SS.SS"]:
