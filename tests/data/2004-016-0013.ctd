@@ -1,0 +1,403 @@
+*2017/02/24 09:47:59.94
+*IOS HEADER VERSION 2.0      2016/04/28 2016/06/13 IVF16
+
+*FILE
+    START TIME          : UTC 2004/08/03 18:30:06.000
+    NUMBER OF RECORDS   : 100
+    DATA DESCRIPTION    : CTD
+    FILE TYPE           : ASCII
+    CRC                 : D9ED0FC1
+    NUMBER OF CHANNELS  : 9
+
+    $TABLE: CHANNELS
+    ! No Name                               Units           Minimum        Maximum
+    !--- ---------------------------------- --------------- -------------- --------------
+       1 Pressure                           decibar         1              100
+       2 Temperature:Primary                'deg C (ITS90)' -1.5961        0.5049
+       3 Transmissivity                     %/metre         0              61.6
+       4 Fluorescence:Calibrated:Seapoint   mg/m^3          0.28E-01       5.882
+       5 Oxygen:Dissolved:SBE               mL/L            8              9.2
+       6 Oxygen:Dissolved:SBE               umol/kg         349            408.5
+       7 Salinity:T0:C0                     PSS-78          6.9993         29.5014
+       8 Number_of_bin_records              n/a             46             256
+       9 Flag:CTD                           n/a             222            662
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  -99   ' '        7  F       ' '     1
+       2  -99   ' '        9  F       ' '     4
+       3  -99   ' '        6  F       ' '     1
+       4  -99   ' '        8  F       ' '     3
+       5  -99   ' '        7  F       ' '     2
+       6  -99   ' '        6  F       ' '     1
+       7  -99   ' '        9  F       ' '     4
+       8  -99   ' '        5  I       I       0
+       9  -99   ' '       11  E       ' '     3
+    $END
+    $REMARKS
+        CTD Flag word has 3 columns: Temperature, Conductivity, and Oxygen. Data quality
+        is expressed with the following flags:
+        --------------------------------------------------------------------------------
+        0 = No Quality Control.
+        2 = Good.
+        6 = Interpolated or replaced by dual sensor or upcast value.
+        --------------------------------------------------------------------------------
+        This file converted from Sea-Bird file: C:\Users\zimmermanns\Documents\GArchi
+    $END
+
+*ADMINISTRATION
+    MISSION             : 2004-16
+    AGENCY              : IOS, Ocean Sciences Division, Sidney, B.C.
+    COUNTRY             : Canada
+    PROJECT             : Joint Ocean Ice Study (JOIS incl JWACS and BGOS)
+    SCIENTIST           : McLaughlin F.
+    PLATFORM            : Louis S. St. Laurent
+
+*LOCATION
+    GEOGRAPHIC AREA     : Arctic Ocean's Canada Basin
+    STATION             : 13
+    EVENT NUMBER        : 13
+    LATITUDE            :  68  41.76000 N  ! (deg min)
+    LONGITUDE           : 103  45.78000 W  ! (deg min)
+    WATER DEPTH         : 107
+
+*INSTRUMENT
+    TYPE                : Sea-Bird CTD
+    MODEL               : SBE-911plus
+    SERIAL NUMBER       : 724
+
+    $TABLE: SENSORS
+    !   Name                       Abs Depth       Serial No
+    !   -------------------------  --------------  ----------
+        temperature:primary        ' '             4322
+        conductivity:primary       ' '             2809
+        pressure                   ' '             90559
+        temperature:secondary      ' '             4239
+        conductivity:secondary     ' '             2810
+        Fluorometer:Seapoint       ' '             2569
+        transmissometer:primary    ' '             CST-662DR
+        altimeter:Datasonics       ' '             'PSO-916T SN 053610'
+        Oxygen:SBE                 ' '             0435
+    $END
+    $REMARKS
+        SOFTWARE VERSION SEASAVE WIN32 V 5.28C
+    $END
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name     Vers   Date       Time     Recs In   Recs Out
+    !   -------- ------ ---------- -------- --------- ---------
+        SBE_IOS  3.3    2015/03/12 17:57:51       100       100
+        REMOVECH 8.2    2015/03/12 18:20:28       100       100
+        HDREDIT2 3.0.2  2015/03/15 13:45:40 ?         ?
+        CLEAN    5.2.1  2015/03/18 17:54:05       100       100
+        HDREDIT2 3.0.2  2015/03/20 16:08:03 ?         ?
+        HDREDIT2 3.1.1  2017/02/21 15:54:53 ?         ?
+        CLEAN    5.2.2  2017/02/24 09:47:59       100       100
+    $END
+$REMARKS
+  -REMOVECH 2015/03/12 18:20:28
+   The following CHANNEL(S) were removed:
+    Conductivity:Primary [mS/cm]
+    Oxygen:Voltage:SBE [volts]
+    Altimeter [metres]
+    Temperature:Potential [deg C (ITS90)]
+    Sigma:Theta [kg/m^3]
+  -HEADER EDITS: 2015/03/15 13:45:40
+   Applied edit header: C:\Users\zimmermanns\Documents\GArchiveProcess\CTD\5_Header\2004-16-HDR.TXT
+  -CLEAN functions: 2015/03/18 17:54:05 20
+   Reset #RECS, MIN & MAX values in header.
+   Set event to last  3 characters of file name
+  -HEADER EDITS: 2015/03/20 16:08:03
+   Channel  1: Pressure [decibar]
+     Format: F10.3 ==> F7.1
+   Channel  5: Oxygen:Dissolved:SBE [mL/L]
+     Format: F8.3 ==> F7.2
+   Channel  6: Oxygen:Dissolved:SBE [umol/kg]
+     Format: F8.2 ==> F6.1
+   Channel  8: Number_of_bin_records [n/a]
+     Format: F5.0 ==> I5
+   Channel  9: Flag:CTD [n/a]
+     Name:   Flag ==> Flag:CTD
+  -HEADER EDITS: 2017/02/21 15:54:53
+   Applied edit header: Z:\SHARE\DATA\Data Archive Process - 2017\Joe's work\2004-16\Headers\2004-16
+  CTD Header.txt
+   Channel  4: Fluorescence:Calibrated:Seapoint [mg/m^3]
+     Name:   Fluorescence:URU:Seapoint ==> Fluorescence:Calibrated:Seapoint
+  -CLEAN functions: 2017/02/24 09:47:59 20
+   Reset #RECS, MIN & MAX values in header.
+   Delete Empty Channels:     0 deleted.
+$END
+
+*COMMENTS
+  SBE HEADER
+    Sea-Bird SBE 9 Data File:
+    FileName = C:\LSSL2004-16\ctd_data\200416_013.dat
+    Software Version Seasave Win32 V 5.28c
+    Temperature SN = 4322
+    Conductivity SN = 2809
+    Number of Bytes Per Scan = 30
+    Number of Voltage Words = 4
+    Number of Scans Averaged by the Deck Unit = 1
+    System UpLoad Time = Aug 03 2004 18:30:28
+    NMEA Latitude = 68 41.76 N
+    NMEA Longitude = 103 45.78 W
+    NMEA UTC (Time) = Aug 03 2004  18:30:06
+    Store Lat/Lon Data = Add to Header Only
+     Ship:  CCGS Louis S. St-Laurent
+     Cruise:  2004-16
+     Station:  13
+     Cast Number:  13
+     Depth (m):  107
+  # nquan = 14
+  # nvalues = 100
+  # units = specified
+  # name 0 = prDM: Pressure, Digiquartz [db]
+  # name 1 = t090C: Temperature [ITS-90, deg C]
+  # name 2 = c0mS/cm: Conductivity [mS/cm]
+  # name 3 = sbeox0V: Oxygen Voltage, SBE 43
+  # name 4 = xmiss: Beam Transmission, Chelsea/Seatech/Wetlab CStar [%]
+  # name 5 = flSP: Fluorescence, Seapoint
+  # name 6 = altM: Altimeter [m]
+  # name 7 = sbeox0ML/L: Oxygen, SBE 43 [ml/l]
+  # name 8 = sbeox0Mm/Kg: Oxygen, SBE 43 [umol/Kg]
+  # name 9 = sal00: Salinity [PSU]
+  # name 10 = nbin: Scans Per Bin
+  # name 11 = potemp090C: Potential Temperature [ITS-90, deg C]
+  # name 12 = sigma-é00: Density [sigma-theta, Kg/m^3]
+  # name 13 = flag:
+  # span 0 =      1.000,    100.000
+  # span 1 =    -1.5961,     0.5049
+  # span 2 =   6.681922,  23.731317
+  # span 3 =     2.8880,     3.2394
+  # span 4 =    14.4976,    88.5758
+  # span 5 = 2.0950e-02, 4.2745e+00
+  # span 6 =       0.00,       0.00
+  # span 7 =    7.99935,    9.19730
+  # span 8 =    348.977,    408.486
+  # span 9 =     6.9946,    29.5023
+  # span 10 =         46,        256
+  # span 11 =    -1.5972,     0.5049
+  # span 12 =     5.5504,    23.7098
+  # span 13 = 0.0000e+00, 0.0000e+00
+  # interval = decibars: 1
+  # start_time = Aug 03 2004 18:30:28
+  # bad_flag = -9.990e-29
+  # sensor 0 = Frequency  0  temperature, primary, 4322, 25-May-04
+  # sensor 1 = Frequency  1  conductivity, primary, 2809, 25-May-04, cpcor = -9.57
+  00e-08
+  # sensor 2 = Frequency  2  pressure, 90559, 10/29/02
+  # sensor 3 = Frequency  3  temperature, secondary, 4239, 25-May-04
+  # sensor 4 = Frequency  4  conductivity, secondary, 2810, 25-May-04, cpcor = -9.
+  5700e-08
+  # sensor 5 = Extrnl Volt  0  Fluorometer, Seapoint, primary
+  # sensor 6 = Extrnl Volt  2  transmissometer, primary, CST-662DR, 20-Mar-2003
+  # sensor 7 = Extrnl Volt  4  altimeter
+  # sensor 8 = Extrnl Volt  6  Oxygen, SBE, primary, 0435, 18-Mar-2003, s+v 24jul0
+  5
+  # datcnv_date = Jul 25 2005 15:11:54, 5.32a
+  # datcnv_in = c:\sarahz\workdesk\200416_013.dat c:\sarahz\workdesk\200416-oxycal
+  .CON
+  # datcnv_skipover = 8000
+  # alignctd_date = Jul 25 2005 15:11:55, 5.32a
+  # alignctd_in = c:\sarahz\workdesk\200416_013-d.cnv
+  # alignctd_adv = sbeox0V 6.000, xmiss 0.100
+  # wildedit_date = Jul 25 2005 15:11:57, 5.32a
+  # wildedit_in = c:\sarahz\workdesk\200416_013-d-a.cnv
+  # wildedit_pass1_nstd = 10.0
+  # wildedit_pass2_nstd = 20.0
+  # wildedit_pass2_mindelta = 0.000e+000
+  # wildedit_npoint = 100
+  # wildedit_vars = prDM t090C t190C c0mS/cm c1mS/cm sbeox0V xmiss flSP altM
+  # wildedit_excl_bad_scans = yes
+  # celltm_date = Jul 25 2005 15:11:58, 5.32a
+  # celltm_in = c:\sarahz\workdesk\200416_013-d-a-w.cnv
+  # celltm_alpha = 0.0300, 0.0300
+  # celltm_tau = 7.0000, 7.0000
+  # celltm_temp_sensor_use_for_cond = primary, secondary
+  # filter_date = Jul 25 2005 15:11:59, 5.32a
+  # filter_in = c:\sarahz\workdesk\200416_013-d-a-w-c.cnv
+  # filter_low_pass_tc_A = 0.030
+  # filter_low_pass_tc_B = 0.150
+  # filter_low_pass_A_vars = c0mS/cm c1mS/cm
+  # filter_low_pass_B_vars = prDM
+  # loopedit_date = Jul 25 2005 15:12:02, 5.32a
+  # loopedit_in = c:\sarahz\workdesk\200416_013-d-a-w-c-f.cnv
+  # loopedit_minVelocity = 0.000
+  # loopedit_excl_bad_scans = yes
+  # Derive_date = Jul 25 2005 15:12:04, 5.32a
+  # Derive_in = c:\sarahz\workdesk\200416_013-d-a-w-c-f-l.cnv c:\sarahz\workdesk\2
+  00416-oxycal.CON
+  # derive_time_window_docdt = seconds: 1
+  # binavg_date = Jul 25 2005 15:12:06, 5.32a
+  # binavg_in = c:\sarahz\workdesk\200416_013-d-a-w-c-f-l-d.cnv
+  # binavg_bintype = decibars
+  # binavg_binsize = 1
+  # binavg_excl_bad_scans = yes
+  # binavg_skipover = 0
+  # binavg_surface_bin = no, min = 0.000, max = 0.000, value = 0.000
+  # Derive_date = Jul 25 2005 15:12:08, 5.32a
+  # Derive_in = c:\sarahz\workdesk\200416_013-d-a-w-c-f-l-d-b.cnv c:\sarahz\workde
+  sk\200416-oxycal.CON
+  # split_date = Jul 25 2005 15:12:08, 5.32a
+  # split_in = c:\sarahz\workdesk\200416_013-d-a-w-c-f-l-d-b-d.cnv
+  # split_excl_bad_scans = yes
+  # strip_date = Jul 26 2005 20:01:02, 5.32a
+  # strip_in = C:\sarahz\workdesk\down\d200416_013-d-a-w-c-f-l-d-b-d.cnv
+   END*
+  ---------------------------------------------------------------------------------
+
+  CTD Data Processing Notes:
+  --------------------------
+
+  For full details see report "Physical and Chemical Data from the Canada Basin, August 2004"
+  cited below.
+
+  Altimeter added on Cast 15.
+
+  Temperature was calibrated with the pre-cruise calibrations.
+  Conductivity, Oxygen and Fluorescence were calibrated to water samples.
+  Salinity was recalculated using the corrected conductivity.
+  Transmissometer and Altimeter are not calibrated.
+
+  Fluorometer notes:
+  Calibration with bottle data performed using bottle chlorophyll values between 0.025 and
+  0.6 mg/m3. The number of observations used were 75 out of 93 with a standard deviation
+  of 0.02 in the residuals. Coefficients used: Slope:  1.4585, Bias -0.0026.
+  Downcast CTD Fluorometer with bad values replaced with good upcast values for casts 19,
+  20 30, 34, 37 and 40. Remaining bad data replaced with -99.
+
+  Oxygen Calibration:
+  Casts 1 to 50 (full cruise) oxygen was calculated from oxygen voltage using the Seabird
+  Owens-Millard algorithm using coefficients: boc: 0, tau: 0, tcor: 0.0015,
+  pcor: 1.3500e-004, voffset: -0.4716, soc: 0.3753.
+  A lag of -6 seconds was applied to oxygen voltage in Seabird data processing step Align.
+
+  References:
+
+  1. McLaughlin, F., Carmack, E.C., Zimmermann. S., Sieberg, D., White, L., Barwell Clarke, J.,
+     Steel, M., and Li, W.K.W.  2008. Physical and Chemical Data from the Canada Basin, August 2004.
+     Can. Data Rep. Hydrogr. Ocean. Sci. 140: vi + 185 p.
+
+  2. Owens, W. B., and R. C. Millard Jr., 1985, A new algorithm for CTD oxygen calibration.
+     J. Physical Oceanography., 15, 621-631.
+
+*CALIBRATION
+
+    $TABLE: CORRECTED CHANNELS
+    !   Name                        Units    Fmla Pad    Coefficients
+    !   --------------------------- -------- ---- ------ ------------
+        Conductivity                mS/cm      10 -99    () (-0.7E-03 1)
+        Fluorescence:URU:Seapoint   mg/m^3     10 -99    () (-0.26E-02 1.4585)
+    $END
+!--1--- ---2---- --3-- ---4--- --5--- --6-- ---7---- -8-- ----9-----
+!Pressu Temperat Trans Fluores Oxygen Oxyge Salinity Numb  Flag:CTD 
+!re     ure:     missi cence:  :      n:    :T0:C0   er_o           
+!       Primary  vity  Calibra Dissol Disso          ~bin           
+!                      ted:Sea ved:   lved:          _rec           
+!                      point   SBE    SBE            ords           
+!------ -------- ----- ------- ------ ----- -------- ---- ----------
+*END OF HEADER
+    1.0   0.5049  52.2   0.032   9.20 408.5   6.9993  103  0.222E+03
+    2.0   0.1708  52.8   0.050   9.14 405.4   9.0771   78  0.222E+03
+    3.0  -0.0579  33.9   0.081   9.02 397.3  17.3050   60  0.662E+03
+    4.0  -0.3572   0.0   0.089   8.79 386.0  20.8460   53  0.662E+03
+    5.0  -0.6565   0.4   0.091   8.89 389.5  24.5125   50  0.662E+03
+    6.0  -0.9558   7.7   0.099   8.93 390.0  28.3050   48  0.662E+03
+    7.0  -1.0172  47.3   0.097   8.97 391.5  28.3729   47  0.222E+03
+    8.0  -1.0165  57.2   0.098   8.98 392.0  28.3811   47  0.222E+03
+    9.0  -1.0363  58.1   0.106   8.99 392.5  28.3984   47  0.222E+03
+   10.0  -1.0363  58.4   0.105   8.99 392.4  28.4054   46  0.222E+03
+   11.0  -1.0349  58.5   0.101   8.97 391.9  28.4102   47  0.222E+03
+   12.0  -1.0438  58.5   0.098   8.97 391.8  28.4163   48  0.222E+03
+   13.0  -1.0897  58.2   0.105   8.97 391.8  28.4631   47  0.662E+03
+   14.0  -1.1159  58.6   0.120   8.98 391.9  28.4795   47  0.662E+03
+   15.0  -1.1420  58.8   0.116   8.98 392.1  28.4958   46  0.662E+03
+   16.0  -1.1650  58.7   0.108   8.98 392.0  28.5137   48  0.222E+03
+   17.0  -1.1521  58.9   0.112   8.93 390.0  28.5675   47  0.222E+03
+   18.0  -1.2535  59.0   0.126   8.94 390.4  28.5890   48  0.222E+03
+   19.0  -1.2509  59.2   0.137   8.96 391.0  28.6084   47  0.222E+03
+   20.0  -1.2128  59.3   0.145   8.93 389.9  28.6243   48  0.222E+03
+   21.0  -1.2555  59.1   0.159   8.92 389.4  28.6320   47  0.222E+03
+   22.0  -1.2794  58.9   0.213   8.89 388.0  28.6391   48  0.222E+03
+   23.0  -1.2927  58.7   0.315   8.87 387.2  28.6666   48  0.222E+03
+   24.0  -1.3128  57.5   0.363   8.90 388.3  28.6931   48  0.222E+03
+   25.0  -1.3129  55.4   0.370   8.92 389.5  28.7090   48  0.222E+03
+   26.0  -1.3234  53.6   0.397   8.93 390.0  28.7160   48  0.222E+03
+   27.0  -1.3395  52.5   0.400   8.93 389.7  28.7336   48  0.222E+03
+   28.0  -1.3619  52.9   0.390   8.91 389.0  28.7471   48  0.222E+03
+   29.0  -1.3857  54.0   0.408   8.90 388.4  28.7628   48  0.222E+03
+   30.0  -1.3852  55.2   0.480   8.85 386.1  28.7710   48  0.222E+03
+   31.0  -1.3899  56.8   0.611   8.74 381.5  28.7796   48  0.222E+03
+   32.0  -1.4018  57.3   0.772   8.63 376.8  28.7958   48  0.222E+03
+   33.0  -1.4038  56.1   1.876   8.57 374.1  28.8117   48  0.222E+03
+   34.0  -1.4169  53.9   4.563   8.57 374.2  28.8348   48  0.222E+03
+   35.0  -1.4411  52.4   5.882   8.56 373.4  28.8438   49  0.222E+03
+   36.0  -1.4639  46.4   4.785   8.49 370.7  28.8566   48  0.222E+03
+   37.0  -1.4548  40.4   3.550   8.47 369.7  28.8833   49  0.222E+03
+   38.0  -1.4662  41.8   2.936   8.48 370.3  28.8917   48  0.222E+03
+   39.0  -1.4826  44.2   3.109   8.48 370.2  28.9001   48  0.222E+03
+   40.0  -1.4862  47.7   3.396   8.42 367.4  28.9158   49  0.222E+03
+   41.0  -1.4825  47.9   2.717   8.37 365.4  28.9285   50  0.222E+03
+   42.0  -1.4901  46.8   1.694   8.40 366.6  28.9371   50  0.222E+03
+   43.0  -1.5199  47.6   1.275   8.44 368.3  28.9502   51  0.222E+03
+   44.0  -1.5234  50.5   0.957   8.45 369.0  28.9615   50  0.222E+03
+   45.0  -1.5252  52.7   0.784   8.46 369.3  28.9733   50  0.222E+03
+   46.0  -1.5262  54.5   0.878   8.47 369.8  28.9911   50  0.222E+03
+   47.0  -1.5243  56.2   0.724   8.47 369.7  29.0059   50  0.222E+03
+   48.0  -1.5263  56.7   0.482   8.46 369.4  29.0110   50  0.222E+03
+   49.0  -1.5280  57.4   0.315   8.45 368.6  29.0188   51  0.222E+03
+   50.0  -1.5290  58.1   0.195   8.43 367.8  29.0417   50  0.222E+03
+   51.0  -1.5377  58.8   0.155   8.42 367.4  29.0559   51  0.222E+03
+   52.0  -1.5324  59.4   0.138   8.41 366.9  29.0609   51  0.222E+03
+   53.0  -1.5322  59.1   0.133   8.39 366.3  29.0665   51  0.222E+03
+   54.0  -1.5345  60.1   0.132   8.38 365.9  29.0728   50  0.222E+03
+   55.0  -1.5360  60.0   0.110   8.39 366.0  29.0777   51  0.222E+03
+   56.0  -1.5384  60.3   0.087   8.39 366.3  29.0891   50  0.222E+03
+   57.0  -1.5402  60.3   0.081   8.40 366.5  29.0938   51  0.222E+03
+   58.0  -1.5441  60.4   0.080   8.39 366.3  29.1109   52  0.222E+03
+   59.0  -1.5480  60.3   0.093   8.38 365.7  29.1273   51  0.222E+03
+   60.0  -1.5542  60.6   0.085   8.36 364.6  29.1408   51  0.222E+03
+   61.0  -1.5583  60.8   0.067   8.33 363.6  29.1535   53  0.222E+03
+   62.0  -1.5606  60.8   0.069   8.32 363.0  29.1665   53  0.222E+03
+   63.0  -1.5627  61.1   0.078   8.31 362.7  29.1771   53  0.222E+03
+   64.0  -1.5630  61.3   0.071   8.31 362.6  29.1821   53  0.222E+03
+   65.0  -1.5640  61.4   0.054   8.31 362.4  29.1871   53  0.222E+03
+   66.0  -1.5660  61.4   0.053   8.30 362.2  29.1958   53  0.222E+03
+   67.0  -1.5681  61.5   0.054   8.30 362.0  29.2072   54  0.222E+03
+   68.0  -1.5710  61.5   0.047   8.30 362.2  29.2180   53  0.222E+03
+   69.0  -1.5735  61.5   0.042   8.30 362.0  29.2295   54  0.222E+03
+   70.0  -1.5754  61.5   0.038   8.28 361.4  29.2402   56  0.222E+03
+   71.0  -1.5784  61.4   0.035   8.27 361.0  29.2518   55  0.222E+03
+   72.0  -1.5806  61.4   0.034   8.27 360.8  29.2655   54  0.222E+03
+   73.0  -1.5827  61.5   0.035   8.27 360.8  29.2793   55  0.222E+03
+   74.0  -1.5839  61.6   0.034   8.27 360.7  29.2930   56  0.222E+03
+   75.0  -1.5845  61.4   0.031   8.25 360.2  29.3048   55  0.222E+03
+   76.0  -1.5861  61.4   0.032   8.24 359.6  29.3255   56  0.222E+03
+   77.0  -1.5869  61.3   0.034   8.23 359.0  29.3342   56  0.222E+03
+   78.0  -1.5884  61.2   0.042   8.23 358.9  29.3493   57  0.222E+03
+   79.0  -1.5880  61.1   0.045   8.22 358.5  29.3515  102  0.222E+03
+   80.0  -1.5894  60.9   0.035   8.22 358.5  29.3613  113  0.222E+03
+   81.0  -1.5902  60.9   0.029   8.21 358.3  29.3682  109  0.222E+03
+   82.0  -1.5906  60.5   0.029   8.20 357.8  29.3746  106  0.222E+03
+   83.0  -1.5911  60.4   0.032   8.19 357.2  29.3827  108  0.222E+03
+   84.0  -1.5919  60.4   0.035   8.18 356.7  29.3934  109  0.222E+03
+   85.0  -1.5928  60.1   0.032   8.16 356.2  29.4066  106  0.222E+03
+   86.0  -1.5931  59.9   0.028   8.16 356.0  29.4122  107  0.222E+03
+   87.0  -1.5935  59.8   0.030   8.15 355.6  29.4199  111  0.222E+03
+   88.0  -1.5941  59.6   0.032   8.13 354.9  29.4281  108  0.222E+03
+   89.0  -1.5943  59.4   0.034   8.12 354.3  29.4351  106  0.222E+03
+   90.0  -1.5954  59.2   0.033   8.10 353.3  29.4542  107  0.222E+03
+   91.0  -1.5959  57.2   0.029   8.08 352.3  29.4730  109  0.222E+03
+   92.0  -1.5961  58.4   0.032   8.07 352.1  29.4783  107  0.222E+03
+   93.0  -1.5961  57.9   0.032   8.05 351.1  29.4845  107  0.222E+03
+   94.0  -1.5958  57.2   0.031   8.02 350.0  29.4952  107  0.222E+03
+   95.0  -1.5957  56.3   0.031   8.02 349.8  29.4977  112  0.662E+03
+   96.0  -1.5955  55.0   0.033   8.02 350.0  29.4988  256  0.662E+03
+   97.0  -1.5953  54.7   0.035   8.01 349.3  29.4999  212  0.662E+03
+   98.0  -1.5954  54.3   0.034   8.00 349.0  29.5008  206  0.222E+03
+   99.0  -1.5948  54.1   0.032   8.00 349.0  29.5008  201  0.222E+03
+  100.0  -1.5939  54.0   0.032   8.00 349.0  29.5014  103  0.222E+03

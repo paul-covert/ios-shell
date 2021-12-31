@@ -94,20 +94,16 @@ def test_shell_read_data():
         "2002-008-0026.ctd",
         "2002-030-8008.bot",
         "2002-043-Cape-Beale-Lighthouse.bot",
+        "2004-016-0013.ctd",
         "2005-010-0016.che",
-        "2008-007-0002.tob",
         "2008-010-0001.che",
         "2008-026-0089.che",
         "2015-022-0031.bot",
         "51010002.ubc",
         "74010003.ubc",
-        "BP2_20130705_20130810_0114m.ctd",
-        "cmp1_20160127_20160520_0193m.ctd",
-        "dev1_20150727_20160517_0152m.ctd",
-        "nep3_20061220_20070117_0093m.adcp",
     ],
 )
-def test_shell_process_data(file_name):
+def test_shell_fromfile(file_name):
     full_file_name = os.path.join(os.path.dirname(__file__), "data", file_name)
     info = shell.ShellFile.fromfile(full_file_name, process_data=False)
     assert not info.data_is_processed()
@@ -118,6 +114,23 @@ def test_shell_process_data(file_name):
     info = shell.ShellFile.fromfile(full_file_name, process_data=True)
     assert info.data_is_processed()
     assert len(info.data) == info.file.number_of_records
+
+
+# for test files with either no data or too much data to reasonably process
+@pytest.mark.parametrize(
+    "file_name",
+    [
+        "2008-007-0002.tob",
+        "BP2_20130705_20130810_0114m.ctd",
+        "cmp1_20160127_20160520_0193m.ctd",
+        "dev1_20150727_20160517_0152m.ctd",
+        "nep3_20061220_20070117_0093m.adcp",
+    ],
+)
+def test_shell_fromfile_just_header(file_name):
+    full_file_name = os.path.join(os.path.dirname(__file__), "data", file_name)
+    info = shell.ShellFile.fromfile(full_file_name, process_data=False)
+    assert not info.data_is_processed()
 
 
 def test_shell_init_does_the_right_thing():
