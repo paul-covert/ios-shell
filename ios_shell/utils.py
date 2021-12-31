@@ -84,7 +84,7 @@ def to_datetime(contents: str) -> datetime.datetime:
     return datetime.datetime.combine(to_date(date), to_time(time))
 
 
-def _from_iso(tz: str, date: str, time: str = "") -> datetime.datetime:
+def _from_iso(tz: str, date: str, time: str) -> datetime.datetime:
     tzoffset = _to_timezone_offset(tz)
     date_obj = to_date(date)
     tz_obj = datetime.timezone(datetime.timedelta(hours=tzoffset))
@@ -98,14 +98,19 @@ def _from_iso(tz: str, date: str, time: str = "") -> datetime.datetime:
 
 
 def from_iso(value: str) -> datetime.datetime:
-    value_no_comment = value.split("!")[0].strip()
     # attempting to cover "Unknown" and "Unk.000"
-    if "unk" in value_no_comment.lower():
+    if "unk" in value.lower():
         return None
-    time_vals = value_no_comment.split(" ")
+    time_vals = value.split(" ")
     if all(value == "" for value in time_vals):
         return None
-    return _from_iso(*time_vals)
+    tzname = [value for value in time_vals if value.isalpha()][0]
+    date = [value for value in time_vals if any(c in value for c in ["-", "/"])][0]
+    if ":" in value:
+        time = [value for value in time_vals if any(c in value for c in [":"])][0]
+    else:
+        time = ""
+    return _from_iso(tzname, date, time)
 
 
 def _get_coord(raw_coord: str, positive_marker: str, negative_marker: str) -> float:
