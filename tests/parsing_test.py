@@ -444,3 +444,19 @@ def test_get_section_error_message():
     except Exception as e:
         assert "LOCATION" in "".join(e.args)
         assert "*END OF HEADER" in "".join(e.args)
+
+
+def test_get_section_array():
+    section, _ = parsing.get_section(
+        """*RAW
+    $ARRAY: BIN DEPTHS (M)
+        287.1
+        289.1
+    $END
+*END OF HEADER""",
+        "raw",
+    )
+
+    arr = section["bin depths (m)"]
+    assert arr[0].strip() == "287.1"
+    assert arr[1].strip() == "289.1"
