@@ -42,6 +42,9 @@ def test_shell_read_data():
     LATITUDE            :  50   6.00000 N  ! (deg min)
     LONGITUDE           : 124  54.00000 W  ! (deg min)
 
+*COMMENTS
+words words words
+
 *END OF HEADER
     0.    5  30.69 6"""
     info = shell.ShellFile.fromcontents(contents)
@@ -57,11 +60,17 @@ def test_shell_read_data():
     assert loc["latitude"] == 50.1
     assert loc["longitude"] == -124.9
     assert info.get_time() != datetime.datetime.min
+    assert info.comments.strip() == "words words words"
 
     # test for end time
-    contents = contents.replace("START", "END")
+    contents = (
+        contents.replace("START", "END")
+        .replace("*COMMENTS", "")
+        .replace("words words words", "")
+    )
     info = shell.ShellFile.fromcontents(contents)
     assert info.get_time() != datetime.datetime.min
+    assert info.comments.strip() == ""
 
 
 @pytest.mark.parametrize(
