@@ -32,11 +32,12 @@ def test_utils_to_datetime_produces_usable_datetime(time):
     ],
 )
 def test_utils_from_iso_converts_time_zones_correctly(tzname, expected_offset):
-    time_info = utils.to_datetime(tzname + " 2015/03/16 00:00:00")
-    assert time_info.tzinfo is not None
-    assert time_info.tzinfo.utcoffset(time_info) == datetime.timedelta(
-        hours=expected_offset
-    )
+    for tz in [tzname, tzname.lower(), tzname.capitalize()]:
+        time_info = utils.to_datetime(tz + " 2015/03/16 00:00:00")
+        assert time_info.tzinfo is not None
+        assert time_info.tzinfo.utcoffset(time_info) == datetime.timedelta(
+            hours=expected_offset
+        )
 
 
 def test_utils_to_date():

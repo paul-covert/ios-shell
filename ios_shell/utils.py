@@ -6,7 +6,7 @@ from typing import List
 
 DATE_STR = r"\d{4}[/-]\d{2}[/-]\d{2}"
 TIME_STR = r"\d{2}:\d{2}(:\d{2}(.\d*)?)?"
-TIMEZONE_STR = r"[A-Z]{3}"
+TIMEZONE_STR = r"[A-Za-z]{3}"
 
 
 def apply_column_mask(data: str, mask: List[bool]) -> List[str]:
