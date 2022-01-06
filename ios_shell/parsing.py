@@ -5,7 +5,7 @@ import re
 from typing import Any, Dict, List, Tuple
 
 from . import sections, utils
-from .utils import DATE_STR, TIME_STR
+from .regex import *
 from .keys import *
 
 
@@ -15,7 +15,7 @@ def _next_line(rest: str) -> List[str]:
 
 def get_modified_date(contents: str) -> Tuple[datetime.datetime, str]:
     rest = contents.lstrip()
-    if m := re.match(fr"\*({DATE_STR} {TIME_STR})", rest):
+    if m := re.match(MODIFIED_DATE_PATTERN, rest):
         rest = rest[m.end() :]
         return (utils.to_datetime(m.group(1)), rest)
     else:
@@ -24,14 +24,7 @@ def get_modified_date(contents: str) -> Tuple[datetime.datetime, str]:
 
 def get_header_version(contents: str) -> Tuple[sections.Version, str]:
     rest = contents.lstrip()
-    match_version = r"(?P<version_no>\d+.\d+)"
-    match_date1 = f"(?P<date1>{DATE_STR})"
-    match_date2 = f"(?P<date2>{DATE_STR})"
-    match_tag = "(?P<tag>[a-zA-Z0-9.]+)"
-    if m := re.match(
-        fr"\*IOS HEADER VERSION +{match_version} +{match_date1}( +{match_date2}( +{match_tag})?)?",
-        rest,
-    ):
+    if m := re.match(HEADER_VERSION_PATTERN, rest):
         rest = rest[m.end() :]
         return (sections.Version(**m.groupdict()), rest)
     else:
@@ -53,7 +46,7 @@ def get_section(contents: str, section_name: str) -> Tuple[Dict[str, Any], str]:
             # skip comments
             _, rest = _next_line(rest)
             continue
-        elif m := re.match(r"\$TABLE: ([^\n]+)\n", rest):
+        elif m := re.match(TABLE_START_PATTERN, rest):
             # handle table
             table_name = m.group(1).lower()
             rest = rest[m.end() :]
@@ -79,7 +72,7 @@ def get_section(contents: str, section_name: str) -> Tuple[Dict[str, Any], str]:
                     }
                 )
             _, rest = _next_line(rest.lstrip())
-        elif m := re.match(r"\$ARRAY: ([^\n]+)\n", rest):
+        elif m := re.match(ARRAY_START_PATTERN, rest):
             array_name = m.group(1).lower()
             rest = rest[m.end() :]
             section_info[array_name] = []
@@ -87,7 +80,7 @@ def get_section(contents: str, section_name: str) -> Tuple[Dict[str, Any], str]:
                 line, rest = _next_line(rest)
                 section_info[array_name].append(line)
             _, rest = _next_line(rest.lstrip())
-        elif m := re.match(r"\$REMARKS?", rest):
+        elif m := re.match(REMARKS_START_PATTERN, rest):
             # handle remarks
             rest = rest[m.end() :]
             remarks = []
@@ -317,7 +310,7 @@ def get_recovery(contents: str) -> Tuple[sections.Recovery, str]:
 
 def get_comments(contents: str) -> Tuple[str, str]:
     rest = contents.lstrip()
-    if m := re.match(r"\*COMMENTS\n", rest):
+    if m := re.match(COMMENTS_START_PATTERN, rest):
         rest = rest[m.end() :]
         lines = []
         while not utils.is_section_heading(rest):
@@ -329,11 +322,11 @@ def get_comments(contents: str) -> Tuple[str, str]:
 
 
 def _has_date(contents: str) -> bool:
-    return re.search(DATE_STR, contents) is not None
+    return re.search(DATE_PATTERN, contents) is not None
 
 
 def _has_time(contents: str) -> bool:
-    return re.search(TIME_STR, contents) is not None
+    return re.search(TIME_PATTERN, contents) is not None
 
 
 def _process_item(contents: Any) -> Any:

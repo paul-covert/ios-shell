@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ios-shell"
-version = "0.1.44"
+version = "0.1.45"
 description = "Parses files formatted by the Institute of Ocean Sciences' IOSShell tool"
 authors = ["James Hannah <jhannah@protonmail.com>"]
 license = "MIT"

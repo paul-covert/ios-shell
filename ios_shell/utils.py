@@ -3,10 +3,7 @@ import datetime
 import re
 from typing import List
 
-
-DATE_STR = r"\d{4}[/-]\d{2}[/-]\d{2}"
-TIME_STR = r"\d{2}:\d{2}(:\d{2}(.\d*)?)?"
-TIMEZONE_STR = r"[A-Za-z]{3}"
+from .regex import *
 
 
 def apply_column_mask(data: str, mask: List[bool]) -> List[str]:
@@ -98,21 +95,12 @@ def to_datetime(value: str) -> datetime.datetime:
     # attempting to cover "Unknown" and "Unk.000"
     if value == "" or "unk" in value.lower():
         return datetime.datetime.min
-    match_date = f"(?P<date>{DATE_STR})"
-    match_tz = f"(?P<tz>{TIMEZONE_STR})"
-    match_time = f"(?P<time>{TIME_STR})"
     # separate matches are required in order to avoid reusing group names
-    if m := re.match(f"{match_date} {match_time}", value):
+    if m := re.match(DATE_TIME_PATTERN, value):
         return _to_datetime(tz="UTC", **m.groupdict())
-    elif m := re.match(
-        f"{match_tz} {match_date}( {match_time})?",
-        value,
-    ):
+    elif m := re.match(TZ_DATE_TIME_PATTERN, value):
         return _to_datetime(**m.groupdict(""))
-    elif m := re.match(
-        f"{match_date}( {match_time})? {match_tz}",
-        value,
-    ):
+    elif m := re.match(DATE_TIME_TZ_PATTERN, value):
         return _to_datetime(**m.groupdict(""))
     else:
         raise ValueError(f"Unknown time format: {value}")
@@ -139,4 +127,4 @@ def get_longitude(coord: str) -> float:
 
 
 def is_section_heading(s: str) -> bool:
-    return re.match(r"\*[A-Z ]+(\n|$)", s) is not None
+    return re.match(SECTION_HEADING_PATTERN, s) is not None
