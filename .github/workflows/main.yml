@@ -40,6 +40,6 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Check formatting
-        run: poetry run black --check -t py38 .
+        run: poetry run black --check .
       - name: Test
         run: poetry run pytest -m "not optional" tests
