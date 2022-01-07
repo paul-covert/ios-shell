@@ -45,17 +45,19 @@ def test_utils_to_date():
 
 
 def test_utils_to_time():
-    assert utils.to_time("01:00:00") == datetime.time(
-        hour=1, tzinfo=datetime.timezone.utc
+    assert utils.to_time("01:01:01") == datetime.time(
+        hour=1, minute=1, second=1, tzinfo=datetime.timezone.utc
     )
     # drop sub-second information
-    assert utils.to_time("01:00:00.1") == datetime.time(
-        hour=1, tzinfo=datetime.timezone.utc
+    assert utils.to_time("01:01:01.1") == datetime.time(
+        hour=1, minute=1, second=1, tzinfo=datetime.timezone.utc
     )
-    # quietly handle invalid times
-    assert utils.to_time("25:65:62") == datetime.time(
-        hour=1, minute=5, second=2, tzinfo=datetime.timezone.utc
-    )
+    # refuse to handle invalid times
+    try:
+        utils.to_time("25:65:62")
+        assert False
+    except:
+        pass
 
 
 def test_utils_to_datetime():
