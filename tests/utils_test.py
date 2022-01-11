@@ -25,6 +25,7 @@ def test_utils_to_datetime_produces_usable_datetime(time):
         ("UTC", 0),
         ("GMT", 0),
         ("ADT", -3),
+        ("CST", -6),
         ("MDT", -6),
         ("MST", -7),
         ("PDT", -7),
@@ -137,6 +138,25 @@ def test_utils_format_string(kind, width, decimals, expected):
                 1,
                 1,
                 tzinfo=datetime.timezone(datetime.timedelta(hours=-3)),
+            ),
+        ),
+        (
+            "CST 2000/01/01 12:00:00",
+            datetime.datetime(
+                2000,
+                1,
+                1,
+                hour=12,
+                tzinfo=datetime.timezone(datetime.timedelta(hours=-6)),
+            ),
+        ),
+        (
+            "CST 2000/01/01",
+            datetime.datetime(
+                2000,
+                1,
+                1,
+                tzinfo=datetime.timezone(datetime.timedelta(hours=-6)),
             ),
         ),
         (

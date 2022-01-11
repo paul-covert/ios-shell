@@ -46,15 +46,16 @@ def format_string(fortrantype: str, width: int, decimals: int) -> str:
 
 
 def _to_timezone_offset(name: str) -> int:
-    if name.upper() in ["UTC", "GMT"]:
+    upper = name.upper()
+    if upper in ["UTC", "GMT"]:
         return 0
-    elif name.upper() in ["ADT"]:
+    elif upper in ["ADT"]:
         return -3
-    elif name.upper() in ["MDT"]:
+    elif upper in ["MDT", "CST"]:
         return -6
-    elif name.upper() in ["PDT", "MST"]:
+    elif upper in ["PDT", "MST"]:
         return -7
-    elif name.upper() in ["PST"]:
+    elif upper in ["PST"]:
         return -8
     else:
         raise ValueError(f"Unknown time zone: {name}.")
