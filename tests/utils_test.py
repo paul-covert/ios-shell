@@ -273,6 +273,7 @@ def test_utils_get_longitude(lon_str, expected):
         "",
         "Unknown",
         "Unk.000",
+        "?",
     ],
 )
 def test_utils_to_datetime_rejects_unknown_values(contents):

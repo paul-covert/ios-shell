@@ -94,7 +94,7 @@ def _to_datetime(tz: str, date: str, time: str) -> datetime.datetime:
 
 def to_datetime(value: str) -> datetime.datetime:
     # attempting to cover "Unknown" and "Unk.000"
-    if value == "" or "unk" in value.lower():
+    if value in ["", "?"] or "unk" in value.lower():
         return datetime.datetime.min
     # separate matches are required in order to avoid reusing group names
     if m := re.match(DATE_TIME_PATTERN, value):
