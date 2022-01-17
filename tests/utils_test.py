@@ -77,6 +77,7 @@ def test_utils_to_datetime():
         ("F", 8, 3, "F8.3"),
         ("I", 8, 0, "I8"),
         ("YYYY/MM/DD", 0, 0, "A11"),
+        ("YYYY-MM-DD", 0, 0, "A11"),
         ("HH:MM", 0, 0, "A6"),
         ("HH:MM:SS", 0, 0, "A9"),
         ("HH:MM:SS.SS", 0, 0, "A12"),

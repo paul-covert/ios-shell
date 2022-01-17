@@ -138,6 +138,7 @@ def test_shell_fromfile(file_name):
         "cmp1_20160127_20160520_0193m.ctd",
         "dev1_20150727_20160517_0152m.ctd",
         "nep3_20061220_20070117_0093m.adcp",
+        "prc1_20190809_20200514_0037m.adcp",
     ],
 )
 def test_shell_fromfile_just_header(file_name):
