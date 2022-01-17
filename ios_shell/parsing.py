@@ -1,6 +1,7 @@
 """Contains functions for parsing files in IOS Shell format."""
 import datetime
 import fortranformat as ff
+import math
 import re
 from typing import Any, Dict, List, Tuple
 
@@ -219,9 +220,15 @@ def get_instrument(contents: str) -> Tuple[sections.Instrument, str]:
     kind = instrument_dict[TYPE] if TYPE in instrument_dict else ""
     model = instrument_dict[MODEL] if MODEL in instrument_dict else ""
     remarks = instrument_dict[REMARKS] if REMARKS in instrument_dict else ""
+    serial_number = (
+        instrument_dict[SERIAL_NUMBER] if SERIAL_NUMBER in instrument_dict else ""
+    )
+    depth = float(instrument_dict[DEPTH]) if DEPTH in instrument_dict else math.nan
     instrument_info = sections.Instrument(
         type=kind,
         model=model,
+        serial_number=serial_number,
+        depth=depth,
         remarks=remarks,
         raw=instrument_dict,
     )

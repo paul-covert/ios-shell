@@ -40,6 +40,8 @@ WATER_DEPTH = "water depth"
 # *INSTRUMENT keys
 TYPE = "type"
 MODEL = "model"
+SERIAL_NUMBER = "serial number"
+DEPTH = "depth"
 
 # *HISTORY keys
 PROGRAMS = "programs"

@@ -192,6 +192,8 @@ def test_shell_init_does_the_right_thing():
     instrument = sections.Instrument(
         type="",
         model="",
+        serial_number="",
+        depth=-1,
         remarks="",
         raw={},
     )

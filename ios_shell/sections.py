@@ -117,6 +117,8 @@ class Location:
 class Instrument:
     type: str
     model: str
+    serial_number: str
+    depth: float
     remarks: str
     raw: Dict[str, Any]
 

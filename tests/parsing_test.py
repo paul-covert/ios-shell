@@ -1,4 +1,5 @@
 import datetime
+import math
 import pytest
 
 import ios_shell.parsing as parsing
@@ -242,8 +243,10 @@ def test_get_location():
 def test_get_instrument():
     instrument, rest = parsing.get_instrument(
         """*INSTRUMENT
-    TYPE  : bottle
-    MODEL : abcd
+    TYPE          : bottle
+    MODEL         : abcd
+    SERIAL NUMBER : 123456
+    DEPTH         : 456
     $REMARKS
         words words words
     $END
@@ -252,6 +255,8 @@ def test_get_instrument():
     )
     assert instrument.type == "bottle"
     assert instrument.model == "abcd"
+    assert instrument.serial_number == "123456"
+    assert instrument.depth == 456
     assert instrument.remarks.strip() == "words words words"
     assert rest.strip() == "*END OF HEADER"
 
@@ -262,6 +267,8 @@ def test_get_instrument():
     )
     assert instrument.type == ""
     assert instrument.model == ""
+    assert instrument.serial_number == ""
+    assert math.isnan(instrument.depth)
     assert instrument.remarks.strip() == ""
 
 
