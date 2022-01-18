@@ -46,3 +46,5 @@ ARRAY_START_PATTERN = re.compile(r"\$ARRAY: ([^\n]+)\n")
 REMARKS_START_PATTERN = re.compile(r"\$REMARKS?")
 
 COMMENTS_START_PATTERN = re.compile(r"\*COMMENTS\n")
+
+END_OF_HEADER_PATTERN = re.compile(r"\*END OF HEADER\n")

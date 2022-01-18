@@ -357,7 +357,7 @@ def _postprocess_line(line: List[Any]) -> List[Any]:
 
 def get_data(contents: str, format: str, records: int) -> Tuple[List[List[Any]], str]:
     rest = contents.lstrip()
-    if m := re.match(r"\*END OF HEADER\n", rest):
+    if m := re.match(END_OF_HEADER_PATTERN, rest):
         rest = rest[m.end() :]
         lines = rest.split("\n")
         while "" in lines:
