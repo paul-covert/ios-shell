@@ -2,7 +2,7 @@
 import datetime
 from typing import Dict, List, Union
 
-from . import parsing, sections
+from . import parsing, sections, utils
 
 
 class ShellFile:
@@ -169,6 +169,9 @@ class ShellFile:
             return
         # assertion to satisfy (optional) type checking
         assert isinstance(self.data, str)
-        self.data, _ = parsing.get_data(
+        data, rest = parsing.get_data(
             self.data, self.file.format, self.file.number_of_records
         )
+        if utils.is_section_heading(rest):
+            raise ValueError(f"Could not process data in {self.filename}")
+        self.data = data

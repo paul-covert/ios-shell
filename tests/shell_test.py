@@ -258,3 +258,53 @@ def test_shell_init_does_the_right_thing():
     assert info.raw == raw
     assert info.comments == comments
     assert info.data == data
+
+
+def test_process_data_fails_on_invalid_data():
+    contents = """*2018/06/22 09:04:04.94
+*IOS HEADER VERSION 2.0      2016/04/28 2016/06/13 IVF16
+
+*FILE
+    START TIME          : UTC 2015/03/16 10:36:00.000
+    NUMBER OF RECORDS   : 1
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    NUMBER OF CHANNELS  : 4
+
+    $TABLE: CHANNELS
+    ! No Name                         Units    Minimum        Maximum
+    !--- ---------------------------- -------- -------------- --------------
+       1 Depth:Nominal                metres   0              0
+       2 Sample_Number                n/a      5              5
+       3 Chlorophyll:Extracted        mg/m^3   30.69          30.69
+       4 Flag:Chlorophyll:Extracted   ' '
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  -99   ' '        6  F       R4      0
+       2  -99   ' '        5  I       I       0
+       3  -99   ' '        7  F       R4      2
+       4  ' '   ' '        3  NQ      C     ' '
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1993-001
+
+*LOCATION
+    LATITUDE            :  50   6.00000 N  ! (deg min)
+    LONGITUDE           : 124  54.00000 W  ! (deg min)
+
+*COMMENTS
+words words words
+
+*END OF HEADER
+To see the real data, go to this link:..."""
+
+    info = shell.ShellFile.fromcontents(contents, process_data=False)
+    try:
+        info.process_data()
+        assert False
+    except:
+        pass

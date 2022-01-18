@@ -1,6 +1,7 @@
 """Contains functions for parsing files in IOS Shell format."""
 import datetime
 import fortranformat as ff
+import logging
 import math
 import re
 from typing import Any, Dict, List, Tuple
@@ -362,9 +363,17 @@ def get_data(contents: str, format: str, records: int) -> Tuple[List[List[Any]],
         lines = rest.split("\n")
         while "" in lines:
             lines.remove("")
-        reader = ff.FortranRecordReader(format)
-        data = [_postprocess_line(reader.read(line)) for line in lines[:records]]
-        rest = "\n".join(lines[records:])  # pragma: no mutate
-        return data, rest
+        try:
+            reader = ff.FortranRecordReader(format)
+        except Exception as e:
+            logging.exception(f"Failed using format {format}: {e}")
+            return [], contents
+        try:
+            data = [_postprocess_line(reader.read(line)) for line in lines[:records]]
+            rest = "\n".join(lines[records:])  # pragma: no mutate
+            return data, rest
+        except Exception as e:
+            logging.exception(f"Could not read data: {e}")
+            return [], contents
     else:
         raise ValueError("No data in file")
