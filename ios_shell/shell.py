@@ -46,7 +46,8 @@ class ShellFile:
 
     @classmethod
     def fromcontents(cls, contents, process_data=True, filename="bare string"):
-        modified_date, rest = parsing.get_modified_date(contents)
+        header, raw_data = contents.split("*END OF HEADER", 1)
+        modified_date, rest = parsing.get_modified_date(header + "*END OF HEADER")
         header_version, rest = parsing.get_header_version(rest)
         # begin named sections
         # sections that may appear out of order
@@ -120,9 +121,9 @@ class ShellFile:
                 raise ValueError(f"Unknown section: {section_name}")
         # end named sections
         if process_data:
-            data, rest = parsing.get_data(rest, file.format, file.number_of_records)
+            data, rest = parsing.get_data(raw_data, file.format, file.number_of_records)
         else:
-            data = rest
+            data = raw_data
         # check for required sections
         if file is None:
             raise ValueError("*FILE section must be present")

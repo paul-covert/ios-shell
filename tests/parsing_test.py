@@ -429,7 +429,6 @@ def test_get_comments():
 def test_get_data():
     data, rest = parsing.get_data(
         """
-*END OF HEADER
 200. 2000/01/01 00:00:00 100.000 other
 
 300. 2000/01/01 00:00:01 100.001 other

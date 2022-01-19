@@ -357,23 +357,18 @@ def _postprocess_line(line: List[Any]) -> List[Any]:
 
 
 def get_data(contents: str, format: str, records: int) -> Tuple[List[List[Any]], str]:
-    rest = contents.lstrip()
-    if m := re.match(END_OF_HEADER_PATTERN, rest):
-        rest = rest[m.end() :]
-        lines = rest.split("\n")
-        while "" in lines:
-            lines.remove("")
-        try:
-            reader = ff.FortranRecordReader(format)
-        except Exception as e:
-            logging.exception(f"Failed using format {format}: {e}")
-            return [], contents
-        try:
-            data = [_postprocess_line(reader.read(line)) for line in lines[:records]]
-            rest = "\n".join(lines[records:])  # pragma: no mutate
-            return data, rest
-        except Exception as e:
-            logging.exception(f"Could not read data: {e}")
-            return [], contents
-    else:
-        raise ValueError("No data in file")
+    lines = contents.split("\n")
+    while "" in lines:
+        lines.remove("")
+    try:
+        reader = ff.FortranRecordReader(format)
+    except Exception as e:
+        logging.exception(f"Failed using format {format}: {e}")
+        return [], contents
+    try:
+        data = [_postprocess_line(reader.read(line)) for line in lines[:records]]
+        rest = "\n".join(lines[records:])  # pragma: no mutate
+        return data, rest
+    except Exception as e:
+        logging.exception(f"Could not read data: {e}")
+        return [], contents
