@@ -46,11 +46,15 @@ class ShellFile:
 
     @classmethod
     def fromcontents(cls, contents, process_data=True, filename="bare string"):
-        header, raw_data = contents.split("*END OF HEADER", 1)
-        modified_date, rest = parsing.get_modified_date(header + "*END OF HEADER")
+        header, raw_data = contents.split("*END OF HEADER", 1)  # pragma: no mutate
+        header_lines = header.splitlines()
+        header_lines.append("*END OF HEADER")
+        while "" in header_lines:
+            header_lines.remove("")
+        modified_date, rest = parsing.get_modified_date(header_lines)
         header_version, rest = parsing.get_header_version(rest)
         # begin named sections
-        # sections that may appear out of order
+        # sections may appear out of order
         (
             file,
             administration,
@@ -74,51 +78,51 @@ class ShellFile:
             None,
             None,
         )
-        while not rest.lstrip().startswith("*END OF HEADER"):
-            rest = rest.lstrip()
-            if rest.startswith("*FILE"):
+        line = rest[0]
+        while not line.startswith("*END OF HEADER"):
+            if line.startswith("*FILE"):
                 if file is not None:
                     raise ValueError("There should only be one file section")
                 file, rest = parsing.get_file(rest)
-            elif rest.startswith("*ADMINISTRATION"):
+            elif line.startswith("*ADMINISTRATION"):
                 if administration is not None:
                     raise ValueError("There should only be one administration section")
                 administration, rest = parsing.get_administration(rest)
-            elif rest.startswith("*LOCATION"):
+            elif line.startswith("*LOCATION"):
                 if location is not None:
                     raise ValueError("There should only be one location section")
                 location, rest = parsing.get_location(rest)
-            elif rest.startswith("*INSTRUMENT"):
+            elif line.startswith("*INSTRUMENT"):
                 if instrument is not None:
                     raise ValueError("There should only be one instrument section")
                 instrument, rest = parsing.get_instrument(rest)
-            elif rest.startswith("*HISTORY"):
+            elif line.startswith("*HISTORY"):
                 if history is not None:
                     raise ValueError("There should only be one history section")
                 history, rest = parsing.get_history(rest)
-            elif rest.startswith("*COMMENTS"):
+            elif line.startswith("*COMMENTS"):
                 if comments is not None:
                     raise ValueError("There should only be one comments section")
                 comments, rest = parsing.get_comments(rest)
-            elif rest.startswith("*CALIBRATION"):
+            elif line.startswith("*CALIBRATION"):
                 if calibration is not None:
                     raise ValueError("There should only be one calibration section")
                 calibration, rest = parsing.get_calibration(rest)
-            elif rest.startswith("*RAW"):
+            elif line.startswith("*RAW"):
                 if raw is not None:
                     raise ValueError("There should only be one raw section")
                 raw, rest = parsing.get_raw(rest)
-            elif rest.startswith("*DEPLOYMENT"):
+            elif line.startswith("*DEPLOYMENT"):
                 if deployment is not None:
                     raise ValueError("There should only be one deployment section")
                 deployment, rest = parsing.get_deployment(rest)
-            elif rest.startswith("*RECOVERY"):
+            elif line.startswith("*RECOVERY"):
                 if recovery is not None:
                     raise ValueError("There should only be one recovery section")
                 recovery, rest = parsing.get_recovery(rest)
             else:
-                section_name = rest.lstrip().split("\n", 1)[0]  # pragma: no mutate
-                raise ValueError(f"Unknown section: {section_name}")
+                raise ValueError(f"Unknown section: {line}")
+            line = rest[0]
         # end named sections
         if process_data:
             data, rest = parsing.get_data(raw_data, file.format, file.number_of_records)
@@ -173,6 +177,6 @@ class ShellFile:
         data, rest = parsing.get_data(
             self.data, self.file.format, self.file.number_of_records
         )
-        if utils.is_section_heading(rest):
+        if self.data == rest:
             raise ValueError(f"Could not process data in {self.filename}")
         self.data = data

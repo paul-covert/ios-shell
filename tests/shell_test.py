@@ -266,7 +266,7 @@ def test_process_data_fails_on_invalid_data():
 
 *FILE
     START TIME          : UTC 2015/03/16 10:36:00.000
-    NUMBER OF RECORDS   : 1
+    NUMBER OF RECORDS   : 2
     DATA DESCRIPTION    : Bottle:Wire
     FILE TYPE           : ASCII
     NUMBER OF CHANNELS  : 4
@@ -307,4 +307,4 @@ To see the real data, go to this link:..."""
         info.process_data()
         assert False
     except:
-        pass
+        assert not info.data_is_processed()

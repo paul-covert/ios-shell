@@ -21,7 +21,7 @@ from ios_shell.keys import *
 )
 def test_modified_date(contents, expected):
     expected = expected.replace(tzinfo=datetime.timezone.utc)
-    modified, rest = parsing.get_modified_date(contents)
+    modified, rest = parsing.get_modified_date([contents])
     assert modified == expected
     assert len(rest) == 0
 
@@ -35,14 +35,14 @@ def test_modified_date(contents, expected):
     ],
 )
 def test_header_version(contents, expected):
-    version, rest = parsing.get_header_version(contents)
+    version, rest = parsing.get_header_version([contents])
     assert version.version_no == expected
     assert len(rest) == 0
 
 
 def test_header_version_fails_with_no_version():
     try:
-        parsing.get_header_version("no version string")
+        parsing.get_header_version([])
         assert False
     except:
         pass
@@ -84,7 +84,7 @@ def test_get_file():
         words words words
     $END
 
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert len(file.channels) == len(file.channel_details)
     tz = datetime.timezone(datetime.timedelta(hours=-8))
@@ -104,7 +104,7 @@ def test_get_file():
     assert file.remarks.strip() == "words words words"
     assert START_TIME in file.raw
 
-    assert rest.strip() == "*END OF HEADER"
+    assert rest == ["*END OF HEADER"]
 
     # minimal file section
     file, _ = parsing.get_file(
@@ -136,7 +136,7 @@ def test_get_file():
        6  -99.99  ' '    ' '    ' '     ' '   ' '
     $END
 
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert file.start_time == datetime.datetime.min
     assert file.end_time == datetime.datetime.min
@@ -161,7 +161,7 @@ def test_get_administration():
         words words words
     $END
 
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert admin.mission == "1930-01"
     assert admin.agency == "UBC"
@@ -170,13 +170,13 @@ def test_get_administration():
     assert admin.project == "Kitimat"
     assert admin.platform == "Tully"
     assert admin.remarks.strip() == "words words words"
-    assert rest.strip() == "*END OF HEADER"
+    assert rest == ["*END OF HEADER"]
     assert MISSION in admin.raw
 
     admin, _ = parsing.get_administration(
         """*ADMINISTRATION
 
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert admin.mission == ""
     assert admin.agency == ""
@@ -200,7 +200,7 @@ def test_get_location():
         words words words
     $END
 
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert loc.longitude < 0
     assert loc.latitude > 0
@@ -210,14 +210,14 @@ def test_get_location():
     assert loc.water_depth == 332.0
     assert loc.remarks.strip() == "words words words"
     assert LONGITUDE in loc.raw
-    assert rest.strip() == "*END OF HEADER"
+    assert rest == ["*END OF HEADER"]
 
     loc, _ = parsing.get_location(
         """*LOCATION
     LATITUDE        :  49 39.00000 N
     LONGITUDE       : 126 27.20000 W
 
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert loc.geographic_area == ""
     assert loc.station == ""
@@ -231,7 +231,7 @@ def test_get_location():
     LONGITUDE       : 126 27.20000 W
     WATER DEPTH     : Unknown
 
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert loc.geographic_area == ""
     assert loc.station == ""
@@ -251,19 +251,19 @@ def test_get_instrument():
         words words words
     $END
 
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert instrument.type == "bottle"
     assert instrument.model == "abcd"
     assert instrument.serial_number == "123456"
     assert instrument.depth == 456
     assert instrument.remarks.strip() == "words words words"
-    assert rest.strip() == "*END OF HEADER"
+    assert rest == ["*END OF HEADER"]
 
     instrument, _ = parsing.get_instrument(
         """*INSTRUMENT
 
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert instrument.type == ""
     assert instrument.model == ""
@@ -288,16 +288,16 @@ def test_get_raw():
         words words words
     $END
 
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert raw.remarks.strip() == "words words words"
     assert NUMBER_OF_RECORDS in raw.raw
-    assert rest.strip() == "*END OF HEADER"
+    assert rest == ["*END OF HEADER"]
 
     raw, _ = parsing.get_raw(
         """*RAW
 
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert raw.remarks == ""
     assert NUMBER_OF_RECORDS not in raw.raw
@@ -315,16 +315,16 @@ def test_get_history():
         words words words
     $END
 
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert len(history.programs) > 0
     assert history.remarks.strip() == "words words words"
-    assert rest.strip() == "*END OF HEADER"
+    assert rest == ["*END OF HEADER"]
 
     history, _ = parsing.get_history(
         """*HISTORY
 
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert len(history.programs) == 0
     assert history.remarks == ""
@@ -341,16 +341,16 @@ def test_get_calibration():
     $REMARKS
         words words words
     $END
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert len(calibration.corrected_channels) > 0
     assert calibration.remarks.strip() == "words words words"
-    assert rest.strip() == "*END OF HEADER"
+    assert rest == ["*END OF HEADER"]
 
     calibration, _ = parsing.get_calibration(
         """*CALIBRATION
 
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert len(calibration.corrected_channels) == 0
     assert calibration.remarks == ""
@@ -366,7 +366,7 @@ def test_get_deployment():
         words words words
     $END
 
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert deployment.mission == "1930-01"
     assert deployment.type == "some type"
@@ -374,12 +374,12 @@ def test_get_deployment():
         1930, 1, 1, tzinfo=datetime.timezone.utc
     )
     assert deployment.remarks.strip() == "words words words"
-    assert rest.strip() == "*END OF HEADER"
+    assert rest == ["*END OF HEADER"]
 
     deployment, _ = parsing.get_deployment(
         """*DEPLOYMENT
 
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert deployment.mission == ""
     assert deployment.type == ""
@@ -396,19 +396,19 @@ def test_get_recovery():
         words words words
     $END
 
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert recovery.mission == "1930-01"
     assert recovery.anchor_released == datetime.datetime(
         1930, 1, 1, tzinfo=datetime.timezone.utc
     )
     assert recovery.remarks.strip() == "words words words"
-    assert rest.strip() == "*END OF HEADER"
+    assert rest == ["*END OF HEADER"]
 
     recovery, _ = parsing.get_recovery(
         """*RECOVERY
 
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert recovery.mission == ""
     assert recovery.anchor_released == datetime.datetime.min
@@ -420,10 +420,10 @@ def test_get_comments():
         """*COMMENTS
     words words words
     even more words
-*END OF HEADER"""
+*END OF HEADER""".splitlines()
     )
     assert comments == "    words words words\n    even more words"
-    assert rest.strip() == "*END OF HEADER"
+    assert rest == ["*END OF HEADER"]
 
 
 def test_get_data():
@@ -459,7 +459,7 @@ def test_get_data():
 
 def test_get_section_error_message():
     try:
-        parsing.get_section("*END OF HEADER", "location")
+        parsing.get_section(["*END OF HEADER"], "location")
         assert False
     except Exception as e:
         assert "LOCATION" in "".join(e.args)
@@ -473,7 +473,7 @@ def test_get_section_array():
         287.1
         289.1
     $END
-*END OF HEADER""",
+*END OF HEADER""".splitlines(),
         "raw",
     )
 

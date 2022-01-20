@@ -11,47 +11,43 @@ from .regex import *
 from .keys import *
 
 
-def _next_line(rest: str) -> List[str]:
-    return rest.split("\n", 1)  # pragma: no mutate
+def _next_line(rest: List[str]) -> Tuple[str, List[str]]:
+    return rest[0], rest[1:]
 
 
-def get_modified_date(contents: str) -> Tuple[datetime.datetime, str]:
-    rest = contents.lstrip()
-    if m := re.match(MODIFIED_DATE_PATTERN, rest):
-        rest = rest[m.end() :]
+def get_modified_date(contents: List[str]) -> Tuple[datetime.datetime, List[str]]:
+    line, rest = _next_line(contents)
+    if m := re.fullmatch(MODIFIED_DATE_PATTERN, line):
         return (utils.to_datetime(m.group(1)), rest)
     else:
         raise ValueError("No modified date at start of string")
 
 
-def get_header_version(contents: str) -> Tuple[sections.Version, str]:
-    rest = contents.lstrip()
-    if m := re.match(HEADER_VERSION_PATTERN, rest):
-        rest = rest[m.end() :]
+def get_header_version(contents: List[str]) -> Tuple[sections.Version, List[str]]:
+    line, rest = _next_line(contents)
+    if m := re.fullmatch(HEADER_VERSION_PATTERN, line):
         return (sections.Version(**m.groupdict()), rest)
     else:
         raise ValueError("No header version in string")
 
 
-def get_section(contents: str, section_name: str) -> Tuple[Dict[str, Any], str]:
-    rest = contents.lstrip()
-    prefix = f"*{section_name.upper()}\n"
-    section_info: Dict[str, Any] = {}
-    if not rest.startswith(prefix):
+def get_section(
+    contents: List[str], section_name: str
+) -> Tuple[Dict[str, Any], List[str]]:
+    line, rest = _next_line(contents)
+    if line != "*" + section_name.upper():
         raise ValueError(
-            f"{section_name.upper()} section not present, found {_next_line(rest)[0]} instead"
+            f"{section_name.upper()} section not present, found {line} instead"
         )
-    rest = rest[len(prefix) :]
-    while not utils.is_section_heading(rest.lstrip()):
-        rest = rest.lstrip()
-        if rest.startswith("!"):
+    section_info: Dict[str, Any] = {}
+    while not utils.is_section_heading(rest[0]):
+        line, rest = _next_line(rest)
+        if line.strip() == "" or line.startswith("!"):
             # skip comments
-            _, rest = _next_line(rest)
-            continue
-        elif m := re.match(TABLE_START_PATTERN, rest):
+            pass
+        elif m := re.fullmatch(TABLE_START_PATTERN, line):
             # handle table
             table_name = m.group(1).lower()
-            rest = rest[m.end() :]
             # table column names
             line, rest = _next_line(rest)
             column_names_line = line
@@ -65,41 +61,38 @@ def get_section(contents: str, section_name: str) -> Tuple[Dict[str, Any], str]:
             ]
             # values
             section_info[table_name] = []
-            while not rest.lstrip().startswith("$END"):
-                line, rest = _next_line(rest)
+            line, rest = _next_line(rest)
+            while not re.fullmatch(END_PATTERN, line.lstrip()):
                 section_info[table_name].append(
                     {
                         column_names[i]: v
                         for i, v in enumerate(utils.apply_column_mask(line, mask))
                     }
                 )
-            _, rest = _next_line(rest.lstrip())
-        elif m := re.match(ARRAY_START_PATTERN, rest):
+                line, rest = _next_line(rest)
+        elif m := re.fullmatch(ARRAY_START_PATTERN, line):
             array_name = m.group(1).lower()
-            rest = rest[m.end() :]
             section_info[array_name] = []
-            while not rest.lstrip().startswith("$END"):
-                line, rest = _next_line(rest)
+            line, rest = _next_line(rest)
+            while not re.fullmatch(END_PATTERN, line):
                 section_info[array_name].append(line)
-            _, rest = _next_line(rest.lstrip())
-        elif m := re.match(REMARKS_START_PATTERN, rest):
-            # handle remarks
-            rest = rest[m.end() :]
-            remarks = []
-            while not rest.lstrip().startswith("$END"):
                 line, rest = _next_line(rest)
+        elif m := re.fullmatch(REMARKS_START_PATTERN, line):
+            # handle remarks
+            remarks = []
+            line, rest = _next_line(rest)
+            while not re.fullmatch(END_PATTERN, line):
                 remarks.append(line)
+                line, rest = _next_line(rest)
             section_info[REMARKS] = "\n".join(remarks)  # pragma: no mutate
-            _, rest = _next_line(rest.lstrip())
         else:
             # handle single entry
-            line, rest = _next_line(rest)
             key, value = line.split(":", 1)
             section_info[key.strip().lower()] = value.strip()
     return section_info, rest
 
 
-def get_file(contents: str) -> Tuple[sections.FileInfo, str]:
+def get_file(contents: List[str]) -> Tuple[sections.FileInfo, List[str]]:
     file_dict, rest = get_section(contents, "file")
     start_time = (
         utils.to_datetime(file_dict[START_TIME])
@@ -163,7 +156,9 @@ def get_file(contents: str) -> Tuple[sections.FileInfo, str]:
     return file_info, rest
 
 
-def get_administration(contents: str) -> Tuple[sections.Administration, str]:
+def get_administration(
+    contents: List[str],
+) -> Tuple[sections.Administration, List[str]]:
     admin_dict, rest = get_section(contents, "administration")
     mission = admin_dict[MISSION] if MISSION in admin_dict else ""
     agency = admin_dict[AGENCY] if AGENCY in admin_dict else ""
@@ -185,7 +180,7 @@ def get_administration(contents: str) -> Tuple[sections.Administration, str]:
     return admin_info, rest
 
 
-def get_location(contents: str) -> Tuple[sections.Location, str]:
+def get_location(contents: List[str]) -> Tuple[sections.Location, List[str]]:
     location_dict, rest = get_section(contents, "location")
     geographic_area = (
         location_dict[GEOGRAPHIC_AREA] if GEOGRAPHIC_AREA in location_dict else ""
@@ -216,7 +211,7 @@ def get_location(contents: str) -> Tuple[sections.Location, str]:
     return location_info, rest
 
 
-def get_instrument(contents: str) -> Tuple[sections.Instrument, str]:
+def get_instrument(contents: List[str]) -> Tuple[sections.Instrument, List[str]]:
     instrument_dict, rest = get_section(contents, "instrument")
     kind = instrument_dict[TYPE] if TYPE in instrument_dict else ""
     model = instrument_dict[MODEL] if MODEL in instrument_dict else ""
@@ -236,7 +231,7 @@ def get_instrument(contents: str) -> Tuple[sections.Instrument, str]:
     return instrument_info, rest
 
 
-def get_history(contents: str) -> Tuple[sections.History, str]:
+def get_history(contents: List[str]) -> Tuple[sections.History, List[str]]:
     history_dict, rest = get_section(contents, "history")
     programs = (
         [sections.Program(*elem) for elem in history_dict[PROGRAMS]]
@@ -252,7 +247,7 @@ def get_history(contents: str) -> Tuple[sections.History, str]:
     return history_info, rest
 
 
-def get_calibration(contents: str) -> Tuple[sections.Calibration, str]:
+def get_calibration(contents: List[str]) -> Tuple[sections.Calibration, List[str]]:
     calibration_dict, rest = get_section(contents, "calibration")
     corrected_channels = (
         calibration_dict[CORRECTED_CHANNELS]
@@ -268,7 +263,7 @@ def get_calibration(contents: str) -> Tuple[sections.Calibration, str]:
     return calibration_info, rest
 
 
-def get_raw(contents: str) -> Tuple[sections.Raw, str]:
+def get_raw(contents: List[str]) -> Tuple[sections.Raw, List[str]]:
     raw_dict, rest = get_section(contents, "raw")
     remarks = raw_dict[REMARKS] if REMARKS in raw_dict else ""
     raw_info = sections.Raw(
@@ -278,7 +273,7 @@ def get_raw(contents: str) -> Tuple[sections.Raw, str]:
     return raw_info, rest
 
 
-def get_deployment(contents: str) -> Tuple[sections.Deployment, str]:
+def get_deployment(contents: List[str]) -> Tuple[sections.Deployment, List[str]]:
     deployment_dict, rest = get_section(contents, "deployment")
     mission = deployment_dict[MISSION] if MISSION in deployment_dict else ""
     type = deployment_dict[TYPE] if TYPE in deployment_dict else ""
@@ -298,7 +293,7 @@ def get_deployment(contents: str) -> Tuple[sections.Deployment, str]:
     return deployment_info, rest
 
 
-def get_recovery(contents: str) -> Tuple[sections.Recovery, str]:
+def get_recovery(contents: List[str]) -> Tuple[sections.Recovery, List[str]]:
     recovery_dict, rest = get_section(contents, "recovery")
     mission = recovery_dict[MISSION] if MISSION in recovery_dict else ""
     anchor_released = (
@@ -316,12 +311,11 @@ def get_recovery(contents: str) -> Tuple[sections.Recovery, str]:
     return recovery_info, rest
 
 
-def get_comments(contents: str) -> Tuple[str, str]:
-    rest = contents.lstrip()
-    if m := re.match(COMMENTS_START_PATTERN, rest):
-        rest = rest[m.end() :]
+def get_comments(contents: List[str]) -> Tuple[str, List[str]]:
+    line, rest = _next_line(contents)
+    if re.fullmatch(COMMENTS_START_PATTERN, line):
         lines = []
-        while not utils.is_section_heading(rest):
+        while not utils.is_section_heading(rest[0]):
             line, rest = _next_line(rest)
             lines.append(line)
         return "\n".join(lines), rest
@@ -357,9 +351,12 @@ def _postprocess_line(line: List[Any]) -> List[Any]:
 
 
 def get_data(contents: str, format: str, records: int) -> Tuple[List[List[Any]], str]:
-    lines = contents.split("\n")
+    lines = contents.splitlines()
     while "" in lines:
         lines.remove("")
+    if len(lines) < records:
+        logging.exception("Insufficient data for requested number of records")
+        return [], contents
     try:
         reader = ff.FortranRecordReader(format)
     except Exception as e:

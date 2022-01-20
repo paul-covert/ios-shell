@@ -134,4 +134,4 @@ def get_longitude(coord: str) -> float:
 
 
 def is_section_heading(s: str) -> bool:
-    return re.match(SECTION_HEADING_PATTERN, s) is not None
+    return re.fullmatch(SECTION_HEADING_PATTERN, s) is not None

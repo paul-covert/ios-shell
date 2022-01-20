@@ -25,7 +25,7 @@ DATE_TIME_PATTERN = re.compile(f"{MATCH_DATE} {MATCH_TIME}")
 TZ_DATE_TIME_PATTERN = re.compile(f"{MATCH_TZ} {MATCH_DATE}( {MATCH_TIME})?")
 DATE_TIME_TZ_PATTERN = re.compile(f"{MATCH_DATE}( {MATCH_TIME})? {MATCH_TZ}")
 
-SECTION_HEADING_PATTERN = re.compile(r"\*[A-Z ]+(\n|$)")
+SECTION_HEADING_PATTERN = re.compile(r"\*[A-Z ]+")
 
 
 # used in parsing.py
@@ -41,10 +41,11 @@ HEADER_VERSION_PATTERN = re.compile(
     fr"\*IOS HEADER VERSION +{MATCH_VERSION} +{MATCH_DATE1}( +{MATCH_DATE2}( +{MATCH_TAG})?)?"
 )
 
-TABLE_START_PATTERN = re.compile(r"\$TABLE: ([^\n]+)\n")
-ARRAY_START_PATTERN = re.compile(r"\$ARRAY: ([^\n]+)\n")
-REMARKS_START_PATTERN = re.compile(r"\$REMARKS?")
+TABLE_START_PATTERN = re.compile(r"\s*\$TABLE: (.+)")
+ARRAY_START_PATTERN = re.compile(r"\s*\$ARRAY: (.+)")
+REMARKS_START_PATTERN = re.compile(r"\s*\$REMARKS?")
+END_PATTERN = re.compile(r"\s*\$END")
 
-COMMENTS_START_PATTERN = re.compile(r"\*COMMENTS\n")
+COMMENTS_START_PATTERN = re.compile(r"\*COMMENTS")
 
-END_OF_HEADER_PATTERN = re.compile(r"\*END OF HEADER\n")
+END_OF_HEADER_PATTERN = re.compile(r"\*END OF HEADER")
