@@ -111,9 +111,9 @@ def get_file(contents: List[str]) -> Tuple[sections.FileInfo, List[str]]:
     )
     number_of_records = int(file_dict[NUMBER_OF_RECORDS])
     data_description = (
-        file_dict[DATA_DESCRIPTION] if DATA_DESCRIPTION in file_dict else ""
+        file_dict[DATA_DESCRIPTION] if DATA_DESCRIPTION in file_dict else "n/a"
     )
-    file_type = file_dict[FILE_TYPE] if FILE_TYPE in file_dict else ""
+    file_type = file_dict[FILE_TYPE] if FILE_TYPE in file_dict else "n/a"
     number_of_channels = int(file_dict[NUMBER_OF_CHANNELS])
     channels = (
         [sections.Channel(**elem) for elem in file_dict[CHANNELS]]
@@ -125,8 +125,7 @@ def get_file(contents: List[str]) -> Tuple[sections.FileInfo, List[str]]:
         if CHANNEL_DETAIL in file_dict
         else []
     )
-    remarks = file_dict[REMARKS] if REMARKS in file_dict else ""
-    data_type = file_dict[DATA_TYPE] if DATA_TYPE in file_dict else ""
+    data_type = file_dict[DATA_TYPE] if DATA_TYPE in file_dict else "n/a"
     to_remove = " \n\t'"  # pragma: no mutate
     if FORMAT in file_dict:
         format_str = file_dict[FORMAT].strip(to_remove)
@@ -138,6 +137,7 @@ def get_file(contents: List[str]) -> Tuple[sections.FileInfo, List[str]]:
             for detail in channel_details
         ]
         format_str = "({})".format(",".join(format_info))
+    remarks = file_dict[REMARKS] if REMARKS in file_dict else ""
     file_info = sections.FileInfo(
         start_time=start_time,
         end_time=end_time,
@@ -160,12 +160,12 @@ def get_administration(
     contents: List[str],
 ) -> Tuple[sections.Administration, List[str]]:
     admin_dict, rest = get_section(contents, "administration")
-    mission = admin_dict[MISSION] if MISSION in admin_dict else ""
-    agency = admin_dict[AGENCY] if AGENCY in admin_dict else ""
-    country = admin_dict[COUNTRY] if COUNTRY in admin_dict else ""
-    project = admin_dict[PROJECT] if PROJECT in admin_dict else ""
-    scientist = admin_dict[SCIENTIST] if SCIENTIST in admin_dict else ""
-    platform = admin_dict[PLATFORM] if PLATFORM in admin_dict else ""
+    mission = admin_dict[MISSION] if MISSION in admin_dict else "n/a"
+    agency = admin_dict[AGENCY] if AGENCY in admin_dict else "n/a"
+    country = admin_dict[COUNTRY] if COUNTRY in admin_dict else "n/a"
+    project = admin_dict[PROJECT] if PROJECT in admin_dict else "n/a"
+    scientist = admin_dict[SCIENTIST] if SCIENTIST in admin_dict else "n/a"
+    platform = admin_dict[PLATFORM] if PLATFORM in admin_dict else "n/a"
     remarks = admin_dict[REMARKS] if REMARKS in admin_dict else ""
     admin_info = sections.Administration(
         mission=mission,
@@ -183,9 +183,9 @@ def get_administration(
 def get_location(contents: List[str]) -> Tuple[sections.Location, List[str]]:
     location_dict, rest = get_section(contents, "location")
     geographic_area = (
-        location_dict[GEOGRAPHIC_AREA] if GEOGRAPHIC_AREA in location_dict else ""
+        location_dict[GEOGRAPHIC_AREA] if GEOGRAPHIC_AREA in location_dict else "n/a"
     )
-    station = location_dict[STATION] if STATION in location_dict else ""
+    station = location_dict[STATION] if STATION in location_dict else "n/a"
     event_number = (
         int(location_dict[EVENT_NUMBER]) if EVENT_NUMBER in location_dict else -1
     )
@@ -213,13 +213,13 @@ def get_location(contents: List[str]) -> Tuple[sections.Location, List[str]]:
 
 def get_instrument(contents: List[str]) -> Tuple[sections.Instrument, List[str]]:
     instrument_dict, rest = get_section(contents, "instrument")
-    kind = instrument_dict[TYPE] if TYPE in instrument_dict else ""
-    model = instrument_dict[MODEL] if MODEL in instrument_dict else ""
-    remarks = instrument_dict[REMARKS] if REMARKS in instrument_dict else ""
+    kind = instrument_dict[TYPE] if TYPE in instrument_dict else "n/a"
+    model = instrument_dict[MODEL] if MODEL in instrument_dict else "n/a"
     serial_number = (
-        instrument_dict[SERIAL_NUMBER] if SERIAL_NUMBER in instrument_dict else ""
+        instrument_dict[SERIAL_NUMBER] if SERIAL_NUMBER in instrument_dict else "n/a"
     )
     depth = float(instrument_dict[DEPTH]) if DEPTH in instrument_dict else math.nan
+    remarks = instrument_dict[REMARKS] if REMARKS in instrument_dict else ""
     instrument_info = sections.Instrument(
         type=kind,
         model=model,
@@ -275,8 +275,8 @@ def get_raw(contents: List[str]) -> Tuple[sections.Raw, List[str]]:
 
 def get_deployment(contents: List[str]) -> Tuple[sections.Deployment, List[str]]:
     deployment_dict, rest = get_section(contents, "deployment")
-    mission = deployment_dict[MISSION] if MISSION in deployment_dict else ""
-    type = deployment_dict[TYPE] if TYPE in deployment_dict else ""
+    mission = deployment_dict[MISSION] if MISSION in deployment_dict else "n/a"
+    type = deployment_dict[TYPE] if TYPE in deployment_dict else "n/a"
     anchor_dropped = (
         utils.to_datetime(deployment_dict[TIME_ANCHOR_DROPPED])
         if TIME_ANCHOR_DROPPED in deployment_dict
@@ -295,7 +295,7 @@ def get_deployment(contents: List[str]) -> Tuple[sections.Deployment, List[str]]
 
 def get_recovery(contents: List[str]) -> Tuple[sections.Recovery, List[str]]:
     recovery_dict, rest = get_section(contents, "recovery")
-    mission = recovery_dict[MISSION] if MISSION in recovery_dict else ""
+    mission = recovery_dict[MISSION] if MISSION in recovery_dict else "n/a"
     anchor_released = (
         utils.to_datetime(recovery_dict[TIME_ANCHOR_RELEASED])
         if TIME_ANCHOR_RELEASED in recovery_dict

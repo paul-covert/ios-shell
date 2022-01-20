@@ -141,9 +141,9 @@ def test_get_file():
     assert file.start_time == datetime.datetime.min
     assert file.end_time == datetime.datetime.min
     assert file.time_zero == datetime.datetime.min
-    assert file.file_type == ""
-    assert file.data_description == ""
-    assert file.data_type == ""
+    assert file.file_type == "n/a"
+    assert file.data_description == "n/a"
+    assert file.data_type == "n/a"
     assert file.remarks == ""
     assert file.format == "(F6.0,F7.2,F7.2,F7.2,F6.1,F7.2)"
 
@@ -178,12 +178,12 @@ def test_get_administration():
 
 *END OF HEADER""".splitlines()
     )
-    assert admin.mission == ""
-    assert admin.agency == ""
-    assert admin.country == ""
-    assert admin.project == ""
-    assert admin.scientist == ""
-    assert admin.platform == ""
+    assert admin.mission == "n/a"
+    assert admin.agency == "n/a"
+    assert admin.country == "n/a"
+    assert admin.project == "n/a"
+    assert admin.scientist == "n/a"
+    assert admin.platform == "n/a"
     assert admin.remarks == ""
 
 
@@ -219,8 +219,8 @@ def test_get_location():
 
 *END OF HEADER""".splitlines()
     )
-    assert loc.geographic_area == ""
-    assert loc.station == ""
+    assert loc.geographic_area == "n/a"
+    assert loc.station == "n/a"
     assert loc.event_number == -1
     assert loc.water_depth == -1
     assert loc.remarks == ""
@@ -233,8 +233,8 @@ def test_get_location():
 
 *END OF HEADER""".splitlines()
     )
-    assert loc.geographic_area == ""
-    assert loc.station == ""
+    assert loc.geographic_area == "n/a"
+    assert loc.station == "n/a"
     assert loc.event_number == -1
     assert loc.water_depth == -1
     assert loc.remarks == ""
@@ -265,9 +265,9 @@ def test_get_instrument():
 
 *END OF HEADER""".splitlines()
     )
-    assert instrument.type == ""
-    assert instrument.model == ""
-    assert instrument.serial_number == ""
+    assert instrument.type == "n/a"
+    assert instrument.model == "n/a"
+    assert instrument.serial_number == "n/a"
     assert math.isnan(instrument.depth)
     assert instrument.remarks.strip() == ""
 
@@ -381,8 +381,8 @@ def test_get_deployment():
 
 *END OF HEADER""".splitlines()
     )
-    assert deployment.mission == ""
-    assert deployment.type == ""
+    assert deployment.mission == "n/a"
+    assert deployment.type == "n/a"
     assert deployment.anchor_dropped == datetime.datetime.min
     assert deployment.remarks == ""
 
@@ -410,7 +410,7 @@ def test_get_recovery():
 
 *END OF HEADER""".splitlines()
     )
-    assert recovery.mission == ""
+    assert recovery.mission == "n/a"
     assert recovery.anchor_released == datetime.datetime.min
     assert recovery.remarks == ""
 
