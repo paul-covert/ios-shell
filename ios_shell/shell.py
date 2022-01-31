@@ -124,10 +124,6 @@ class ShellFile:
                 raise ValueError(f"Unknown section: {line}")
             line = rest[0]
         # end named sections
-        if process_data:
-            data, rest = parsing.get_data(raw_data, file.format, file.number_of_records)
-        else:
-            data = raw_data
         # check for required sections
         if file is None:
             raise ValueError("*FILE section must be present")
@@ -135,7 +131,7 @@ class ShellFile:
             raise ValueError("*ADMINISTRATION section must be present")
         if location is None:
             raise ValueError("*LOCATION section must be present")
-        return ShellFile(
+        info = ShellFile(
             filename=filename,
             modified_date=modified_date,
             header_version=header_version,
@@ -149,8 +145,11 @@ class ShellFile:
             recovery=recovery,
             raw=raw,
             comments=comments if comments is not None else "",
-            data=data,
+            data=raw_data,
         )
+        if process_data:
+            info.process_data()
+        return info
 
     def get_location(self) -> Dict[str, float]:
         return {
@@ -175,8 +174,8 @@ class ShellFile:
         # assertion to satisfy (optional) type checking
         assert isinstance(self.data, str)
         data, rest = parsing.get_data(
-            self.data, self.file.format, self.file.number_of_records
+            self.data, self.file.format, self.file.number_of_records, self.filename
         )
         if self.data == rest:
-            raise ValueError(f"Could not process data in {self.filename}")
+            raise ValueError(f"Could not process data")
         self.data = data

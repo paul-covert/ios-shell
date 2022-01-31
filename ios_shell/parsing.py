@@ -350,22 +350,26 @@ def _postprocess_line(line: List[Any]) -> List[Any]:
     return [_process_item(item) for item in line]
 
 
-def get_data(contents: str, format: str, records: int) -> Tuple[List[List[Any]], str]:
+def get_data(
+    contents: str, format: str, records: int, filename: str
+) -> Tuple[List[List[Any]], str]:
     lines = contents.splitlines()
     while "" in lines:
         lines.remove("")
     if len(lines) < records:
-        logging.exception("Insufficient data for requested number of records")
+        logging.exception(
+            f"Insufficient data for requested number of records in {filename}"
+        )
         return [], contents
     try:
         reader = ff.FortranRecordReader(format)
     except Exception as e:
-        logging.exception(f"Failed using format {format}: {e}")
+        logging.exception(f"Failed using format {format} in {filename}: {e}")
         return [], contents
     try:
         data = [_postprocess_line(reader.read(line)) for line in lines[:records]]
         rest = "\n".join(lines[records:])  # pragma: no mutate
         return data, rest
     except Exception as e:
-        logging.exception(f"Could not read data: {e}")
+        logging.exception(f"Could not read data from {filename}: {e}")
         return [], contents

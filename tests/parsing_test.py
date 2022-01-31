@@ -435,6 +435,7 @@ def test_get_data():
         """,
         "(F4.0,A11,A10,F8.3,A6)",
         2,
+        "no file",
     )
     assert len(rest.strip()) == 0
     assert len(data) == 2
