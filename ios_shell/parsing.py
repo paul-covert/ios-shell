@@ -16,6 +16,7 @@ def _next_line(rest: List[str]) -> Tuple[str, List[str]]:
 
 
 def get_modified_date(contents: List[str]) -> Tuple[datetime.datetime, List[str]]:
+    """Parse the modified date."""
     line, rest = _next_line(contents)
     if m := re.fullmatch(MODIFIED_DATE_PATTERN, line):
         return (utils.to_datetime(m.group(1)), rest)
@@ -24,6 +25,7 @@ def get_modified_date(contents: List[str]) -> Tuple[datetime.datetime, List[str]
 
 
 def get_header_version(contents: List[str]) -> Tuple[sections.Version, List[str]]:
+    """Parse the header version string."""
     line, rest = _next_line(contents)
     if m := re.fullmatch(HEADER_VERSION_PATTERN, line):
         return (sections.Version(**m.groupdict()), rest)
@@ -34,6 +36,7 @@ def get_header_version(contents: List[str]) -> Tuple[sections.Version, List[str]
 def get_section(
     contents: List[str], section_name: str
 ) -> Tuple[Dict[str, Any], List[str]]:
+    """Parse a named section."""
     line, rest = _next_line(contents)
     if line != "*" + section_name.upper():
         raise ValueError(
@@ -93,6 +96,7 @@ def get_section(
 
 
 def get_file(contents: List[str]) -> Tuple[sections.FileInfo, List[str]]:
+    """Parse the *FILE section."""
     file_dict, rest = get_section(contents, "file")
     start_time = (
         utils.to_datetime(file_dict[START_TIME])
@@ -159,6 +163,7 @@ def get_file(contents: List[str]) -> Tuple[sections.FileInfo, List[str]]:
 def get_administration(
     contents: List[str],
 ) -> Tuple[sections.Administration, List[str]]:
+    """Parse the *ADMINISTRATION section."""
     admin_dict, rest = get_section(contents, "administration")
     mission = admin_dict[MISSION] if MISSION in admin_dict else "n/a"
     agency = admin_dict[AGENCY] if AGENCY in admin_dict else "n/a"
@@ -181,6 +186,7 @@ def get_administration(
 
 
 def get_location(contents: List[str]) -> Tuple[sections.Location, List[str]]:
+    """Parse the *LOCATION section"""
     location_dict, rest = get_section(contents, "location")
     geographic_area = (
         location_dict[GEOGRAPHIC_AREA] if GEOGRAPHIC_AREA in location_dict else "n/a"
@@ -212,6 +218,7 @@ def get_location(contents: List[str]) -> Tuple[sections.Location, List[str]]:
 
 
 def get_instrument(contents: List[str]) -> Tuple[sections.Instrument, List[str]]:
+    """Parse the *INSTRUMENT section"""
     instrument_dict, rest = get_section(contents, "instrument")
     kind = instrument_dict[TYPE] if TYPE in instrument_dict else "n/a"
     model = instrument_dict[MODEL] if MODEL in instrument_dict else "n/a"
@@ -232,6 +239,7 @@ def get_instrument(contents: List[str]) -> Tuple[sections.Instrument, List[str]]
 
 
 def get_history(contents: List[str]) -> Tuple[sections.History, List[str]]:
+    """Parse the *HISTORY section"""
     history_dict, rest = get_section(contents, "history")
     programs = (
         [sections.Program(*elem) for elem in history_dict[PROGRAMS]]
@@ -248,6 +256,7 @@ def get_history(contents: List[str]) -> Tuple[sections.History, List[str]]:
 
 
 def get_calibration(contents: List[str]) -> Tuple[sections.Calibration, List[str]]:
+    """Parse the *CALIBRATION section"""
     calibration_dict, rest = get_section(contents, "calibration")
     corrected_channels = (
         calibration_dict[CORRECTED_CHANNELS]
@@ -264,6 +273,7 @@ def get_calibration(contents: List[str]) -> Tuple[sections.Calibration, List[str
 
 
 def get_raw(contents: List[str]) -> Tuple[sections.Raw, List[str]]:
+    """Parse the *RAW section"""
     raw_dict, rest = get_section(contents, "raw")
     remarks = raw_dict[REMARKS] if REMARKS in raw_dict else ""
     raw_info = sections.Raw(
@@ -274,6 +284,7 @@ def get_raw(contents: List[str]) -> Tuple[sections.Raw, List[str]]:
 
 
 def get_deployment(contents: List[str]) -> Tuple[sections.Deployment, List[str]]:
+    """Parse the *DEPLOYMENT section"""
     deployment_dict, rest = get_section(contents, "deployment")
     mission = deployment_dict[MISSION] if MISSION in deployment_dict else "n/a"
     type = deployment_dict[TYPE] if TYPE in deployment_dict else "n/a"
@@ -294,6 +305,7 @@ def get_deployment(contents: List[str]) -> Tuple[sections.Deployment, List[str]]
 
 
 def get_recovery(contents: List[str]) -> Tuple[sections.Recovery, List[str]]:
+    """Parse the *RECOVERY section"""
     recovery_dict, rest = get_section(contents, "recovery")
     mission = recovery_dict[MISSION] if MISSION in recovery_dict else "n/a"
     anchor_released = (
@@ -312,6 +324,7 @@ def get_recovery(contents: List[str]) -> Tuple[sections.Recovery, List[str]]:
 
 
 def get_comments(contents: List[str]) -> Tuple[str, List[str]]:
+    """Parse the *COMMENTS section"""
     line, rest = _next_line(contents)
     if re.fullmatch(COMMENTS_START_PATTERN, line):
         lines = []
@@ -353,6 +366,7 @@ def _postprocess_line(line: List[Any]) -> List[Any]:
 def get_data(
     contents: str, format: str, records: int, filename: str
 ) -> Tuple[List[List[Any]], str]:
+    """Process the data in the file"""
     lines = contents.splitlines()
     while "" in lines:
         lines.remove("")

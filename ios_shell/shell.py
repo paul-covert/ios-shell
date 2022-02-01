@@ -1,8 +1,8 @@
 """Contains high-level object representing the whole of an IOS Shell file."""
 import datetime
-from typing import Dict, List, Union
+from typing import Dict, List, Optional, Union
 
-from . import parsing, sections, utils
+from . import parsing, sections
 
 
 class ShellFile:
@@ -14,12 +14,12 @@ class ShellFile:
         file: sections.FileInfo,
         administration: sections.Administration,
         location: sections.Location,
-        instrument: Union[sections.Instrument, None],
-        history: Union[sections.History, None],
-        calibration: Union[sections.Calibration, None],
-        deployment: Union[sections.Deployment, None],
-        recovery: Union[sections.Recovery, None],
-        raw: Union[sections.Raw, None],
+        instrument: Optional[sections.Instrument],
+        history: Optional[sections.History],
+        calibration: Optional[sections.Calibration],
+        deployment: Optional[sections.Deployment],
+        recovery: Optional[sections.Recovery],
+        raw: Optional[sections.Raw],
         comments: str,
         data: Union[List[List[object]], str],
     ):
@@ -40,12 +40,14 @@ class ShellFile:
 
     @classmethod
     def fromfile(cls, filename, process_data=True):  # pragma: no mutate
+        """Construct a ShellFile object from the contents of a file"""
         with open(filename, "r", encoding="ASCII", errors="ignore") as f:
             contents = f.read()
         return ShellFile.fromcontents(contents, process_data, filename=filename)
 
     @classmethod
     def fromcontents(cls, contents, process_data=True, filename="bare string"):
+        """Construct a ShellFile object from the contents of a string"""
         header, raw_data = contents.split("*END OF HEADER", 1)  # pragma: no mutate
         header_lines = header.splitlines()
         header_lines.append("*END OF HEADER")
@@ -152,12 +154,17 @@ class ShellFile:
         return info
 
     def get_location(self) -> Dict[str, float]:
+        """Produce a conventent dict of the longitude and latitude in the file"""
         return {
             "longitude": self.location.longitude,
             "latitude": self.location.latitude,
         }
 
     def get_time(self) -> datetime.datetime:
+        """A time to associate the contents with.
+
+        Typically the START TIME field of *FILE
+        """
         if self.file.start_time != datetime.datetime.min:
             return self.file.start_time
         elif self.file.end_time != datetime.datetime.min:
@@ -166,9 +173,11 @@ class ShellFile:
             raise ValueError("No valid time found")
 
     def data_is_processed(self) -> bool:
+        """Determine whether or not the data in the file has already been processed"""
         return not isinstance(self.data, str)
 
     def process_data(self):
+        """Perform the processing of the data"""
         if self.data_is_processed():
             return
         # assertion to satisfy (optional) type checking

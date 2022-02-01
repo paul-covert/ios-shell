@@ -68,6 +68,7 @@ def _to_timezone_offset(name: str) -> int:
 
 
 def to_date(contents: str) -> datetime.date:
+    """Convert a string representing a date into a usable object"""
     date_info = [int(part) for part in contents.strip().replace("-", "/").split("/")]
     year = date_info[0]
     month = date_info[1]
@@ -76,6 +77,7 @@ def to_date(contents: str) -> datetime.date:
 
 
 def to_time(contents: str, tzinfo=datetime.timezone.utc) -> datetime.time:
+    """Convert a string representing a time into a usable object"""
     time_info = [
         int(part) for piece in contents.strip().split(":") for part in piece.split(".")
     ]
@@ -99,6 +101,7 @@ def _to_datetime(tz: str, date: str, time: str) -> datetime.datetime:
 
 
 def to_datetime(value: str) -> datetime.datetime:
+    """Convert a string representing a date and time into a usable object"""
     # attempting to cover "Unknown" and "Unk.000"
     if value in ["", "?"] or "unk" in value.lower():
         return datetime.datetime.min
@@ -126,12 +129,15 @@ def _get_coord(raw_coord: str, positive_marker: str, negative_marker: str) -> fl
 
 
 def get_latitude(coord: str) -> float:
+    """Convert a string representing a latitude into a floating point number"""
     return _get_coord(coord, "N", "S")
 
 
 def get_longitude(coord: str) -> float:
+    """Convert a string representing a longitude into a floating point number"""
     return _get_coord(coord, "E", "W")
 
 
 def is_section_heading(s: str) -> bool:
+    """Decide whether or not a string represents the beginning of a secion."""
     return re.fullmatch(SECTION_HEADING_PATTERN, s) is not None
