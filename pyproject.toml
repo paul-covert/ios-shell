@@ -28,7 +28,7 @@ pytest = "^6.2.5"
 mypy = "^0.910"
 black = "^21.12b0"
 mutmut = "^2.2.0"
-pdoc3 = "^0.10.0"
+Sphinx = "^4.4.0"
 
 [tool.pytest.ini_options]
 markers = [

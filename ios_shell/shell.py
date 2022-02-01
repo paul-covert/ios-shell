@@ -163,7 +163,7 @@ class ShellFile:
     def get_time(self) -> datetime.datetime:
         """A time to associate the contents with.
 
-        Typically the START TIME field of *FILE
+        Typically the START TIME field of \\*FILE
         """
         if self.file.start_time != datetime.datetime.min:
             return self.file.start_time
