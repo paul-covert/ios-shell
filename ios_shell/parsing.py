@@ -47,21 +47,36 @@ def get_section(
         line, rest = _next_line(rest)
         if line.strip() == "" or line.startswith("!"):
             # skip comments
-            pass
+            if utils.is_table_mask(line):
+                raise ValueError(
+                    f"'{line}' is a table mask, but the table header was not found."
+                )
         elif m := re.fullmatch(TABLE_START_PATTERN, line):
             # handle table
             table_name = m.group(1).lower()
             # table column names
+            column_names_lines = []
             line, rest = _next_line(rest)
-            column_names_line = line
-            # table column mask
-            line, rest = _next_line(rest)
+            # column names may appear across multiple lines
+            while not utils.is_table_mask(line):
+                if not line.lstrip().startswith("!"):
+                    raise ValueError(
+                        f"'{line}' was expected to contain the column names for the table {table_name}."
+                    )
+                column_names_lines.append(line)
+                line, rest = _next_line(rest)
             mask = [c == "-" for c in line]
-            # apply column mask in case names contain spaces
-            column_names = [
-                name.lower().strip().replace(" ", "_")
-                for name in utils.apply_column_mask(column_names_line, mask)
-            ]
+
+            column_names = []
+            for column_names_line in column_names_lines:
+                # apply column mask in case names contain spaces
+                names = utils.apply_column_mask(column_names_line, mask)
+                column_names.append([])
+                for name in names:
+                    column_names[-1].append(name.lower().strip().replace(" ", "_"))
+            # combine the column names from each row
+            column_names = ["\n".join(lines) for lines in zip(*column_names)]
+
             # values
             section_info[table_name] = []
             line, rest = _next_line(rest)
@@ -90,8 +105,11 @@ def get_section(
             section_info[REMARKS] = "\n".join(remarks)  # pragma: no mutate
         else:
             # handle single entry
-            key, value = line.split(":", 1)
-            section_info[key.strip().lower()] = value.strip()
+            try:
+                key, value = line.split(":", 1)
+                section_info[key.strip().lower()] = value.strip()
+            except ValueError:
+                raise ValueError(f"Expected '{line}' to be a key-value pair.")
     return section_info, rest
 
 

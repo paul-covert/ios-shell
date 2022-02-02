@@ -279,3 +279,24 @@ def test_utils_get_longitude(lon_str, expected):
 )
 def test_utils_to_datetime_rejects_unknown_values(contents):
     assert utils.to_datetime(contents) == datetime.datetime.min
+
+
+@pytest.mark.parametrize(
+    "line",
+    [
+        "    ! --- ------ ---- --",
+    ],
+)
+def test_utils_is_table_mask(line):
+    assert utils.is_table_mask(line)
+
+
+@pytest.mark.parametrize(
+    "line",
+    [
+        "! not a table mask",
+        "! --- ------ ---- --",  # this is a formatting mask for data
+    ],
+)
+def test_utils_is_table_mask_fails(line):
+    assert not utils.is_table_mask(line)
