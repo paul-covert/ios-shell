@@ -30,6 +30,7 @@ mypy = "^0.910"
 black = "^21.12b0"
 mutmut = "^2.2.0"
 Sphinx = "^4.4.0"
+sphinx-rtd-theme = "^1.0.0"
 
 [tool.pytest.ini_options]
 markers = [

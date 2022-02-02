@@ -9,6 +9,8 @@ NAN = float("NaN")
 
 @dataclass
 class Version:
+    """Represents the \\*IOS HEADER VERSION line of the file."""
+
     version_no: str
     date1: str
     date2: str
@@ -16,6 +18,8 @@ class Version:
 
 
 class Channel:
+    """A single entry in the CHANNELS table."""
+
     no: int  # acts as an identifier
     name: str
     units: str
@@ -43,6 +47,8 @@ class Channel:
 
 
 class ChannelDetail:
+    """A single entry in the CHANNEL DETAILS table."""
+
     no: int  # acts as an identifier
     pad: float
     start: str
@@ -74,6 +80,8 @@ class ChannelDetail:
 
 @dataclass
 class FileInfo:
+    """Represents the \\*FILE section."""
+
     start_time: datetime.datetime
     end_time: datetime.datetime
     time_zero: datetime.datetime
@@ -91,6 +99,8 @@ class FileInfo:
 
 @dataclass
 class Administration:
+    """Represents the \\*ADMINISTRATION section."""
+
     mission: str
     agency: str
     country: str
@@ -103,6 +113,8 @@ class Administration:
 
 @dataclass
 class Location:
+    """Represents the \\*LOCATION section."""
+
     geographic_area: str
     station: str
     event_number: int
@@ -115,6 +127,8 @@ class Location:
 
 @dataclass
 class Instrument:
+    """Represents the \\*INSTRUMENT section."""
+
     type: str
     model: str
     serial_number: str
@@ -125,6 +139,8 @@ class Instrument:
 
 @dataclass
 class Program:
+    """A single entry in the PROGRAMS table."""
+
     name: str
     version: str
     date: datetime.date
@@ -135,12 +151,16 @@ class Program:
 
 @dataclass
 class Raw:
+    """Represents the \\*RAW section."""
+
     remarks: str
     raw: Dict[str, Any]
 
 
 @dataclass
 class History:
+    """Represents the \\*HISTORY section."""
+
     programs: List[Program]
     remarks: str
     raw: Dict[str, Any]
@@ -148,6 +168,8 @@ class History:
 
 @dataclass
 class Calibration:
+    """Represents the \\*CALIBRATION section."""
+
     corrected_channels: List[Dict[str, str]]
     remarks: str
     raw: Dict[str, Any]
@@ -155,6 +177,8 @@ class Calibration:
 
 @dataclass
 class Deployment:
+    """Represents the \\*DEPLOYMENT section."""
+
     mission: str
     type: str
     anchor_dropped: datetime.datetime
@@ -164,6 +188,8 @@ class Deployment:
 
 @dataclass
 class Recovery:
+    """Represents the \\*RECOVERY section."""
+
     mission: str
     anchor_released: datetime.datetime
     remarks: str

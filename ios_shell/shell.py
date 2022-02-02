@@ -1,53 +1,48 @@
 """Contains high-level object representing the whole of an IOS Shell file."""
+from dataclasses import dataclass
 import datetime
-from typing import Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Union
 
 from . import parsing, sections
 
 
+@dataclass
 class ShellFile:
-    def __init__(
-        self,
-        filename: str,
-        modified_date: datetime.datetime,
-        header_version: sections.Version,
-        file: sections.FileInfo,
-        administration: sections.Administration,
-        location: sections.Location,
-        instrument: Optional[sections.Instrument],
-        history: Optional[sections.History],
-        calibration: Optional[sections.Calibration],
-        deployment: Optional[sections.Deployment],
-        recovery: Optional[sections.Recovery],
-        raw: Optional[sections.Raw],
-        comments: str,
-        data: Union[List[List[object]], str],
-    ):
-        self.filename = filename
-        self.modified_date = modified_date
-        self.header_version = header_version
-        self.file = file
-        self.administration = administration
-        self.location = location
-        self.instrument = instrument
-        self.history = history
-        self.calibration = calibration
-        self.deployment = deployment
-        self.recovery = recovery
-        self.raw = raw
-        self.comments = comments
-        self.data = data
+    """Represents the contents of an IOS Shell file."""
+
+    filename: str
+    """The file name the data originally came from.
+    Useful for debugging."""
+    modified_date: datetime.datetime
+    header_version: sections.Version
+    file: sections.FileInfo
+    administration: sections.Administration
+    location: sections.Location
+    instrument: Optional[sections.Instrument]
+    history: Optional[sections.History]
+    calibration: Optional[sections.Calibration]
+    deployment: Optional[sections.Deployment]
+    recovery: Optional[sections.Recovery]
+    raw: Optional[sections.Raw]
+    """The contents of the section starting with \\*RAW, not the raw file contents."""
+    comments: str
+    data: Union[List[List[Any]], str]
+    """Data is assumed to be processed if it is a List[List[Any]],
+    and unprocessed if it is a str.
+
+    Some data has been known to contain dates or arbitrary strings, so raw numpy arrays
+    are difficult to make work."""
 
     @classmethod
     def fromfile(cls, filename, process_data=True):  # pragma: no mutate
-        """Construct a ShellFile object from the contents of a file"""
+        """Construct a ShellFile object from the contents of a file."""
         with open(filename, "r", encoding="ASCII", errors="ignore") as f:
             contents = f.read()
         return ShellFile.fromcontents(contents, process_data, filename=filename)
 
     @classmethod
     def fromcontents(cls, contents, process_data=True, filename="bare string"):
-        """Construct a ShellFile object from the contents of a string"""
+        """Construct a ShellFile object from the contents of a string."""
         header, raw_data = contents.split("*END OF HEADER", 1)  # pragma: no mutate
         header_lines = header.splitlines()
         header_lines.append("*END OF HEADER")
@@ -154,7 +149,7 @@ class ShellFile:
         return info
 
     def get_location(self) -> Dict[str, float]:
-        """Produce a conventent dict of the longitude and latitude in the file"""
+        """Produce a conventent dict of the longitude and latitude in the file."""
         return {
             "longitude": self.location.longitude,
             "latitude": self.location.latitude,
@@ -173,11 +168,11 @@ class ShellFile:
             raise ValueError("No valid time found")
 
     def data_is_processed(self) -> bool:
-        """Determine whether or not the data in the file has already been processed"""
+        """Determine whether or not the data in the file has already been processed."""
         return not isinstance(self.data, str)
 
     def process_data(self):
-        """Perform the processing of the data"""
+        """Perform the processing of the data."""
         if self.data_is_processed():
             return
         # assertion to satisfy (optional) type checking
