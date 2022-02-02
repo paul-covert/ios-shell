@@ -73,9 +73,12 @@ def get_section(
                 names = utils.apply_column_mask(column_names_line, mask)
                 column_names.append([])
                 for name in names:
-                    column_names[-1].append(name.lower().strip().replace(" ", "_"))
+                    column_names[-1].append(name.lower().strip())
             # combine the column names from each row
-            column_names = ["\n".join(lines) for lines in zip(*column_names)]
+            column_names = [
+                " ".join(lines).strip().replace(" ", "_")
+                for lines in zip(*column_names)
+            ]
 
             # values
             section_info[table_name] = []

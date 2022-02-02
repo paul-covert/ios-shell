@@ -70,7 +70,7 @@ def test_get_file():
     $END
 
     $TABLE: CHANNEL DETAIL
-    ! No  Pad     Start  Width  Format  Type  Decimal_Places
+    ! No  Pad     Start  Width  Format  Type  Decimal Places
     !---  ------  -----  -----  ------  ----  --------------
        1  -99.9   ' '        6  F       ' '     0
        2  -99.99  ' '        7  F       ' '     2
@@ -87,6 +87,7 @@ def test_get_file():
 *END OF HEADER""".splitlines()
     )
     assert len(file.channels) == len(file.channel_details)
+    assert all("decimal_places" in detail for detail in file.raw[CHANNEL_DETAIL])
     tz = datetime.timezone(datetime.timedelta(hours=-8))
     assert file.start_time == datetime.datetime(
         1933, 7, 25, hour=15, minute=35, tzinfo=tz
@@ -292,6 +293,8 @@ def test_get_raw():
     )
     assert raw.remarks.strip() == "words words words"
     assert NUMBER_OF_RECORDS in raw.raw
+    assert all("name" in channel for channel in raw.raw[CHANNELS])
+    assert all("averaging_interval" in channel for channel in raw.raw[CHANNELS])
     assert rest == ["*END OF HEADER"]
 
     raw, _ = parsing.get_raw(
