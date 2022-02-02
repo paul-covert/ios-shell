@@ -300,3 +300,17 @@ def test_utils_is_table_mask(line):
 )
 def test_utils_is_table_mask_fails(line):
     assert not utils.is_table_mask(line)
+
+
+@pytest.mark.parametrize(
+    "data,mask,expected",
+    [
+        ("words words words", "----- ----- -----", ["words", "words", "words"]),
+        ("words words", "----- ----- -----", ["words", "words", "     "]),
+        ("wordswordswords", "----- ----- -----", ["words", "ordsw", "rds  "]),
+        ("words words words", "----- -----", ["words", "words words"]),
+    ],
+)
+def test_utils_apply_column_mask(data, mask, expected):
+    actual = utils.apply_column_mask(data, [c == "-" for c in mask])
+    assert actual == expected
