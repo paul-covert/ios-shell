@@ -38,7 +38,14 @@ class ShellFile:
         """Construct a ShellFile object from the contents of a file."""
         with open(filename, "r", encoding="ASCII", errors="ignore") as f:
             contents = f.read()
-        return ShellFile.fromcontents(contents, process_data, filename=filename)
+        try:
+            return ShellFile.fromcontents(contents, process_data, filename=filename)
+        except ValueError as e:
+            if filename in str(e):
+                raise
+            exc = ValueError(f"Error in {filename}: {e}")
+            exc.__traceback__ = e.__traceback__
+            raise exc from None
 
     @classmethod
     def fromcontents(cls, contents, process_data=True, filename="bare string"):
@@ -177,9 +184,12 @@ class ShellFile:
             return
         # assertion to satisfy (optional) type checking
         assert isinstance(self.data, str)
-        data, rest = parsing.get_data(
-            self.data, self.file.format, self.file.number_of_records, self.filename
-        )
-        if self.data == rest:
-            raise ValueError(f"Could not process data")
-        self.data = data
+        try:
+            data, _ = parsing.get_data(
+                self.data, self.file.format, self.file.number_of_records
+            )
+            self.data = data
+        except Exception as e:
+            exc = ValueError(f"Error processing data in {self.filename}: {e}")
+            exc.__traceback__ = e.__traceback__
+            raise exc from None

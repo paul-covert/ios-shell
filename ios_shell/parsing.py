@@ -112,7 +112,7 @@ def get_section(
                 key, value = line.split(":", 1)
                 section_info[key.strip().lower()] = value.strip()
             except ValueError:
-                raise ValueError(f"Expected '{line}' to be a key-value pair.")
+                raise ValueError(f"Expected '{line}' to be a key-value pair.") from None
     return section_info, rest
 
 
@@ -384,27 +384,14 @@ def _postprocess_line(line: List[Any]) -> List[Any]:
     return [_process_item(item) for item in line]
 
 
-def get_data(
-    contents: str, format: str, records: int, filename: str
-) -> Tuple[List[List[Any]], str]:
+def get_data(contents: str, format: str, records: int) -> Tuple[List[List[Any]], str]:
     """Process the data in the file"""
     lines = contents.splitlines()
     while "" in lines:
         lines.remove("")
     if len(lines) < records:
-        logging.exception(
-            f"Insufficient data for requested number of records in {filename}"
-        )
-        return [], contents
-    try:
-        reader = ff.FortranRecordReader(format)
-    except Exception as e:
-        logging.exception(f"Failed using format {format} in {filename}: {e}")
-        return [], contents
-    try:
-        data = [_postprocess_line(reader.read(line)) for line in lines[:records]]
-        rest = "\n".join(lines[records:])  # pragma: no mutate
-        return data, rest
-    except Exception as e:
-        logging.exception(f"Could not read data from {filename}: {e}")
-        return [], contents
+        raise ValueError(f"Insufficient data for requested number of records")
+    reader = ff.FortranRecordReader(format)
+    data = [_postprocess_line(reader.read(line)) for line in lines[:records]]
+    rest = "\n".join(lines[records:])  # pragma: no mutate
+    return data, rest
