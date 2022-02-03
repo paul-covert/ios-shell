@@ -5,7 +5,7 @@ It has no relation to iOS or terminal shells.
 
 ## Prerequisites
 
-- Python 3.8 or 3.9 with pip
+- Python 3.8, 3.9, or 3.10 with pip
 
 ## Installation
 
