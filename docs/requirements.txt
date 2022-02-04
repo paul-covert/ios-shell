@@ -1,0 +1,2 @@
+fortranformat==1.1.1 \
+    --hash=sha256:9b7aa2148af7a5f4f5fd955d121bd6869d44b82ac2182d459813b849aa87d831
