@@ -5,7 +5,7 @@ Welcome to IOS Shell's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   source/modules
+   ios_shell/index
 
 
 

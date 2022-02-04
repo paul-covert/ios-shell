@@ -9,16 +9,20 @@ Module contents
    :undoc-members:
    :show-inheritance:
 
+Exposed Submodules
+------------------
+
 .. toctree::
    :maxdepth: 2
-   :caption: Exposed Submodules
 
    shell
    sections
 
+Other Submodules
+----------------
+
 .. toctree::
    :maxdepth: 2
-   :caption: Other Submodules
 
    parsing
    utils
