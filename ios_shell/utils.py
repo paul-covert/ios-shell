@@ -1,6 +1,5 @@
 """Contains useful functions for parsing that are not themselves parsing functions."""
 import datetime
-import re
 from typing import List
 
 from .regex import *
@@ -106,11 +105,11 @@ def to_datetime(value: str) -> datetime.datetime:
     if value in ["", "?"] or "unk" in value.lower():
         return datetime.datetime.min
     # separate matches are required in order to avoid reusing group names
-    if m := re.match(DATE_TIME_PATTERN, value):
+    if m := DATE_TIME_PATTERN.match(value):
         return _to_datetime(tz="UTC", **m.groupdict())
-    elif m := re.match(TZ_DATE_TIME_PATTERN, value):
+    elif m := TZ_DATE_TIME_PATTERN.match(value):
         return _to_datetime(**m.groupdict(""))
-    elif m := re.match(DATE_TIME_TZ_PATTERN, value):
+    elif m := DATE_TIME_TZ_PATTERN.match(value):
         return _to_datetime(**m.groupdict(""))
     else:
         raise ValueError(f"Unknown time format: {value}")
@@ -140,7 +139,7 @@ def get_longitude(coord: str) -> float:
 
 def is_section_heading(s: str) -> bool:
     """Decide whether or not a string represents the beginning of a secion."""
-    return re.fullmatch(SECTION_HEADING_PATTERN, s) is not None
+    return SECTION_HEADING_PATTERN.fullmatch(s) is not None
 
 
 def is_table_mask(line: str) -> bool:

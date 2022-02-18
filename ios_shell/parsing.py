@@ -3,7 +3,6 @@ import datetime
 import fortranformat as ff
 import logging
 import math
-import re
 from typing import Any, Dict, List, Tuple
 
 from . import sections, utils
@@ -18,7 +17,7 @@ def _next_line(rest: List[str]) -> Tuple[str, List[str]]:
 def get_modified_date(contents: List[str]) -> Tuple[datetime.datetime, List[str]]:
     """Parse the modified date."""
     line, rest = _next_line(contents)
-    if m := re.fullmatch(MODIFIED_DATE_PATTERN, line):
+    if m := MODIFIED_DATE_PATTERN.fullmatch(line):
         return (utils.to_datetime(m.group(1)), rest)
     else:
         raise ValueError("No modified date at start of string")
@@ -27,7 +26,7 @@ def get_modified_date(contents: List[str]) -> Tuple[datetime.datetime, List[str]
 def get_header_version(contents: List[str]) -> Tuple[sections.Version, List[str]]:
     """Parse the header version string."""
     line, rest = _next_line(contents)
-    if m := re.fullmatch(HEADER_VERSION_PATTERN, line):
+    if m := HEADER_VERSION_PATTERN.fullmatch(line):
         return (sections.Version(**m.groupdict()), rest)
     else:
         raise ValueError("No header version in string")
@@ -51,7 +50,7 @@ def get_section(
                 raise ValueError(
                     f"'{line}' is a table mask, but the table header was not found."
                 )
-        elif m := re.fullmatch(TABLE_START_PATTERN, line):
+        elif m := TABLE_START_PATTERN.fullmatch(line):
             # handle table
             table_name = m.group(1).lower()
             # table column names
@@ -83,7 +82,7 @@ def get_section(
             # values
             section_info[table_name] = []
             line, rest = _next_line(rest)
-            while not re.fullmatch(END_PATTERN, line.lstrip()):
+            while not END_PATTERN.fullmatch(line.lstrip()):
                 section_info[table_name].append(
                     {
                         column_names[i]: v
@@ -91,18 +90,18 @@ def get_section(
                     }
                 )
                 line, rest = _next_line(rest)
-        elif m := re.fullmatch(ARRAY_START_PATTERN, line):
+        elif m := ARRAY_START_PATTERN.fullmatch(line):
             array_name = m.group(1).lower()
             section_info[array_name] = []
             line, rest = _next_line(rest)
-            while not re.fullmatch(END_PATTERN, line):
+            while not END_PATTERN.fullmatch(line):
                 section_info[array_name].append(line)
                 line, rest = _next_line(rest)
-        elif m := re.fullmatch(REMARKS_START_PATTERN, line):
+        elif m := REMARKS_START_PATTERN.fullmatch(line):
             # handle remarks
             remarks = []
             line, rest = _next_line(rest)
-            while not re.fullmatch(END_PATTERN, line):
+            while not END_PATTERN.fullmatch(line):
                 remarks.append(line)
                 line, rest = _next_line(rest)
             section_info[REMARKS] = "\n".join(remarks)  # pragma: no mutate
@@ -347,7 +346,7 @@ def get_recovery(contents: List[str]) -> Tuple[sections.Recovery, List[str]]:
 def get_comments(contents: List[str]) -> Tuple[str, List[str]]:
     """Parse the \\*COMMENTS section"""
     line, rest = _next_line(contents)
-    if re.fullmatch(COMMENTS_START_PATTERN, line):
+    if COMMENTS_START_PATTERN.fullmatch(line):
         lines = []
         while not utils.is_section_heading(rest[0]):
             line, rest = _next_line(rest)
@@ -358,11 +357,11 @@ def get_comments(contents: List[str]) -> Tuple[str, List[str]]:
 
 
 def _has_date(contents: str) -> bool:
-    return re.search(DATE_PATTERN, contents) is not None
+    return DATE_PATTERN.search(contents) is not None
 
 
 def _has_time(contents: str) -> bool:
-    return re.search(TIME_PATTERN, contents) is not None
+    return TIME_PATTERN.search(contents) is not None
 
 
 def _process_item(contents: Any) -> Any:
