@@ -5,18 +5,19 @@ from typing import List
 from .regex import *
 
 
-def apply_column_mask(data: str, mask: List[bool]) -> List[str]:
+def apply_column_mask(data: str, mask: str) -> List[str]:
     """Apply a mask to a single row of data.
 
     :param data: the row of data to break up
-    :param mask: a string with - for every character to be included as an element
+    :param mask: a string with '-' for every character to be included as an element
     """
     PLACEHOLDER = "@"  # pragma: no mutate
-    data = data.rstrip().ljust(len(mask))
+    length = max(len(data), len(mask))
     masked = [
-        c if i >= len(mask) or mask[i] else PLACEHOLDER for i, c in enumerate(data)
+        c if m == "-" else PLACEHOLDER
+        for c, m in zip(data.ljust(length), mask.ljust(length, "-"))
     ]
-    out = "".join(masked).split(PLACEHOLDER)
+    out = "".join(masked).strip(PLACEHOLDER).split(PLACEHOLDER)
     while "" in out:
         out.remove("")
     return out

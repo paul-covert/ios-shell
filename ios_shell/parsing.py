@@ -64,7 +64,7 @@ def get_section(
                     )
                 column_names_lines.append(line)
                 line, rest = _next_line(rest)
-            mask = [c == "-" for c in line]
+            mask = line
 
             column_names = []
             for column_names_line in column_names_lines:

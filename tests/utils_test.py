@@ -312,5 +312,5 @@ def test_utils_is_table_mask_fails(line):
     ],
 )
 def test_utils_apply_column_mask(data, mask, expected):
-    actual = utils.apply_column_mask(data, [c == "-" for c in mask])
+    actual = utils.apply_column_mask(data, mask)
     assert actual == expected
