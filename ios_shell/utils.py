@@ -11,15 +11,14 @@ def apply_column_mask(data: str, mask: str) -> List[str]:
     :param data: the row of data to break up
     :param mask: a string with '-' for every character to be included as an element
     """
-    PLACEHOLDER = "@"  # pragma: no mutate
-    length = max(len(data), len(mask))
-    masked = [
-        c if m == "-" else PLACEHOLDER
-        for c, m in zip(data.ljust(length), mask.ljust(length, "-"))
-    ]
-    out = "".join(masked).strip(PLACEHOLDER).split(PLACEHOLDER)
-    while "" in out:
-        out.remove("")
+    data = data.ljust(len(mask))
+    end = 0
+    out = []
+    while end > -1:
+        start = mask.find("-", end)
+        end = mask.find(" ", start)
+        out.append(data[start:end])
+    out[-1] += data[end:]
     return out
 
 
