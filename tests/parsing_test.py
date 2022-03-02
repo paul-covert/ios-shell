@@ -86,7 +86,8 @@ def test_get_file():
 
 *END OF HEADER""".splitlines()
     )
-    assert len(file.channels) == len(file.channel_details)
+    assert len(file.channels) == 6
+    assert len(file.channel_details) == 6
     assert all("decimal_places" in detail for detail in file.raw[CHANNEL_DETAIL])
     tz = datetime.timezone(datetime.timedelta(hours=-8))
     assert file.start_time == datetime.datetime(
@@ -124,17 +125,6 @@ def test_get_file():
        4 Oxygen:Dissolved        mL/L     1.932          7.924
        5 Silicate                umol/L   6.8            38.2
        6 Phosphate               umol/L   0.55           2.25
-    $END
-
-    $TABLE: CHANNEL DETAIL
-    ! No  Pad     Start  Width  Format  Type  Decimal_Places
-    !---  ------  -----  -----  ------  ----  --------------
-       1  -99.9   ' '    ' '    ' '     ' '   ' '
-       2  -99.99  ' '    ' '    ' '     ' '   ' '
-       3  -99.99  ' '    ' '    ' '     ' '   ' '
-       4  -99.99  ' '    ' '    ' '     ' '   ' '
-       5  -99.99  ' '    ' '    ' '     ' '   ' '
-       6  -99.99  ' '    ' '    ' '     ' '   ' '
     $END
 
 *END OF HEADER""".splitlines()
