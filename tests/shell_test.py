@@ -308,3 +308,360 @@ To see the real data, go to this link:..."""
         assert False
     except:
         assert not info.data_is_processed()
+
+
+def test_get_complete_header_non_optional_sections():
+    contents = """*2018/06/22 09:04:04.94
+*IOS HEADER VERSION 2.0      2016/04/28 2016/06/13 IVF16
+
+*FILE
+    START TIME          : UTC 2015/03/16 10:36:00.000
+    NUMBER OF RECORDS   : 1
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    NUMBER OF CHANNELS  : 4
+
+    $TABLE: CHANNELS
+    ! No Name                         Units    Minimum        Maximum
+    !--- ---------------------------- -------- -------------- --------------
+       1 Depth:Nominal                metres   0              0
+       2 Sample_Number                n/a      5              5
+       3 Chlorophyll:Extracted        mg/m^3   30.69          30.69
+       4 Flag:Chlorophyll:Extracted   ' '
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  -99   ' '        6  F       R4      0
+       2  -99   ' '        5  I       I       0
+       3  -99   ' '        7  F       R4      2
+       4  ' '   ' '        3  NQ      C     ' '
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1993-001
+
+*LOCATION
+    LATITUDE            :  50   6.00000 N  ! (deg min)
+    LONGITUDE           : 124  54.00000 W  ! (deg min)
+
+*COMMENTS
+words words words
+
+*END OF HEADER
+    0.    5  30.69 6"""
+
+    info = shell.ShellFile.fromcontents(contents, process_data=False)
+    assert info.get_complete_header() == {
+        "file": {
+            "start time": "UTC 2015/03/16 10:36:00.000",
+            "number of records": "1",
+            "data description": "Bottle:Wire",
+            "file type": "ASCII",
+            "number of channels": "4",
+            "channels": [
+                {
+                    "no": "  1",
+                    "name": "Depth:Nominal               ",
+                    "units": "metres  ",
+                    "minimum": "0             ",
+                    "maximum": "0             ",
+                },
+                {
+                    "no": "  2",
+                    "name": "Sample_Number               ",
+                    "units": "n/a     ",
+                    "minimum": "5             ",
+                    "maximum": "5             ",
+                },
+                {
+                    "no": "  3",
+                    "name": "Chlorophyll:Extracted       ",
+                    "units": "mg/m^3  ",
+                    "minimum": "30.69         ",
+                    "maximum": "30.69         ",
+                },
+                {
+                    "no": "  4",
+                    "name": "Flag:Chlorophyll:Extracted  ",
+                    "units": "' '     ",
+                    "minimum": "              ",
+                    "maximum": "              ",
+                },
+            ],
+            "channel detail": [
+                {
+                    "no": "  1",
+                    "pad": "-99 ",
+                    "start": "' '  ",
+                    "width": "    6",
+                    "format": "F     ",
+                    "type": "R4  ",
+                    "decimal_places": "  0           ",
+                },
+                {
+                    "no": "  2",
+                    "pad": "-99 ",
+                    "start": "' '  ",
+                    "width": "    5",
+                    "format": "I     ",
+                    "type": "I   ",
+                    "decimal_places": "  0           ",
+                },
+                {
+                    "no": "  3",
+                    "pad": "-99 ",
+                    "start": "' '  ",
+                    "width": "    7",
+                    "format": "F     ",
+                    "type": "R4  ",
+                    "decimal_places": "  2           ",
+                },
+                {
+                    "no": "  4",
+                    "pad": "' ' ",
+                    "start": "' '  ",
+                    "width": "    3",
+                    "format": "NQ    ",
+                    "type": "C   ",
+                    "decimal_places": "' '           ",
+                },
+            ],
+        },
+        "administration": {
+            "mission": "1993-001",
+        },
+        "location": {
+            "latitude": "50   6.00000 N  ! (deg min)",
+            "longitude": "124  54.00000 W  ! (deg min)",
+        },
+        "comments": "words words words",
+    }
+
+
+def test_get_complete_header_optional_sections():
+    contents = """*2018/06/22 09:04:04.94
+*IOS HEADER VERSION 2.0      2016/04/28 2016/06/13 IVF16
+
+*FILE
+    START TIME          : UTC 2015/03/16 10:36:00.000
+    NUMBER OF RECORDS   : 1
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    NUMBER OF CHANNELS  : 1
+
+    $TABLE: CHANNELS
+    ! No Name                         Units    Minimum        Maximum
+    !--- ---------------------------- -------- -------------- --------------
+       1 Depth:Nominal                metres   0              0
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  -99   ' '        6  F       R4      0
+    $END
+
+*ADMINISTRATION
+    MISSION   : 1993-001
+    AGENCY    : UBC
+    COUNTRY   : Canada
+    PROJECT   : Kitimat
+    SCIENTIST : C. Hannah
+    PLATFORM  : Tully
+    $REMARKS
+        words words words
+    $END
+
+*LOCATION
+    GEOGRAPHIC AREA : Strait of Georgia
+    STATION         : SOGN
+    EVENT NUMBER    : 13
+    LATITUDE        :  49 39.00000 N
+    LONGITUDE       : 126 27.20000 W
+    WATER DEPTH     : 332
+    $REMARKS
+        words words words
+    $END
+
+*INSTRUMENT
+    TYPE          : bottle
+    MODEL         : abcd
+    SERIAL NUMBER : 123456
+    DEPTH         : 456
+    $REMARKS
+        words words words
+    $END
+
+*RAW
+    NUMBER OF RECORDS   : 99999
+    $TABLE: CHANNELS
+    !                                Averaging (day hr min sec ms)
+    !Name                 Raw Units  Interval   Time Lag
+    !-------------------- ---------  ---------  -----------
+     PRESSURE             ' DBAR'
+     TEMPERATURE          '    C'
+     'CONDUCTIVITY RATIO' RATIO
+    $END
+    $REMARKS
+        words words words
+    $END
+
+*HISTORY
+    $TABLE: PROGRAMS
+    !   Name     Vers   Date       Time     Recs In   Recs Out
+    !   -------- ------ ---------- -------- --------- ---------
+        RCM_CNVT 1.1    2019/07/18 10:36:44         0      2001
+    $END
+    $REMARKS
+        words words words
+    $END
+
+*CALIBRATION
+    $TABLE: CORRECTED CHANNELS
+    !   Name     Units  Fmla Pad    Coefficients
+    !   -------- ------ ---- ------ ------------
+        Oxygen   mg/l     10 -99.99 () (0 0.223916E-01)
+    $END
+    $REMARKS
+        words words words
+    $END
+
+*DEPLOYMENT
+    MISSION             : 1930-01
+    TYPE                : some type
+    TIME ANCHOR DROPPED : UTC 1930/01/01 00:00:00
+    $REMARKS
+        words words words
+    $END
+
+*RECOVERY
+    MISSION              : 1930-01
+    TIME ANCHOR RELEASED : UTC 1930/01/01 00:00:00
+    $REMARKS
+        words words words
+    $END
+
+*COMMENTS
+words words words
+
+*END OF HEADER
+    0.    5  30.69 6"""
+
+    info = shell.ShellFile.fromcontents(contents, process_data=False)
+    assert info.get_complete_header() == {
+        "file": {
+            "start time": "UTC 2015/03/16 10:36:00.000",
+            "number of records": "1",
+            "data description": "Bottle:Wire",
+            "file type": "ASCII",
+            "number of channels": "1",
+            "channels": [
+                {
+                    "no": "  1",
+                    "name": "Depth:Nominal               ",
+                    "units": "metres  ",
+                    "minimum": "0             ",
+                    "maximum": "0             ",
+                },
+            ],
+            "channel detail": [
+                {
+                    "no": "  1",
+                    "pad": "-99 ",
+                    "start": "' '  ",
+                    "width": "    6",
+                    "format": "F     ",
+                    "type": "R4  ",
+                    "decimal_places": "  0           ",
+                },
+            ],
+        },
+        "administration": {
+            "mission": "1993-001",
+            "agency": "UBC",
+            "country": "Canada",
+            "project": "Kitimat",
+            "scientist": "C. Hannah",
+            "platform": "Tully",
+            "remarks": "        words words words",
+        },
+        "location": {
+            "geographic area": "Strait of Georgia",
+            "station": "SOGN",
+            "event number": "13",
+            "latitude": "49 39.00000 N",
+            "longitude": "126 27.20000 W",
+            "water depth": "332",
+            "remarks": "        words words words",
+        },
+        "instrument": {
+            "type": "bottle",
+            "model": "abcd",
+            "serial number": "123456",
+            "depth": "456",
+            "remarks": "        words words words",
+        },
+        "raw": {
+            "number of records": "99999",
+            "channels": [
+                {
+                    "name": "PRESSURE            ",
+                    "raw_units": "' DBAR'  ",
+                    "averaging_interval": "         ",
+                    "day_hr_min_sec_ms)_time_lag": "           ",
+                },
+                {
+                    "name": "TEMPERATURE         ",
+                    "raw_units": "'    C'  ",
+                    "averaging_interval": "         ",
+                    "day_hr_min_sec_ms)_time_lag": "           ",
+                },
+                {
+                    "name": "'CONDUCTIVITY RATIO'",
+                    "raw_units": "RATIO    ",
+                    "averaging_interval": "         ",
+                    "day_hr_min_sec_ms)_time_lag": "           ",
+                },
+            ],
+            "remarks": "        words words words",
+        },
+        "history": {
+            "programs": [
+                {
+                    "name": "RCM_CNVT",
+                    "vers": "1.1   ",
+                    "date": "2019/07/18",
+                    "time": "10:36:44",
+                    "recs_in": "        0",
+                    "recs_out": "     2001",
+                },
+            ],
+            "remarks": "        words words words",
+        },
+        "calibration": {
+            "corrected channels": [
+                {
+                    "name": "Oxygen  ",
+                    "units": "mg/l  ",
+                    "fmla": "  10",
+                    "pad": "-99.99",
+                    "coefficients": "() (0 0.223916E-01)",
+                },
+            ],
+            "remarks": "        words words words",
+        },
+        "deployment": {
+            "mission": "1930-01",
+            "type": "some type",
+            "time anchor dropped": "UTC 1930/01/01 00:00:00",
+            "remarks": "        words words words",
+        },
+        "recovery": {
+            "mission": "1930-01",
+            "time anchor released": "UTC 1930/01/01 00:00:00",
+            "remarks": "        words words words",
+        },
+        "comments": "words words words",
+    }

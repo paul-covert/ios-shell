@@ -32,6 +32,7 @@ class ShellFile:
 
     Some data has been known to contain dates or arbitrary strings, so raw numpy arrays
     are difficult to make work."""
+    geo_code: str = "None"
 
     @classmethod
     def fromfile(cls, filename, process_data=True):  # pragma: no mutate
@@ -193,3 +194,27 @@ class ShellFile:
             exc = ValueError(f"Error processing data in {self.filename}: {e}")
             exc.__traceback__ = e.__traceback__
             raise exc from None
+
+    def get_complete_header(self) -> Dict[str, Dict[str, Any]]:
+        header = {}
+        if self.file is not None:
+            header["file"] = self.file.raw
+        if self.administration is not None:
+            header["administration"] = self.administration.raw
+        if self.location is not None:
+            header["location"] = self.location.raw
+        if self.instrument is not None:
+            header["instrument"] = self.instrument.raw
+        if self.history is not None:
+            header["history"] = self.history.raw
+        if self.calibration is not None:
+            header["calibration"] = self.calibration.raw
+        if self.deployment is not None:
+            header["deployment"] = self.deployment.raw
+        if self.recovery is not None:
+            header["recovery"] = self.recovery.raw
+        if self.raw is not None:
+            header["raw"] = self.raw.raw
+        if self.comments is not None:
+            header["comments"] = self.comments
+        return header
