@@ -196,6 +196,7 @@ class ShellFile:
             raise exc from None
 
     def get_complete_header(self) -> Dict[str, Dict[str, Any]]:
+        """Returns all the present header information contained in the source file"""
         header = {}
         if self.file is not None:
             header["file"] = self.file.raw

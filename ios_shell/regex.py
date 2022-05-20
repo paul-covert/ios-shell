@@ -29,7 +29,7 @@ SECTION_HEADING_PATTERN = re.compile(r"\*[A-Z ]+")
 
 
 # used in parsing.py
-MODIFIED_DATE_PATTERN = re.compile(fr"\*({DATE_STR} {TIME_STR})")
+MODIFIED_DATE_PATTERN = re.compile(rf"\*({DATE_STR} {TIME_STR})")
 
 # the names inside the < and > must be the same as the arguments to sections.Version.__init__()
 MATCH_VERSION = r"(?P<version_no>\d+.\d+)"
@@ -38,7 +38,7 @@ MATCH_DATE2 = f"(?P<date2>{DATE_STR})"
 MATCH_TAG = "(?P<tag>[a-zA-Z0-9.]+)"
 
 HEADER_VERSION_PATTERN = re.compile(
-    fr"\*IOS HEADER VERSION +{MATCH_VERSION} +{MATCH_DATE1}( +{MATCH_DATE2}( +{MATCH_TAG})?)?"
+    rf"\*IOS HEADER VERSION +{MATCH_VERSION} +{MATCH_DATE1}( +{MATCH_DATE2}( +{MATCH_TAG})?)?"
 )
 
 TABLE_START_PATTERN = re.compile(r"\s*\$TABLE: (.+)")
