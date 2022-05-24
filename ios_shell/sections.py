@@ -85,6 +85,8 @@ class FileInfo:
     start_time: datetime.datetime
     end_time: datetime.datetime
     time_zero: datetime.datetime
+    time_increment: datetime.datetime
+    time_units: str
     number_of_records: int
     data_description: str
     file_type: str

@@ -314,3 +314,19 @@ def test_utils_is_table_mask_fails(line):
 def test_utils_apply_column_mask(data, mask, expected):
     actual = utils.apply_column_mask(data, mask)
     assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "description,expected",
+    [
+        ("30 0 0 0 0", datetime.timedelta(days=30)),
+        ("0 30 0 0 0", datetime.timedelta(hours=30)),
+        ("0 0 30 0 0", datetime.timedelta(minutes=30)),
+        ("0 0 0 30 0", datetime.timedelta(seconds=30)),
+        ("0 0 0 0 30", datetime.timedelta(milliseconds=30)),
+        ("n/a", datetime.timedelta(minutes=0)),
+    ],
+)
+def test_utils_to_increment(description, expected):
+    actual = utils.to_increment(description)
+    assert actual == expected

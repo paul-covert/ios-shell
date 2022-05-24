@@ -132,6 +132,12 @@ def get_file(contents: List[str]) -> Tuple[sections.FileInfo, List[str]]:
         if TIME_ZERO in file_dict
         else datetime.datetime.min
     )
+    time_increment = (
+        utils.to_increment(file_dict[TIME_INCREMENT].split("!")[0].strip())
+        if TIME_INCREMENT in file_dict
+        else datetime.timedelta(seconds=0)
+    )
+    time_units = file_dict[TIME_UNITS] if TIME_UNITS in file_dict else ""
     number_of_records = int(file_dict[NUMBER_OF_RECORDS])
     data_description = (
         file_dict[DATA_DESCRIPTION] if DATA_DESCRIPTION in file_dict else "n/a"
@@ -165,6 +171,8 @@ def get_file(contents: List[str]) -> Tuple[sections.FileInfo, List[str]]:
         start_time=start_time,
         end_time=end_time,
         time_zero=time_zero,
+        time_increment=time_increment,
+        time_units=time_units,
         number_of_records=number_of_records,
         data_description=data_description,
         file_type=file_type,

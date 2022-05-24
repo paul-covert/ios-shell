@@ -115,6 +115,19 @@ def to_datetime(value: str) -> datetime.datetime:
         raise ValueError(f"Unknown time format: {value}")
 
 
+def to_increment(description: str) -> datetime.timedelta:
+    if description == "n/a":
+        return datetime.timedelta(seconds=0)
+    days, hours, minutes, seconds, mseconds = description.split(" ")
+    return datetime.timedelta(
+        days=float(days),
+        hours=float(hours),
+        minutes=float(minutes),
+        seconds=float(seconds),
+        milliseconds=float(mseconds),
+    )
+
+
 def _get_coord(raw_coord: str, positive_marker: str, negative_marker: str) -> float:
     coord = raw_coord.split("!")[0]
     degrees, minutes, direction = coord.split()

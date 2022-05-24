@@ -53,7 +53,9 @@ def test_get_file():
         """*FILE
     START TIME          : PST 1933/07/25 15:35:00.000
     END TIME            : PST 1933/07/25 15:36:00.000
-    TIME Zero           : PST 1933/07/25 15:35:00.000
+    TIME ZERO           : PST 1933/07/25 15:35:00.000
+    TIME INCREMENT      : 0 0 30 0 0  ! (day hr min sec ms)
+    TIME UNITS          : Minutes
     NUMBER OF RECORDS   : 10
     DATA DESCRIPTION    : Bottle:Wire
     NUMBER OF CHANNELS  : 6
@@ -99,6 +101,8 @@ def test_get_file():
     assert file.time_zero == datetime.datetime(
         1933, 7, 25, hour=15, minute=35, tzinfo=tz
     )
+    assert file.time_increment == datetime.timedelta(minutes=30)
+    assert file.time_units == "Minutes"
     assert file.number_of_records == 10
     assert file.number_of_channels == 6
     assert file.data_description == "Bottle:Wire"

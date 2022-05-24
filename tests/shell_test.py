@@ -149,6 +149,8 @@ def test_shell_fromfile_just_header(file_name):
 
 def test_shell_init_does_the_right_thing():
     some_date = datetime.datetime(1970, 1, 1)
+    some_delta = datetime.timedelta(minutes=30)
+    some_units = "Minutes"
     filename = "thing.bot"
     modified = some_date
     version = sections.Version(
@@ -158,6 +160,8 @@ def test_shell_init_does_the_right_thing():
         start_time=some_date,
         end_time=some_date,
         time_zero=some_date,
+        time_increment=some_delta,
+        time_units=some_units,
         number_of_records=0,
         data_description="",
         file_type="",
