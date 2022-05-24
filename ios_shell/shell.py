@@ -245,7 +245,7 @@ class ShellFile:
             try:
                 time_increment = self.file.time_increment
                 obs_time = [
-                    self.file.start_date + (time_increment * i)
+                    self.file.start_time + (time_increment * i)
                     for i in range(self.file.number_of_records)
                 ]
             except Exception as e:
