@@ -58,6 +58,7 @@ def test_get_file():
     TIME UNITS          : Minutes
     NUMBER OF RECORDS   : 10
     DATA DESCRIPTION    : Bottle:Wire
+    PAD                 : -99
     NUMBER OF CHANNELS  : 6
 
     $TABLE: CHANNELS
@@ -106,6 +107,7 @@ def test_get_file():
     assert file.number_of_records == 10
     assert file.number_of_channels == 6
     assert file.data_description == "Bottle:Wire"
+    assert file.pad == -99
     assert file.format == "(F6.0,F7.2,F7.2,F7.2,F6.1,F7.2)"
     assert file.remarks.strip() == "words words words"
     assert START_TIME in file.raw

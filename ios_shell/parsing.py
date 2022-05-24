@@ -166,6 +166,7 @@ def get_file(contents: List[str]) -> Tuple[sections.FileInfo, List[str]]:
             for detail in channel_details
         ]
         format_str = "({})".format(",".join(format_info))
+    pad = float(file_dict[PAD]) if PAD in file_dict else math.nan
     remarks = file_dict[REMARKS] if REMARKS in file_dict else ""
     file_info = sections.FileInfo(
         start_time=start_time,
@@ -178,6 +179,7 @@ def get_file(contents: List[str]) -> Tuple[sections.FileInfo, List[str]]:
         file_type=file_type,
         format=format_str,
         data_type=data_type,
+        pad=pad,
         number_of_channels=number_of_channels,
         channels=channels,
         channel_details=channel_details,

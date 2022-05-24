@@ -167,6 +167,7 @@ def test_shell_init_does_the_right_thing():
         file_type="",
         format="",
         data_type="",
+        pad=-99,
         number_of_channels=0,
         channels=[],
         channel_details=[],

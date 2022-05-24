@@ -92,6 +92,7 @@ class FileInfo:
     file_type: str
     format: str
     data_type: str
+    pad: float
     number_of_channels: int
     channels: List[Channel]
     channel_details: List[ChannelDetail]

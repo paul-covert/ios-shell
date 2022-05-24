@@ -22,6 +22,7 @@ CHANNELS = "channels"
 CHANNEL_DETAIL = "channel detail"
 FORMAT = "format"
 CONTINUED = "continued"
+PAD = "pad"
 
 # *ADMINISTRATION keys
 MISSION = "mission"
