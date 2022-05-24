@@ -219,3 +219,44 @@ class ShellFile:
         if self.comments is not None:
             header["comments"] = self.comments
         return header
+
+    def get_obs_time(self) -> List[datetime.datetime]:
+        """Returns a list of all the datetime objects associated with the data"""
+        utc = datetime.timezone.utc
+
+        channel_names = [channel.name.strip().lower() for channel in self.file.channels]
+
+        if "date" in channel_names and "time" in channel_names:
+            date_idx = channel_names.index("date")
+            time_idx = channel_names.index("time")
+            dates = [row[date_idx] for row in self.data]
+            times = [row[time_idx] for row in self.data]
+            datetimes = [
+                datetime.datetime.combine(date, time)
+                for date, time in zip(dates, times)
+            ]
+            obs_time = [i.replace(tzinfo=utc) for i in datetimes]
+        elif "date" in channel_names and "time" not in channel_names:
+            date_idx = channel_names.index("date")
+            dates = [row[date_idx] for row in self.data]
+            obs_time = [i.replace(tzinfo=utc) for i in dates]
+        else:
+            print("Unable to find date/time columns in file", self.filename)
+            try:
+                time_increment = self.file.time_increment
+                obs_time = [
+                    self.file.start_date + (time_increment * i)
+                    for i in range(self.file.number_of_records)
+                ]
+            except Exception as e:
+                raise Exception("ERROR: Unable to use time increment", self.filename)
+
+        # date/time section in data is supposed to be in UTC.
+        # check if they match, if not then raise fatal error
+
+        if obs_time[0] != self.file.start_time:
+            raise Exception(
+                "Error: First record in data does not match start date in header",
+                self.filename,
+            )
+        return obs_time
