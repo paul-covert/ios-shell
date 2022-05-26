@@ -236,12 +236,13 @@ class ShellFile:
                 for date, time in zip(dates, times)
             ]
             obs_time = [i.replace(tzinfo=utc) for i in datetimes]
-        elif "date" in channel_names and "time" not in channel_names:
-            date_idx = channel_names.index("date")
+        elif "date_time" in channel_names or "date time" in channel_names:
+            name = "date_time" if "date_time" in channel_names else "date time"
+            date_idx = channel_names.index(name)
             dates = [row[date_idx] for row in self.data]
             obs_time = [i.replace(tzinfo=utc) for i in dates]
         else:
-            print("Unable to find date/time columns in file", self.filename)
+            # no date/time columns, assume TIME INCREMENT is present
             try:
                 time_increment = self.file.time_increment
                 obs_time = [
@@ -256,7 +257,7 @@ class ShellFile:
 
         if obs_time[0] != self.file.start_time:
             raise Exception(
-                "Error: First record in data does not match start date in header",
+                f"Error: First record in data ({obs_time[0]}) does not match start date in header ({self.file.start_time})",
                 self.filename,
             )
         return obs_time

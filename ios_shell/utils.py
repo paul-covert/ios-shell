@@ -108,12 +108,13 @@ def to_datetime(value: str) -> datetime.datetime:
     # attempting to cover "Unknown" and "Unk.000"
     if value in ["", "?"] or "unk" in value.lower():
         return datetime.datetime.min
+    trimmed = value.strip()
     # separate matches are required in order to avoid reusing group names
-    if m := DATE_TIME_PATTERN.match(value):
+    if m := DATE_TIME_PATTERN.match(trimmed):
         return _to_datetime(tz="UTC", **m.groupdict())
-    elif m := TZ_DATE_TIME_PATTERN.match(value):
+    elif m := TZ_DATE_TIME_PATTERN.match(trimmed):
         return _to_datetime(**m.groupdict(""))
-    elif m := DATE_TIME_TZ_PATTERN.match(value):
+    elif m := DATE_TIME_TZ_PATTERN.match(trimmed):
         return _to_datetime(**m.groupdict(""))
     else:
         raise ValueError(f"Unknown time format: {value}")
