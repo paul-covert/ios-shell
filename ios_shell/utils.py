@@ -1,6 +1,6 @@
 """Contains useful functions for parsing that are not themselves parsing functions."""
 import datetime
-from typing import List
+from typing import List, Any
 
 from .regex import *
 
@@ -14,8 +14,8 @@ def apply_column_mask(data: str, mask: str) -> List[str]:
     data = data.ljust(len(mask))
     end = 0
     out = []
-    while end > -1:
-        start = mask.find("-", end)
+    while end > -1:  # pragma: no mutate
+        start = mask.find("-", end)  # pragma: no mutate
         end = mask.find(" ", start)
         out.append(data[start:end])
     out[-1] += data[end:]
@@ -172,3 +172,13 @@ def is_table_mask(line: str) -> bool:
         and "-" in line
         and all(c in [" ", "!", "-"] for c in line)
     )
+
+
+def has_many_values(list: List[Any]) -> bool:
+    """Decide whether or not a list has more than one value"""
+    return len(list) > 1
+
+
+def all_same(list: List[Any]) -> bool:
+    """Decide whether or not a list's values are all the same"""
+    return len(set(list)) == 1

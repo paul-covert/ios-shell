@@ -3,7 +3,7 @@ from dataclasses import dataclass
 import datetime
 from typing import Any, Dict, List, Optional, Union
 
-from . import parsing, sections
+from . import parsing, sections, utils
 
 
 @dataclass
@@ -42,10 +42,10 @@ class ShellFile:
         try:
             return ShellFile.fromcontents(contents, process_data, filename=filename)
         except ValueError as e:
-            if filename in str(e):
+            if filename in str(e):  # pragma: no mutate
                 raise
-            exc = ValueError(f"Error in {filename}: {e}")
-            exc.__traceback__ = e.__traceback__
+            exc = ValueError(f"Error in {filename}: {e}")  # pragma: no mutate
+            exc.__traceback__ = e.__traceback__  # pragma: no mutate
             raise exc from None
 
     @classmethod
@@ -191,8 +191,10 @@ class ShellFile:
             )
             self.data = data
         except Exception as e:
-            exc = ValueError(f"Error processing data in {self.filename}: {e}")
-            exc.__traceback__ = e.__traceback__
+            exc = ValueError(
+                f"Error processing data in {self.filename}: {e}"  # pragma: no mutate
+            )  # pragma: no mutate
+            exc.__traceback__ = e.__traceback__  # pragma: no mutate
             raise exc from None
 
     def get_complete_header(self) -> Dict[str, Dict[str, Any]]:
@@ -236,9 +238,8 @@ class ShellFile:
                 for date, time in zip(dates, times)
             ]
             obs_time = [i.replace(tzinfo=utc) for i in datetimes]
-        elif "date_time" in channel_names or "date time" in channel_names:
-            name = "date_time" if "date_time" in channel_names else "date time"
-            date_idx = channel_names.index(name)
+        elif "date_time" in channel_names:
+            date_idx = channel_names.index("date_time")
             dates = [row[date_idx] for row in self.data]
             obs_time = [i.replace(tzinfo=utc) for i in dates]
         else:
@@ -249,6 +250,8 @@ class ShellFile:
                     self.file.start_time + (time_increment * i)
                     for i in range(self.file.number_of_records)
                 ]
+                if utils.has_many_values(obs_time) and utils.all_same(obs_time):
+                    raise Exception()
             except Exception as e:
                 raise Exception("ERROR: Unable to use time increment", self.filename)
 
@@ -257,7 +260,7 @@ class ShellFile:
 
         if obs_time[0] != self.file.start_time:
             raise Exception(
-                f"Error: First record in data ({obs_time[0]}) does not match start date in header ({self.file.start_time})",
+                f"Error: First record in data ({obs_time[0]}) does not match start date in header ({self.file.start_time})",  # pragma: no mutate
                 self.filename,
             )
         return obs_time

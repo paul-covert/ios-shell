@@ -138,8 +138,11 @@ def test_get_file():
     assert file.start_time == datetime.datetime.min
     assert file.end_time == datetime.datetime.min
     assert file.time_zero == datetime.datetime.min
+    assert file.time_increment == datetime.timedelta(minutes=0)
+    assert file.time_units == ""
     assert file.file_type == "n/a"
     assert file.data_description == "n/a"
+    assert math.isnan(file.pad)
     assert file.data_type == "n/a"
     assert file.remarks == ""
     assert file.format == "(F6.0,F7.2,F7.2,F7.2,F6.1,F7.2)"

@@ -85,7 +85,7 @@ def test_utils_to_datetime():
         ("' '", "C", 8, 0, "A8"),
         ("F8.3", "R4", 0, 0, "F8.3"),
         ("I8", "I", 0, 0, "I8"),
-        ("HH:MM", "DT", 0, 0, "A17")
+        ("HH:MM", "DT", 0, 0, "A17"),
     ],
 )
 def test_utils_format_string(format, kind, width, decimals, expected):
@@ -331,3 +331,32 @@ def test_utils_apply_column_mask(data, mask, expected):
 def test_utils_to_increment(description, expected):
     actual = utils.to_increment(description)
     assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "list,expected",
+    [
+        ([], False),
+        ([1], False),
+        ([1, 2], True),
+        ([1, 2, 3], True),
+    ],
+)
+def test_has_many_values(list, expected):
+    assert utils.has_many_values(list) == expected
+
+
+@pytest.mark.parametrize(
+    "list,expected",
+    [
+        ([], False),
+        ([1], True),
+        ([1, 1], True),
+        ([1, 2], False),
+        ([1, 1, 1], True),
+        ([1, 1, 2], False),
+        ([1, 2, 3], False),
+    ],
+)
+def test_all_same(list, expected):
+    assert utils.all_same(list) == expected
