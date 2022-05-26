@@ -72,23 +72,24 @@ def test_utils_to_datetime():
 
 
 @pytest.mark.parametrize(
-    "kind,width,decimals,expected",
+    "format,kind,width,decimals,expected",
     [
-        ("F", 8, 3, "F8.3"),
-        ("I", 8, 0, "I8"),
-        ("YYYY/MM/DD", 0, 0, "A11"),
-        ("YYYY-MM-DD", 0, 0, "A11"),
-        ("HH:MM", 0, 0, "A6"),
-        ("HH:MM:SS", 0, 0, "A9"),
-        ("HH:MM:SS.SS", 0, 0, "A12"),
-        ("NQ", 8, 0, "A8"),
-        ("' '", 8, 0, "A8"),
-        ("F8.3", 0, 0, "F8.3"),
-        ("I8", 0, 0, "I8"),
+        ("F", "R4", 8, 3, "F8.3"),
+        ("I", "I", 8, 0, "I8"),
+        ("YYYY/MM/DD", "D", 0, 0, "A11"),
+        ("YYYY-MM-DD", "D", 0, 0, "A11"),
+        ("HH:MM", "T", 0, 0, "A6"),
+        ("HH:MM:SS", "T", 0, 0, "A9"),
+        ("HH:MM:SS.SS", "T", 0, 0, "A12"),
+        ("NQ", "C", 8, 0, "A8"),
+        ("' '", "C", 8, 0, "A8"),
+        ("F8.3", "R4", 0, 0, "F8.3"),
+        ("I8", "I", 0, 0, "I8"),
+        ("HH:MM", "DT", 0, 0, "A17")
     ],
 )
-def test_utils_format_string(kind, width, decimals, expected):
-    assert utils.format_string(kind, width, decimals) == expected
+def test_utils_format_string(format, kind, width, decimals, expected):
+    assert utils.format_string(format, kind, width, decimals) == expected
 
 
 @pytest.mark.parametrize(

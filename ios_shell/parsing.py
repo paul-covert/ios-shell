@@ -162,7 +162,7 @@ def get_file(contents: List[str]) -> Tuple[sections.FileInfo, List[str]]:
             format_str += file_dict[CONTINUED].strip(to_remove)
     else:
         format_info = [
-            utils.format_string(detail.format, detail.width, detail.decimal_places)
+            utils.format_string(detail.format, detail.type, detail.width, detail.decimal_places)
             for detail in channel_details
         ]
         format_str = "({})".format(",".join(format_info))

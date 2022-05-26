@@ -22,15 +22,19 @@ def apply_column_mask(data: str, mask: str) -> List[str]:
     return out
 
 
-def format_string(fortrantype: str, width: int, decimals: int) -> str:
+def format_string(format: str, kind: str, width: int, decimals: int) -> str:
     """Construct an appropriate format string for the given type.
 
-    :param fortrantype: the type the data is expected to be
+    :param format: the format the data is expected to conform to
+    :param kind: the type the data is expected to be
     :param width: the number of characters the data may take up
     :param decimals: the number of characters after a decimal a float is intended to use
     """
-    fortrantype = fortrantype.strip().upper()
-    if fortrantype in ["F"]:
+    fortrantype = format.strip().upper()
+    datatype = kind.strip().upper()
+    if datatype in ["DT"]:
+        return f"A17"
+    elif fortrantype in ["F"]:
         return f"F{width}.{decimals}"
     elif fortrantype in ["E"]:
         return f"E{width}.{decimals}"
