@@ -197,9 +197,9 @@ class ShellFile:
             exc.__traceback__ = e.__traceback__  # pragma: no mutate
             raise exc from None
 
-    def get_complete_header(self) -> Dict[str, Dict[str, Any]]:
+    def get_complete_header(self) -> Dict[str, Union[Dict[str, Any], str]]:
         """Returns all the present header information contained in the source file"""
-        header = {}
+        header: Dict[str, Union[Dict[str, Any], str]] = {}
         if self.file is not None:
             header["file"] = self.file.raw
         if self.administration is not None:

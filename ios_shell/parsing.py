@@ -65,17 +65,17 @@ def get_section(
                 line, rest = _next_line(rest)
             mask = line
 
-            column_names = []
+            raw_column_names: List[List[str]] = []
             for column_names_line in column_names_lines:
                 # apply column mask in case names contain spaces
                 names = utils.apply_column_mask(column_names_line, mask)
-                column_names.append([])
+                raw_column_names.append([])
                 for name in names:
-                    column_names[-1].append(name.lower().strip())
+                    raw_column_names[-1].append(name.lower().strip())
             # combine the column names from each row
             column_names = [
                 " ".join(lines).strip().replace(" ", "_")
-                for lines in zip(*column_names)
+                for lines in zip(*raw_column_names)
             ]
 
             # values
