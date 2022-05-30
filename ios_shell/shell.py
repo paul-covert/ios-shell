@@ -264,3 +264,14 @@ class ShellFile:
                 self.filename,
             )
         return obs_time
+
+    def to_pandas(self):
+        """Convert processed data to pandas.DataFrame
+
+        :return: a pandas.DataFrame if pandas is present and data has been processed, otherwise None
+        """
+        if not self.data_is_processed():
+            return None
+
+        names = [channel.name for channel in self.file.channels]
+        return utils.list_to_pandas(self.data, names)

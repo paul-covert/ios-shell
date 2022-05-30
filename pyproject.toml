@@ -23,6 +23,7 @@ include = [
 [tool.poetry.dependencies]
 python = ">=3.8,<3.11"
 fortranformat = "^1.0.1"
+pandas = {version = "^1.4.2", optional = true}
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
@@ -32,9 +33,13 @@ mutmut = "^2.2.0"
 Sphinx = "^4.4.0"
 sphinx-rtd-theme = "^1.0.0"
 
+[tool.poetry.extras]
+pandas = ["pandas"]
+
 [tool.pytest.ini_options]
 markers = [
-  "optional: not required for completeness"
+  "optional: not required for completeness",
+  "pandas: requires pandas to run",
 ]
 
 [tool.black]

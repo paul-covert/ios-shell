@@ -182,3 +182,19 @@ def has_many_values(list: List[Any]) -> bool:
 def all_same(list: List[Any]) -> bool:
     """Decide whether or not a list's values are all the same"""
     return len(set(list)) == 1
+
+
+def list_to_pandas(list: List[List[Any]], names: List[str]):
+    """Convert list of lists to pandas DataFrame
+
+    :param list: the data as a list of data rows
+    :param names: the row names to be used in the pandas.DataFrame
+    :return: a pandas.DataFrame if pandas is present, otherwise None
+    """
+    try:
+        import pandas
+    except ImportError:
+        return None  # pragma: no mutate
+
+    df = pandas.DataFrame(list)
+    return df.rename(columns=lambda old: names[old])

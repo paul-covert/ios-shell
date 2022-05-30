@@ -992,3 +992,57 @@ words words words
         assert False
     except Exception as err:
         assert "bare string" in err.args
+
+
+@pytest.mark.pandas
+def test_to_pandas():
+    contents = """*2018/06/22 09:04:04.94
+*IOS HEADER VERSION 2.0      2016/04/28 2016/06/13 IVF16
+
+*FILE
+    START TIME          : UTC 2015/03/28 10:36:00.000
+    NUMBER OF RECORDS   : 4
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    NUMBER OF CHANNELS  : 3
+
+    $TABLE: CHANNELS
+    ! No Name                         Units    Minimum        Maximum
+    !--- ---------------------------- -------- -------------- --------------
+       1 Date                         n/a      0              0
+       2 Time                         n/a      5              5
+       3 Chlorophyll:Extracted        mg/m^3   30.69          30.69
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format       Type  Decimal_Places
+    !---  ----  -----  -----  -----------  ----  --------------
+       1  -99   ' '      ' '  YYYY/MM/DD   D     ' '
+       2  -99   ' '      ' '  hh:mm:ss.ss  T     ' '
+       3  -99   ' '        7  F            R4      2
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1993-001
+
+*LOCATION
+    LATITUDE            :  50   6.00000 N  ! (deg min)
+    LONGITUDE           : 124  54.00000 W  ! (deg min)
+
+*COMMENTS
+words words words
+
+*END OF HEADER
+ 2015/03/28 10:36:00.00  14.00
+ 2015/03/28 10:46:00.00  15.00
+ 2015/03/28 10:56:00.00  16.00
+ 2015/03/28 11:06:00.00  17.00"""
+    info_no_data = shell.ShellFile.fromcontents(contents, process_data=False)
+    assert info_no_data.to_pandas() is None
+
+    info = shell.ShellFile.fromcontents(contents, process_data=True)
+    df = info.to_pandas()
+    names = [channel.name for channel in info.file.channels]
+    assert all(n == i for n, i in zip(names, df.columns))
+    for i, row in df.iterrows():
+        assert all(o == d for o, d in zip(info.data[i], row))

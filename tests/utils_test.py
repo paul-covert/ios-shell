@@ -360,3 +360,19 @@ def test_has_many_values(list, expected):
 )
 def test_all_same(list, expected):
     assert utils.all_same(list) == expected
+
+
+@pytest.mark.pandas
+@pytest.mark.parametrize(
+    "list,names",
+    [
+        ([[1, 2, 3], [4, 5, 6]], ["id", "T", "oxy"]),
+    ],
+)
+def test_list_to_pandas(list, names):
+    import pandas
+
+    df = utils.list_to_pandas(list, names)
+    assert all(df.columns == pandas.Index(names))
+    for i, row in df.iterrows():
+        assert all(o == d for o, d in zip(list[i], row))
