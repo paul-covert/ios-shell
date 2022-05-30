@@ -506,20 +506,20 @@ def test_get_section_valid_key(section):
 @pytest.mark.parametrize(
     "section",
     [
-            """*RAW
+        """*RAW
 K: value
 invalid
 *END OF HEADER""",
-            """*RAW
+        """*RAW
 : invalid
 *END OF HEADER""",
-            """*RAW
+        """*RAW
 invalid
 *END OF HEADER""",
-            """*RAW
+        """*RAW
     invalid
 *END OF HEADER""",
-            """*RAW
+        """*RAW
     $TABLE: CORRECTED CHANNELS
     !   Name     Units  Fmla Pad    Coefficients
     !   -------- ------ ---- ------ ------------
@@ -527,28 +527,28 @@ invalid
     $END
     invalid
 *END OF HEADER""",
-            """*RAW
+        """*RAW
     $ARRAY: BIN DEPTHS (M)
         287.1
         289.1
     $END
     invalid
 *END OF HEADER""",
-            """*RAW
+        """*RAW
     $REMARKS
         words words words
     $END
     invalid
 *END OF HEADER""",
-            """*RAW
+        """*RAW
     KEY: value
     invalid
 *END OF HEADER""",
-            """*RAW
+        """*RAW
     KEY: value
 invalid
 *END OF HEADER""",
-    ]
+    ],
 )
 def test_get_section_key_error(section):
     try:

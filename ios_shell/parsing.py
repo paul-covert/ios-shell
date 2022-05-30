@@ -52,7 +52,9 @@ def get_section(
     indent_level = 0  # pragma: no mutate
     while not utils.is_section_heading(rest[0]):
         line, rest = _next_line(rest)
-        current_indent_level = len(list(itertools.takewhile(lambda c: c in [" "], line)))
+        current_indent_level = len(
+            list(itertools.takewhile(lambda c: c in [" "], line))
+        )
         if line.strip() == "" or line.startswith("!"):
             # skip comments
             if utils.is_table_mask(line):
