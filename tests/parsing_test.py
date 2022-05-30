@@ -316,11 +316,15 @@ def test_get_history():
     $REMARKS
         words words words
     $END
+  NOTE: The file was changed
+     in an unexpected manner
 
 *END OF HEADER""".splitlines()
     )
     assert len(history.programs) > 0
     assert history.remarks.strip() == "words words words"
+    assert "note" in history.raw
+    assert history.raw["note"] == "The file was changed in an unexpected manner"
     assert rest == ["*END OF HEADER"]
 
     history, _ = parsing.get_history(
@@ -482,3 +486,73 @@ def test_get_section_array():
     arr = section["bin depths (m)"]
     assert arr[0].strip() == "287.1"
     assert arr[1].strip() == "289.1"
+
+
+@pytest.mark.parametrize(
+    "section",
+    [
+        """*RAW
+        KEY: value
+*END OF HEADER""",
+        """*RAW
+K: value
+*END OF HEADER""",
+    ],
+)
+def test_get_section_valid_key(section):
+    parsing.get_section(section.splitlines(), "raw")
+
+
+@pytest.mark.parametrize(
+    "section",
+    [
+            """*RAW
+K: value
+invalid
+*END OF HEADER""",
+            """*RAW
+: invalid
+*END OF HEADER""",
+            """*RAW
+invalid
+*END OF HEADER""",
+            """*RAW
+    invalid
+*END OF HEADER""",
+            """*RAW
+    $TABLE: CORRECTED CHANNELS
+    !   Name     Units  Fmla Pad    Coefficients
+    !   -------- ------ ---- ------ ------------
+        Oxygen   mg/l     10 -99.99 () (0 0.223916E-01)
+    $END
+    invalid
+*END OF HEADER""",
+            """*RAW
+    $ARRAY: BIN DEPTHS (M)
+        287.1
+        289.1
+    $END
+    invalid
+*END OF HEADER""",
+            """*RAW
+    $REMARKS
+        words words words
+    $END
+    invalid
+*END OF HEADER""",
+            """*RAW
+    KEY: value
+    invalid
+*END OF HEADER""",
+            """*RAW
+    KEY: value
+invalid
+*END OF HEADER""",
+    ]
+)
+def test_get_section_key_error(section):
+    try:
+        parsing.get_section(section.splitlines(), "raw")
+        assert False
+    except ValueError as err:
+        assert "Unexpected text" in err.args[0]

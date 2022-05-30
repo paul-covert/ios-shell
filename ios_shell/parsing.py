@@ -1,6 +1,7 @@
 """Contains functions for parsing files in IOS Shell format."""
 import datetime
 import fortranformat as ff
+import itertools
 import math
 from typing import Any, Dict, List, Tuple
 
@@ -11,6 +12,12 @@ from .keys import *
 
 def _next_line(rest: List[str]) -> Tuple[str, List[str]]:
     return rest[0], rest[1:]
+
+
+def _has_key_prefix(line: str) -> bool:
+    idx = line.find(":")
+    key = line[:idx]
+    return idx > 0 and key == key.upper()
 
 
 def get_modified_date(contents: List[str]) -> Tuple[datetime.datetime, List[str]]:
@@ -41,8 +48,11 @@ def get_section(
             f"{section_name.upper()} section not present, found {line} instead"
         )
     section_info: Dict[str, Any] = {}
+    last_key = None
+    indent_level = 0  # pragma: no mutate
     while not utils.is_section_heading(rest[0]):
         line, rest = _next_line(rest)
+        current_indent_level = len(list(itertools.takewhile(lambda c: c in [" "], line)))
         if line.strip() == "" or line.startswith("!"):
             # skip comments
             if utils.is_table_mask(line):
@@ -89,6 +99,7 @@ def get_section(
                     }
                 )
                 line, rest = _next_line(rest)
+            last_key = None
         elif m := ARRAY_START_PATTERN.fullmatch(line):
             array_name = m.group(1).lower()
             section_info[array_name] = []
@@ -96,6 +107,7 @@ def get_section(
             while not END_PATTERN.fullmatch(line):
                 section_info[array_name].append(line)
                 line, rest = _next_line(rest)
+            last_key = None
         elif m := REMARKS_START_PATTERN.fullmatch(line):
             # handle remarks
             remarks = []
@@ -104,13 +116,18 @@ def get_section(
                 remarks.append(line)
                 line, rest = _next_line(rest)
             section_info[REMARKS] = "\n".join(remarks)  # pragma: no mutate
-        else:
+            last_key = None
+        elif _has_key_prefix(line):
             # handle single entry
-            try:
-                key, value = line.split(":", 1)
-                section_info[key.strip().lower()] = value.strip()
-            except ValueError:
-                raise ValueError(f"Expected '{line}' to be a key-value pair.") from None
+            key, value = line.split(":", 1)
+            last_key = key.strip().lower()
+            section_info[last_key] = value.strip()
+            indent_level = current_indent_level
+        elif last_key is not None and current_indent_level > indent_level:
+            # handle entry continuation
+            section_info[last_key] += f" {line.strip()}"
+        else:
+            raise ValueError(f"Unexpected text: '{line}'")
     return section_info, rest
 
 
