@@ -7,13 +7,6 @@ It has no relation to iOS or terminal shells.
 
 - Python 3.8, 3.9, or 3.10 with pip
 
-## Installation
-
-`ios_shell` is not yet on PyPI.
-To use it in your project, you can run the following:
-
-    pip install -e git+https://github.com/cyborgsphinx/ios-shell#egg=ios_shell
-
 ## Example
 
 If `1930-003-0058.bot` is in the same folder as the program using ios_shell:
