@@ -1,0 +1,123 @@
+*2013/07/09 09:35:21.14
+*IOS HEADER VERSION 1.10 2011/10/26 2011/10/26
+
+*FILE
+    START TIME          : UTC 1961/06/15 02:12:00.000
+    NUMBER OF RECORDS   : 21
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    DATA TYPE           : REAL*4
+    PAD                 : -99
+    NUMBER OF CHANNELS  : 5
+
+    $TABLE: CHANNELS
+    ! No Name                    Units     Minimum        Maximum
+    !--- ----------------------- --------- -------------- --------------
+       1 Depth                   metres    0              1222
+       2 Temperature:Reversing   'deg C'   3.02           13.8
+       3 Salinity:Bottle         ppt       31.753         34.47
+       4 Oxygen:Dissolved        mL/L      0.37           6.55
+       5 Oxygen:Dissolved        umol/kg   16.07808       285.6284
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  ' '   ' '        6  F       ' '     0
+       2  ' '   ' '        7  F       ' '     2
+       3  ' '   ' '        8  F       ' '     3
+       4  ' '   ' '        7  F       ' '     2
+       5  -99   ' '        6  F       ' '     1
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1961-08
+    AGENCY              : PACIFIC OCEANOGRAPHIC GROUP
+    COUNTRY             : Canada
+    Project             : North Pacific Survey
+    SCIENTIST           : Boyce F.M.
+    PLATFORM            : Oshawa
+
+*LOCATION
+    GEOGRAPHIC AREA     : NE PACIFIC
+    STATION             : 121
+    EVENT NUMBER        : 117
+    LATITUDE            :  48  15.00000 N  ! (deg min)
+    LONGITUDE           : 126  31.00000 W  ! (deg min)
+
+*INSTRUMENT
+    TYPE                : Bottle
+    MODEL               : Nansen 1-Litre
+
+*HISTORY
+
+    $TABLE: PROGRAMS
+    !   Name     Vers   Date       Time     Recs In   Recs Out
+    !   -------- ------ ---------- -------- --------- ---------
+        HDREDIT2 1.3    2002/02/07 09:04:04 ?         ?
+        HDREDIT2 2.1    2004/05/25 13:47:46 ?         ?
+        CHGUNITS 3.0    2013/07/09 09:35:21        21        21
+    $END
+    $REMARKS
+        -CHANGE units:
+         'Oxygen:Dissolved' changed from mL/L    to umol/kg
+    $END
+
+*COMMENTS
+Contents:
+    Cast data from North Pacific Project NP-61-1. This oceanographic
+    program is part of Canada's contribution to the research program
+    of the International North Pacific Fisheries Commission.
+
+    Sample collection methods:
+    Sea Water Temp
+    -  reversing thermometers mounted on Reversing Bottle samplers
+    Salinity
+    - Collected in Reversing Bottle samplers
+    Dissolved Oxygen
+    - Collected in Reversing Bottle samplers
+
+    Sample analysis methods:
+    Sea Water Temp
+    -  Shipboard reading of reversing thermometers
+    Salinity
+    - Laboratory analysis with conductivity salinometer
+    Dissolved Oxygen
+    - Shipboard analysis - Modified Winkler method-
+    see reference manual by Strickland 1958a, 1958b
+    
+    Data were transcribed from the following publication:
+    
+    Fisheries Research Board of Canada
+    Manuscript Report Series, (Oceanographic and Limnological), No. 101
+    Oceanographic Data Record North Pacific Surveys
+    May 16 to July 1, 1961.
+    IOS Library: FRB-MR-OL-101
+!--1-- --2--- ---3--- --4--- --5--
+!Depth Temper Salinit Oxygen Oxyge
+!      ature: y:      :      n:   
+!      Revers Bottle  Dissol Disso
+!      ing            ved    lved 
+!----- ------ ------- ------ -----
+*END OF HEADER
+    0.  13.80  31.785   6.55 285.6
+   10.  13.61  31.753   6.55 285.6
+   20.  13.55  31.759   6.55 285.6
+   30.   9.42  32.114   6.09 265.3
+   50.   8.54  32.517   5.67 246.9
+   75.   8.02  32.859   5.82 253.3
+  100.   7.79  33.528   4.21 183.2
+  125.   7.68  33.776   3.48 151.4
+  150.   7.50  33.850   2.93 127.4
+  175.   7.12  33.928   2.62 113.9
+  200.   6.90  33.957   2.37 103.1
+  250.   6.43  33.985   2.10  91.3
+  300.   6.06  34.034   1.66  72.2
+  378.   5.52  34.067   1.26  54.8
+  475.   5.12  34.116   0.86  37.4
+  573.   4.76  34.173   0.66  28.7
+  671.   4.38  34.244   0.47  20.4
+  770.   4.18  34.288   0.43  18.7
+  966.   3.54  34.397   0.37  16.1
+ 1212.   3.06  34.467   0.53  23.0
+ 1222.   3.02  34.470 -99.00 -99.0

@@ -41,6 +41,8 @@ HEADER_VERSION_PATTERN = re.compile(
     rf"\*IOS HEADER VERSION +{MATCH_VERSION} +{MATCH_DATE1}( +{MATCH_DATE2}( +{MATCH_TAG})?)?"
 )
 
+KEY_PREFIX_PATTERN = re.compile(r"[^,:;!?]*")
+
 TABLE_START_PATTERN = re.compile(r"\s*\$TABLE: (.+)")
 ARRAY_START_PATTERN = re.compile(r"\s*\$ARRAY: (.+)")
 REMARKS_START_PATTERN = re.compile(r"\s*\$REMARKS?")

@@ -17,7 +17,7 @@ def _next_line(rest: List[str]) -> Tuple[str, List[str]]:
 def _has_key_prefix(line: str) -> bool:
     idx = line.find(":")
     key = line[:idx]
-    return idx > 0 and key == key.upper()
+    return idx > 0 and KEY_PREFIX_PATTERN.fullmatch(key)
 
 
 def get_modified_date(contents: List[str]) -> Tuple[datetime.datetime, List[str]]:
