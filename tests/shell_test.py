@@ -1,4 +1,5 @@
 import datetime
+import math
 import pytest
 import os
 
@@ -1048,3 +1049,97 @@ words words words
     assert all(n == i for n, i in zip(names, df.columns))
     for i, row in df.iterrows():
         assert all(o == d for o, d in zip(info.data[i], row))
+
+
+def test_shell_fills_empty_cells():
+    contents = """*2018/06/22 09:04:04.94
+*IOS HEADER VERSION 2.0      2016/04/28 2016/06/13 IVF16
+
+*FILE
+    START TIME          : UTC 2015/03/16 10:36:00.000
+    NUMBER OF RECORDS   : 1
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    NUMBER OF CHANNELS  : 4
+
+    $TABLE: CHANNELS
+    ! No Name                         Units    Minimum        Maximum
+    !--- ---------------------------- -------- -------------- --------------
+       1 Depth:Nominal                metres   0              0
+       2 Sample_Number                n/a      5              5
+       3 Chlorophyll:Extracted        mg/m^3   30.69          30.69
+       4 Flag:Chlorophyll:Extracted   ' '
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  -99   ' '        6  F       R4      0
+       2  -99   ' '        5  I       I       0
+       3  -99   ' '        7  F       R4      2
+       4    0   ' '        3  NQ      C     ' '
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1993-001
+
+*LOCATION
+    LATITUDE            :  50   6.00000 N  ! (deg min)
+    LONGITUDE           : 124  54.00000 W  ! (deg min)
+
+*COMMENTS
+words words words
+
+*END OF HEADER
+    0.    5  30.69  """
+    info = shell.ShellFile.fromcontents(contents, process_data=True)
+    assert info.data[0][0] == 0.0
+    assert info.data[0][1] == 5
+    assert info.data[0][2] == 30.69
+    assert float(info.data[0][-1]) == float(0)
+
+    contents = """*2018/06/22 09:04:04.94
+*IOS HEADER VERSION 2.0      2016/04/28 2016/06/13 IVF16
+
+*FILE
+    START TIME          : UTC 2015/03/16 10:36:00.000
+    NUMBER OF RECORDS   : 1
+    DATA DESCRIPTION    : Bottle:Wire
+    FILE TYPE           : ASCII
+    NUMBER OF CHANNELS  : 4
+
+    $TABLE: CHANNELS
+    ! No Name                         Units    Minimum        Maximum
+    !--- ---------------------------- -------- -------------- --------------
+       1 Depth:Nominal                metres   0              0
+       2 Sample_Number                n/a      5              5
+       3 Chlorophyll:Extracted        mg/m^3   30.69          30.69
+       4 Flag:Chlorophyll:Extracted   ' '
+    $END
+
+    $TABLE: CHANNEL DETAIL
+    ! No  Pad   Start  Width  Format  Type  Decimal_Places
+    !---  ----  -----  -----  ------  ----  --------------
+       1  -99   ' '        6  F       R4      0
+       2  -99   ' '        5  I       I       0
+       3  -99   ' '        7  F       R4      2
+       4  ' '   ' '        3  NQ      C     ' '
+    $END
+
+*ADMINISTRATION
+    MISSION             : 1993-001
+
+*LOCATION
+    LATITUDE            :  50   6.00000 N  ! (deg min)
+    LONGITUDE           : 124  54.00000 W  ! (deg min)
+
+*COMMENTS
+words words words
+
+*END OF HEADER
+    0.    5  30.69  """
+    info = shell.ShellFile.fromcontents(contents, process_data=True)
+    assert info.data[0][0] == 0.0
+    assert info.data[0][1] == 5
+    assert info.data[0][2] == 30.69
+    assert math.isnan(float(info.data[0][-1]))

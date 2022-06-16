@@ -189,6 +189,7 @@ class ShellFile:
             data, _ = parsing.get_data(
                 self.data, self.file.format, self.file.number_of_records
             )
+            data = [self.__insert_pads(row) for row in data]
             self.data = data
         except Exception as e:
             exc = ValueError(
@@ -275,3 +276,9 @@ class ShellFile:
 
         names = [channel.name for channel in self.file.channels]
         return utils.list_to_pandas(self.data, names)
+
+    def __insert_pads(self, row):
+        return [
+            item if str(item) != "" else self.file.channel_details[i].pad
+            for i, item in enumerate(row)
+        ]
