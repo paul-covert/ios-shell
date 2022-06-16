@@ -117,6 +117,7 @@ words words words
         "2015-022-0031.bot",
         "51010002.ubc",
         "74010003.ubc",
+        "92030007.bot",
     ],
 )
 def test_shell_fromfile(file_name):
