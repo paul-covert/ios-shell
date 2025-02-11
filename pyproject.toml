@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ios-shell"
-version = "1.2.3"
+version = "1.3.0a1"
 description = "Parses files formatted by the Institute of Ocean Sciences' IOSShell tool"
 authors = ["James Hannah <jhannah@protonmail.com>"]
 license = "MIT"
@@ -21,7 +21,7 @@ include = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.11"
+python = ">=3.8,<3.12"
 fortranformat = "^1.0.1"
 pandas = {version = "^1.4.2", optional = true}
 
